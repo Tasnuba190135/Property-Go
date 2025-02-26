@@ -92,7 +92,16 @@
   align-items: center;
   /* width: 100%; */
 }
-  
+.form-control2 {
+  /* Adjust the height to be about twice the normal input height */
+  height: 120px;
+ 
+  /* Optional: adjust font-size or padding if needed */
+  font-size: 16px;
+  padding: 10px;
+  resize: vertical; /* Allows vertical resizing if desired */
+}
+
   .line-height-1 {
     line-height: 1 !important; }
   
@@ -326,7 +335,7 @@
 .button-container-home {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px; /* Space below the button */
+  margin-bottom: 40px; /* Space below the button */
 }
 
 /* Styling for the button */
