@@ -107,7 +107,7 @@
   <div class="realestate-filter">
     <div class="container">
       <div class="realestate-filter-wrap nav">
-        <a href="#for-rent" class="active" onclick="showForm('for-rent')">For Rent</a>
+        <!-- <a href="#for-sale" class="active" onclick="showForm('for-rent')">For Rent</a> -->
         <a href="#for-sale" onclick="showForm('for-sale')">For Sale</a>
       </div>
     </div>
@@ -115,7 +115,7 @@
 
   <div class="realestate-tabpane pb-5">
     <div class="container tab-content">
-      <form method="post" action="property-grid.html" id="for-rent">
+      <form method="post" action="" id="for-sale">
         <div class="row">
           <div class="col-md-4 form-group">
             <label for="user-type">Choose Property Type:</label>
@@ -187,11 +187,13 @@
         <div class="row">
           <div class="col-md-4 form-group">
             <label for="user-type">Upload Image:</label>
-            <input type="file" id="upload-image" class="form-control1 w-100" accept="image/*" required>
+            <!-- <input type="file" id="upload-image" class="form-control1 w-100" accept="image/*" required> -->
+            <input type="file" id="upload-image" class="form-control1 w-100" required>
           </div>      
         <div class="col-md-4 form-group">
           <label for="user-type">Upload Video:</label>
-          <input type="file" id="upload-video" class="form-control1 w-100" accept="video/*" required>
+          <!-- <input type="file" id="upload-video" class="form-control1 w-100" accept="video/*" required> -->
+          <input type="file" id="upload-video" class="form-control1 w-100"  required>
         </div>
         <div class="col-md-4 form-group">
           <label for="user-type">Enter Area:</label>
@@ -227,7 +229,7 @@
   </div>
 
  
-  <div class="realestate-tabpane pb-5">
+  <!-- <div class="realestate-tabpane pb-5">
     <div class="container tab-content">
       <form method="post" action="property-grid.html" id="for-sale" style="display: none;">
         <div class="row">
@@ -275,49 +277,30 @@
             <div class="row">
               <div class="col-md-12 form-group">
                 <label for="user-type">Enter Price:</label>
-                <!-- <select name="" id="" class="form-control1 w-100" required>
-                  <option value="">Min Price</option>
-                  <option value="">100000</option>
-                  <option value="">2000000</option>
-                  <option value="">3000000</option>
-                  <option value="">4000000</option>
-                </select> -->
+              
                 <input type="number" class="form-control1 w-100" placeholder="Please Enter the Price" required>
               </div>
-              <!-- <div class="col-md-6">
-                <label for="user-type">Choose Maximum Price:</label>
-                <select name="" id="" class="form-control1 w-100" required>
-                  <option value="">Max Price</option>
-                  <option value="">25,00000</option>
-                  <option value="">50,00000</option>
-                  <option value="">75,00000</option>
-                  <option value="">100,00000</option>
-                  <option value="">100,00000,000</option>
-                </select>
-              </div> -->
+         
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-4 form-group">
             <label for="user-type">Upload Image:</label>
-            <input type="file" id="upload-image" class="form-control1 w-100" accept="image/*" required>
+            <input type="file" id="upload-image" class="form-control1 w-100" required>
+
           </div>      
         <div class="col-md-4 form-group">
           <label for="user-type">Upload Video:</label>
-          <input type="file" id="upload-video" class="form-control1 w-100" accept="video/*" required>
+          <input type="file" id="upload-video" class="form-control1 w-100"  required>
+
         </div>
         <div class="col-md-4 form-group">
           <label for="user-type">Enter Area:</label>
           <input type="text" class="form-control1 w-100" placeholder="Enter Area" required>
         </div>
       </div>
-      <!-- <div class="row">
-        <div class="col-md-4 form-group">
-          <label for="user-type">Enter Property Description:</label>
-          <input type="text" class="form-control1 w-100" placeholder="Enter Property Description" required>
-        </div>
-      </div> -->
+     
       <div class="row">
         <div class="col-md-4 form-group">
           <label for="property-description">Enter Property Description:</label>
@@ -329,14 +312,13 @@
       
         <div class="row">
           <div class="center-container">
-            <!-- <button class="home"  type="submit" role="button"><span
-                class="text">SUBMIT</span></button> -->
+           
                 <input type="submit" class="btn btn-black py-3 btn-block" role="button" value="Submit"> 
           </div>
         </div>
       </form>
     </div>
-  </div>
+  </div> -->
 
 
   

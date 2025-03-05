@@ -90,6 +90,7 @@
     padding: 25px;
     margin-bottom: 20px;
     border-radius: 10px;
+    
     box-shadow: 0 6px 30px rgba(182, 186, 203, 0.3);
     position: relative;
     margin-top: 40px;
@@ -177,6 +178,7 @@
     border-color: #dad8d4;
     height: 2.813rem;
     border-radius: 0.5rem;
+    
 }
 
 .form-control {
@@ -246,6 +248,7 @@ table.dataTable thead td {
 
 table.dataTable.no-footer {
     border-bottom: none !important;
+    
 }
 
 .attendant__wrapper table thead {
