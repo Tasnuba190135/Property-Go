@@ -1,6 +1,12 @@
 <?php
 include_once 'DbConnector.php';
 include_once 'User.php';
+include_once 'UserDetails.php';
+include_once 'Property.php';
+include_once 'PropertyDetails.php';
+include_once 'FileManager.php';
+include_once 'NoteManager.php';
+
 
 
 // session 1
@@ -15,6 +21,35 @@ $user->alterTableAddColumns();
 echo "Table created successfully";
 echo "<br><br><br>";
 
+$userDetails = new UserDetails();
+$userDetails->createTableMinimal();
+$userDetails->alterTableAddColumns();
+echo "Table created successfully";
+echo "<br><br><br>";
+
+$property = new Property();
+$property->createTableMinimal();
+$property->alterTableAddColumns();
+echo "Table created successfully";
+echo "<br><br><br>";
+
+$propertyDetails = new PropertyDetails();
+$propertyDetails->createTableMinimal();
+$propertyDetails->alterTableAddColumns();
+echo "Table created successfully";
+echo "<br><br><br>";
+
+$fileManager = new FileManager();
+$fileManager->createTableMinimal();
+$fileManager->alterTableAddColumns();
+echo "Table created successfully";
+echo "<br><br><br>";
+
+$noteManager = new NoteManager();
+$noteManager->createTableMinimal();
+$noteManager->alterTableAddColumns();
+echo "Table created successfully";
+echo "<br><br><br>";
 
 
 ?>

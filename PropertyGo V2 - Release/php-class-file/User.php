@@ -9,6 +9,7 @@ class User
     public $user_id = 0;
     public $status = 0;
     public $user_type = "client";
+    public $note_ids = "";
     public $email = "";
     public $password = "";
     public $created = "";
@@ -76,8 +77,9 @@ class User
             2 => ['email',     "ALTER TABLE $table ADD COLUMN email VARCHAR(100)"],
             3 => ['password',  "ALTER TABLE $table ADD COLUMN password TExT"],
             4 => ['user_type', "ALTER TABLE $table ADD COLUMN user_type VARCHAR(50) DEFAULT 'client'"],
-            5 => ['created',   "ALTER TABLE $table ADD COLUMN created TIMESTAMP DEFAULT CURRENT_TIMESTAMP"],
-            6 => ['updated',   "ALTER TABLE $table ADD COLUMN updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"]
+            5 => ['note_ids',  "ALTER TABLE $table ADD COLUMN note_ids TEXT"],
+            6 => ['created',   "ALTER TABLE $table ADD COLUMN created TIMESTAMP DEFAULT CURRENT_TIMESTAMP"],
+            7 => ['updated',   "ALTER TABLE $table ADD COLUMN updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"]
         ];
 
                 // If a subset of queries is provided, filter the map.
@@ -116,12 +118,13 @@ class User
         $this->ensureConnection();
         $this->password = password_hash($this->password, PASSWORD_DEFAULT); // Hash the password
 
-        $sql = "INSERT INTO tbl_user (status, email, password, user_type)
+        $sql = "INSERT INTO tbl_user (status, email, password, user_type, note_ids)
                 VALUES (
-                    '$this->status',
+                    $this->status,
                     '$this->email',
                     '$this->password',
-                    '$this->user_type'
+                    '$this->user_type',
+                    '$this->note_ids'
                 )";
         if (mysqli_query($this->conn, $sql)) {
             $this->user_id = mysqli_insert_id($this->conn);
@@ -137,7 +140,7 @@ class User
      * 
      * @return  bool|string Returns true if the user  is found , false otherwise.
      */
-    public function setvalue()
+    public function setValue()
     {
         $user_id = $this->user_id;
         $sql = "SELECT * FROM tbl_user WHERE user_id = $user_id LIMIT 1";
@@ -149,6 +152,7 @@ class User
             $this->email = $row['email'];
             $this->password = $row['password'];
             $this->user_type = $row['user_type'];
+            $this->note_ids = $row['note_ids'];
             $this->created = $row['created'];
             $this->updated = $row['updated'];
             return true;
@@ -171,10 +175,11 @@ class User
        
 
         $sql = "UPDATE tbl_user SET
-                    status = '$this->status',
+                    status = $this->status,
                     email = '$this->email',
                     password = '$this->password',
-                    user_type = '$this->user_type'
+                    user_type = '$this->user_type',
+                    note_ids = '$this->note_ids'
                 WHERE user_id = $this->user_id";
         
         return mysqli_query($this->conn, $sql) ? true : "Error updating record: " . mysqli_error($this->conn);
@@ -301,9 +306,9 @@ class User
         // Escape the email to prevent SQL injection
         $email = mysqli_real_escape_string($this->conn, $email);
 
-        // Query to check if the email exists with status 0,1,2,3 or -1
+        // Query to check if the email exists with status 0,1,2, or -1
         $sql = "SELECT user_id FROM tbl_user 
-            WHERE email = '$email' AND status IN (0, 1, 2, 3, -1)";
+            WHERE email = '$email' AND status IN (0, 1, 2, -1)";
 
         if ($user_type !== null) {
             $sql .= " AND user_type = '$user_type'";
