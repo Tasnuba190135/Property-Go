@@ -98,36 +98,36 @@
               <hr>
         
               <div class="input-field">
-                <label for="user-type">User Type</label>
-                <select  id="user-type" required>
+                <label for="user-type">User Type:</label>
+                <select  id="user-type" name="user-type" required>
                   <option value="client" id="option1">Client</option>
-                  <option value="admin" id="option1">Moderator</option>
+                  <!-- <option value="admin" id="option1">Moderator</option> -->
                 </select>
               </div>
               <div class="input-field">
-                <label for="fullname">Full Name</label>
-                <input type="text" id="fullname" placeholder="Enter your Full Name" required>
+                <label for="fullname">Full Name:</label>
+                <input type="text" name="full-name" id="fullname" placeholder="Enter your Full Name" required>
               </div>
               <div class="input-field">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="Enter your email" required>
+                <label for="email">Email Address:</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email" required>
               </div>
               <div class="input-field">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required>
               </div>
               <div class="input-field">
-                <label for="confirmpassword">Confirm Password</label>
-                <input type="password" id="confirmpassword" placeholder="Confirm your password" required>
+                <label for="confirmpassword">Confirm Password:</label>
+                <input type="password" name="confirm-password" id="confirmpassword" placeholder="Confirm your password" required>
               </div>
               <div class="input-field">
-                <label for="contact">Contact No</label>
-                <input type="phone" id="contact" placeholder="Enter your Contact No" required>
+                <label for="contact">Contact No:</label>
+                <input type="phone" name="contact_no" id="contact" placeholder="Enter your Contact No" required>
               </div>
         
               <div class="input-field">
-                <label for="user-type">Division</label>
-                <select  id="user-type" required>
+                <label for="user-type">Division:</label>
+                <select name="division" id="user-type" required>
                   <option value="dhaka" id="option1">Dhaka</option>
                   <option value="khulna" id="option1">Khulna</option>
                   <option value="sylhet" id="option1">Sylhet</option>
@@ -140,11 +140,25 @@
                 </select>
               </div>
               <div class="input-field">
-                <label for="address">Address</label>
-                <input type="text" id="contact" placeholder="Enter your Address" required>
+                <label  for="user-type">District:</label>
+                <select name="district" id="user-type" required>
+                  <option value="dhaka" id="option1">Dhaka</option>
+                  <option value="khulna" id="option1">Khulna</option>
+                  <option value="sylhet" id="option1">Sylhet</option>
+                  <option value="barisal" id="option1">Barisal</option>
+                  <option value="chittagong" id="option1">Chittagong</option>
+                  <option value="dinajpur" id="option1">Dinajpur</option>
+                  <option value="rajshahi" id="option1">Rajshahi</option>
+                  <option value="rangpur" id="option1">Rangpur</option>
+                  <option value="mymensingh" id="option1">Mymensingh</option>
+                </select>
+              </div>
+              <div class="input-field">
+                <label for="address">Address:</label>
+                <input type="text" name="address" id="contact" placeholder="Enter your Address" required>
               </div>  
                 <div class="input-field gender-field">
-                    <label for="gender">Gender</label>
+                    <label for="gender">Gender:</label>
                     <div class="radio-group">
                       <input type="radio" id="male" name="gender" value="male" required>
                       <label for="male">Male</label>
@@ -155,15 +169,15 @@
                     </div>
                   </div>
                   <div class="input-field">
-                    <label for="nid">NID Number</label>
-                    <input type="number" id="fullname" placeholder="Enter your NID Number" required>
+                    <label for="nid">NID Number:</label>
+                    <input type="number" name="nid_number" id="fullname" placeholder="Enter your NID Number" required>
                   </div>
                   <div class="image-upload-field">
-                    <label for="image-upload">Choose NID Image</label>
-                    <input type="file" id="image-upload" name="image-upload" accept="image/*" required>
+                    <label for="image-upload">Choose NID File:</label>
+                    <input type="file" id="image-upload" name="image-upload" accept="file/*" required>
                   </div>
                   <div class="image-upload-field">
-                    <label for="image-upload">Choose Image</label>
+                    <label for="image-upload">Choose Image:</label>
                     <input type="file" id="image-upload" name="image-upload" accept="image/*" required>
                   </div>
                   <div class="button-container2">
