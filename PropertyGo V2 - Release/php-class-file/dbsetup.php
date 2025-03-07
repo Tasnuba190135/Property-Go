@@ -6,7 +6,8 @@ include_once 'Property.php';
 include_once 'PropertyDetails.php';
 include_once 'FileManager.php';
 include_once 'NoteManager.php';
-
+include_once 'PostLimit.php';
+include_once 'Admin.php';
 
 
 // session 1
@@ -50,6 +51,19 @@ $noteManager->createTableMinimal();
 $noteManager->alterTableAddColumns();
 echo "Table created successfully";
 echo "<br><br><br>";
+
+$postLimit = new PostLimit();
+$postLimit->createTableMinimal();
+$postLimit->alterTableAddColumns();
+echo "Table created successfully";
+echo "<br><br><br>";
+
+// session 2
+$admin = new Admin();
+$admin->insertAdmin();
+echo "Admin record inserted successfully";
+echo "<br><br><br>";
+
 
 
 ?>
