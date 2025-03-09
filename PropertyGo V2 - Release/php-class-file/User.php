@@ -255,7 +255,7 @@ class User
                 if ($status == 1) {
                     if (password_verify($password, $row['password'])) {
                         $this->user_id = $row['user_id'];
-                        $this->setvalue();
+                        $this->setValue();
                         return ["1", "Login successful! User ID: " . $row['user_id']];
                     } else {
                         return ["10", "Wrong password. Please try again."];

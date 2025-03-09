@@ -72,7 +72,7 @@
                 </div>
                 <!-- LOG IN button inside the navbar collapse -->
                 <div class="navbar-collapse collapse justify-content-xl-end" id="navbarDefault">
-                    <button class="button-85 ml-auto" role="button">LOG IN</button>
+                    <button class="button-85 ml-auto" onclick="location.href='login.html'" role="button">LOG IN</button>
                 </div>
             </div>
         </nav>
@@ -81,69 +81,54 @@
 
     <section class="section1">
         <!-- HTML !-->
-        <form method="post" action="index.html">
-            <div class="container1">
-                <!-- HTML !-->
-                <div class="login-box">
-                    <!-- <div class="button-container-home">
+
+        <div class="container2">
+
+
+            <!-- HTML !-->
+
+            <div class="login-box">
+                <!-- <div class="button-container-home">
                     <button class="button-home" onclick="location.href='index.html'">Homepage</button>
                 </div> -->
-                    <!-- HTML !-->
-                    <!-- HTML !-->
-                    <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO
-                            HOMEPAGE</span></button> -->
-                    <!-- <hr> -->
-                    <h2>Login Here</h2>
-                    <!-- <p class="signup-text1">Please Login using User ID and Password</p> -->
-                    <hr>
-                    <div class="input-field">
-                        <label for="user-type">User Type:</label>
-                        <select id="user-type" name="user_type" required>
-                            <option value="client" id="option1">Client</option>
-                            <!-- <option value="admin" id="option1">Admin</option> -->
-                        </select>
-                    </div>
-                    <div class="input-field">
-                        <label for="userId">User ID:</label>
-                        <input type="number" name="user_ID" id="userId" placeholder="Enter your User ID" required>
-                    </div>
-                    <div class="input-field">
-                        <label for="password">Password:</label>
-                        <input type="password" name="password" id="password" placeholder="Enter your password" required>
-                    </div>
-                    <!-- <div class="checkbox-field">
-                        <input type="checkbox" id="remember-me">
-                        <label for="remember-me">Remember Me</label>
-                        <a href="#" class="forgot-password">Forget Password?</a>
-                    </div> -->
-                    <!-- <button class="login-btn">Login</button> -->
-                    <div class="button-container">
-                        <button class="button-56" type="submit" role="button">LOG IN</button>
-                    </div>
-                    <hr>
-                </form>
-                <form method="post" action="signup.html">
+                <!-- HTML !-->
+                <!-- HTML !-->
+                <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO HOMEPAGE</span></button>
+<hr> -->
+                <form method="post" action="signup-step3.html" enctype="multipart/form-data">
 
-                    <p class="signup-text">Don't have an account? <a href="signup.html">Sign Up</a></p>
+                    <h2 style="color: white;">Sign Up Here</h2>
+                    <hr>
+                    <h2>Step 1</h2>
+                    <p class="signup-text1">Please provide the OTP to verify email</p>
+                    <hr>
+
+
+                    <div class="input-field">
+                        <label for="email">OTP:</label>
+                        <input type="email" name="otp" id="email" placeholder="Enter OTP" required>
+                    </div>
+                    <!-- <div class="input-field">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required>
+              </div> -->
                     <div class="button-container2">
-                        <button class="btn-signup" type="submit" role="button">SIGN UP</button>
+                        <button class="btn-signup" name="submit_otp" type="submit" role="button">Submit OTP</button>
                     </div>
-                </div>
-            </div>
-            <!-- Popup Container -->
-            <div id="popup" class="popup">
-                <div class="popup-content">
-                    <span class="close-btn" onclick="closePopup()">&times;</span>
-                    <h2>Login Successful</h2>
-                    <p>Welcome! You have successfully logged in.</p>
-                </div>
-            </div>
-        </form>
-            <!-- Login Button -->
-            <!-- <button class="button-56" onclick="showPopup()">Login</button> -->
-        
-    </section>
+                </form>
 
+
+                <form method="post" action="" enctype="multipart/form-data">
+                    <p class="signup-text" style="padding-top: 10px;">Don't get the OTP? <a href="">Resend OTP</a></p>
+                    <div class="button-container">
+                        <button class="button-56" name="resend_otp" type="submit" role="button">Resend OTP(30)</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </section>
     <footer>
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -225,6 +210,7 @@
             </div>
         </div>
         <!-- Footer End -->
+
     </footer>
 
 
