@@ -1,3 +1,44 @@
+<?php
+include_once '../php-class-file/SessionManager.php';
+
+$session = new SessionManager();
+include_once '../pop-up.php';
+$session->get('msg1') ? showPopup($session->get('msg1')) : '';
+$session->delete('msg1');
+// $session->destroy();
+
+if (isset($_POST['log_in'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    include_once '../class-file/User.php';
+    $user = new User();
+    $user->email = $email;
+    $user->password = $password;
+    $userCheck = $user->checkUserEmailWithStatus($user->email, $user->password, "admin");
+
+    if ($userCheck[0] == "1") {
+        // echo 'all ok <br>';
+        include_once '../popup.php';
+        showPopup($userCheck[1]);
+        $session->storeObject('admin_user', $user);
+        echo '<script>window.location.href = "admin-dashboard.php";</script>';
+    } elseif ($userCheck[0] == "10") {
+        include_once '../popup.php';
+        showPopup($userCheck[1]);
+    } else {
+        include_once '../popup.php';
+        showPopup($userCheck[1]);
+    }
+}
+
+$alreadyLoggedIn = false;
+if ($session->getObject('admin_user') !== null) {
+    $alreadyLoggedIn = true;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,7 +122,6 @@
 
     <section class="section1">
         <!-- HTML !-->
-        <form method="post" action="admin-dashboard.html">
             <div class="container1">
                 <!-- HTML !-->
                 <div class="login-box">
@@ -93,6 +133,8 @@
                     <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO
                             HOMEPAGE</span></button> -->
                     <!-- <hr> -->
+                    <?php if ($alreadyLoggedIn === false) { ?>
+                    <form method="post" action="admin-dashboard.html" enctype="multipart/form-data">
                     <h2>Login Here</h2>
                     <!-- <p class="signup-text1">Please Login using User ID and Password</p> -->
                     <hr>
@@ -104,8 +146,8 @@
                         </select>
                     </div>
                     <div class="input-field">
-                        <label for="userId">User ID:</label>
-                        <input type="number" id="userId" placeholder="Enter your User ID" name="userId" required>
+                        <label for="=email">Email Address:</label>
+                        <input type="email" id="email" placeholder="Enter your Email Address" name="email" required>
                     </div>
                     <div class="input-field">
                         <label for="password">Password:</label>
@@ -118,10 +160,13 @@
                     </div> -->
                     <!-- <button class="login-btn">Login</button> -->
                     <div class="button-container">
-                        <button class="button-56" type="submit" role="button">LOG IN</button>
+                        <button class="button-56" name="log_in" type="submit" role="button">LOG IN</button>
                     </div>
                     <!-- <hr> -->
                 </form>
+                <?php } else { ?>
+                                        <h3 class="h4 form-box text-black mb-4">Welcome to Munshi Mohammad Meherulla Hall</h3>
+                                    <?php } ?>
                 <!-- <form method="post" action="signup.html">
 
                     <p class="signup-text">Don't have an account? <a href="signup.html">Sign Up</a></p>

@@ -7,7 +7,7 @@ include_once 'pop-up.php';
 $session->get('msg1') ? showPopup($session->get('msg1')) : '';
 $session->delete('msg1');
 
-if(isset($POST['login'])){
+if(isset($POST['log_in'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -128,7 +128,7 @@ if($session->getObject('user') !==null){
                             HOMEPAGE</span></button> -->
                     <!-- <hr> -->
                      <?php if($alreadyLoggedIn === false) { ?>
-                    <form method="post" action="index.html" enctype="multipart/form-data">
+                    <form method="post" action="index.php" enctype="multipart/form-data">
                     <h2>Login Here</h2>
                     <!-- <p class="signup-text1" style="padding:0px;">Please Login using User ID and Password</p> -->
                     <hr>
@@ -159,7 +159,7 @@ if($session->getObject('user') !==null){
                 </form>
                     <hr>
                
-                <form method="post" action="signup-step1.html" enctype="multipart/form-data">
+                <form method="post" action="signup-step1.php" enctype="multipart/form-data">
 
                     <p class="signup-text">Don't have an account? <a href="signup-step1.html">Sign Up</a></p>
                     <div class="button-container2">

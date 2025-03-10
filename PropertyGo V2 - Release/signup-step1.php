@@ -1,3 +1,39 @@
+<?php
+include_once 'php-class-file/SessionManager.php';
+$session = new SessionManager();
+
+include_once 'pop-up.php';
+if($session->get('msg1') != null){
+    showPopup($session->get('msg1'));
+    $session->delete('msg1');
+}
+
+if(isset($_POST['verify_email'])){
+    include_once 'php-class-file/User.php';
+
+    $user = new User();
+    $user->email = $_POST['email'];
+    $user->password = $_POST['password'];
+
+    // checking for status 0, 1, 2, -1
+    // 0 -> unapproved
+    // 1 -> approved
+    // -1 -> declined
+    // 2 -> blocked
+
+    if($user->isEmailAvailable($user->email)){
+        include_once 'pop-up.php';
+        showPopup("You have an already an account with this email Address. Please Try with another Email Address.");
+    }else{
+        $session->storeObject('user', $user);
+        $session->set('step', 2);
+        $otp = rand(1000, 9999);
+        $session->set('otp', $otp);
+        echo "<script>window.location.href = 'signup-step-2.php';</script>";
+
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,7 +117,7 @@
 
     <section class="section1">
         <!-- HTML !-->
-        <form method="post" action="signup-step2.html" enctype="multipart/form-data">
+        <form method="post" action="" enctype="multipart/form-data">
 
             <div class="container2">
 
@@ -100,7 +136,7 @@
                     <h2 style="color: white;">Sign Up Here</h2>
                     <hr>
                     <h2>Step 1</h2>
-                    <p class="signup-text1">Please provide all valid information</p>
+                    <p>Please provide all valid information</p>
                     <hr>
 
 

@@ -1,3 +1,49 @@
+<?php
+include_once 'php-class-file/SessionManager.php';
+$session = new SessionManager();
+
+if($session->get('step') != 2){
+    $session->set('msg1', 'Please complete the <b>Step 1</b> first.');
+    echo $session->get('msg1');
+    // echo '<script> window.location.href = "signup-step-1.php";</script>';
+    exit();
+}
+if($session->get('step') == 2){
+
+}
+
+if(isset($_POST['submit_otp'])){
+    include_once 'php-class-file/User.php';
+
+    $user = $session->getObject('user');
+    $otp = $session->getObject('otp');
+
+    if($_POST['otp'] != $otp){
+        include_once 'pop-up.php';
+        showPopup('The OTP you provide is not matching. Please try again');
+    }else{
+        echo "The OTP you provide is matched";
+        $session->delete('otp');
+        $session->set('msg1', 'The OTP you provide is matched');
+        echo '<script> window.location.href = "signup-step3"';
+        exit();
+    }
+
+    if(isset($_POST['resend_otp']) && $session->get('step') == 2){
+        include_once 'php-class-file/User.php';
+
+        // Retrieve the user object from session
+        $user = $session->getObject('user');
+
+        // Generate a new OTP
+        $otp = rand(1000, 9999);
+        $session->set('otp', $otp);
+    }
+
+
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,18 +141,19 @@
                 <!-- HTML !-->
                 <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO HOMEPAGE</span></button>
 <hr> -->
-                <form method="post" action="signup-step3.html" enctype="multipart/form-data">
+                <form method="post" action="signup-step3.php
+                " enctype="multipart/form-data">
 
                     <h2 style="color: white;">Sign Up Here</h2>
                     <hr>
-                    <h2>Step 1</h2>
-                    <p class="signup-text1">Please provide the OTP to verify email</p>
+                    <h2>Step 2</h2>
+                    <p>Please provide the OTP to verify email</p>
                     <hr>
 
 
                     <div class="input-field">
-                        <label for="email">OTP:</label>
-                        <input type="email" name="otp" id="email" placeholder="Enter OTP" required>
+                        <label for="email">OTP:<?php echo $session->get('otp'); ?></label>
+                        <input type="otp" name="otp" id="email" placeholder="Enter OTP" required>
                     </div>
                     <!-- <div class="input-field">
                 <label for="password">Password:</label>
