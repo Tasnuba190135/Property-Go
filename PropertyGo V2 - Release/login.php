@@ -7,7 +7,8 @@ include_once 'pop-up.php';
 $session->get('msg1') ? showPopup($session->get('msg1')) : '';
 $session->delete('msg1');
 
-if(isset($POST['log_in'])){
+
+if(isset($_POST['log_in'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -21,15 +22,21 @@ if(isset($POST['log_in'])){
         include_once 'pop-up.php';
         showPopup($userCheck[1]);
         $session->storeObject('user', $user);
+        header('Location: index.php');
+        exit();
+
     }
     else{
         include_once 'pop-up.php';
         showPopup($userCheck[1]);
+
+
     }
 }
 $alreadyLoggedIn = false;
 if($session->getObject('user') !==null){
-    $alreadyLoggedIn = true;
+    // $alreadyLoggedIn = true;
+
 }
 
 ?>
@@ -128,7 +135,7 @@ if($session->getObject('user') !==null){
                             HOMEPAGE</span></button> -->
                     <!-- <hr> -->
                      <?php if($alreadyLoggedIn === false) { ?>
-                    <form method="post" action="index.php" enctype="multipart/form-data">
+                    <form method="post" action="" enctype="multipart/form-data">
                     <h2>Login Here</h2>
                     <!-- <p class="signup-text1" style="padding:0px;">Please Login using User ID and Password</p> -->
                     <hr>
@@ -161,13 +168,13 @@ if($session->getObject('user') !==null){
                
                 <form method="post" action="signup-step1.php" enctype="multipart/form-data">
 
-                    <p class="signup-text">Don't have an account? <a href="signup-step1.html">Sign Up</a></p>
+                    <p class="signup-text">Don't have an account? <a href="signup-step1.php">Sign Up</a></p>
                     <div class="button-container2">
                         <button class="btn-signup" name="sign_up" type="submit" role="button">SIGN UP</button>
                     </div>
                     </form>
                     <?php } else { ?>
-                                        <h3 class="h4 form-box text-black mb-4">Welcome to Munshi Mohammad Meherulla Hall</h3>
+                                        <!-- <h3 class="h4 form-box text-black mb-4">Welcome to Munshi Mohammad Meherulla Hall</h3> -->
                                     <?php } ?>
                 </div>
             </div>

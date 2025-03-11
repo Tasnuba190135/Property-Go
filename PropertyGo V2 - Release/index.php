@@ -1,4 +1,7 @@
-
+<?php
+include_once 'php-class-file/SessionManager.php';
+$session = new SessionManager();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -16,7 +16,7 @@ if (isset($_POST['sign_up'])){
   $user = new User();
   $temp_user = $session->getObject('user');
   $user->user_type = "client";
-  $session->copyProperties($temp_user,$user);
+  $session->copyProperties($temp_user, $user);
   $user->insert();
 
   $userDetails = new UserDetails();
@@ -72,9 +72,9 @@ if (isset($_POST['sign_up'])){
 
   // echo 'All Completed'<br>
   $session->delete('user');
-  $session->set('msg1', 'Account is Created.Please Login to Continue');
+  $session->set('msg1', 'Please wait for Admin approval');
   $session->set('msg1_ttl',1);
-  echo"<script>window.location = 'index.php';</script>";
+  echo"<script>window.location = 'login.php';</script>";
   exit();
 
 }
@@ -115,6 +115,16 @@ if (isset($_POST['sign_up'])){
 
   <!-- Include Font Awesome (or any icon library) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+  select {
+    background-color: black;
+    color: white;
+}
+select option {
+    background-color: black;
+    color: white; /* Ensures text is visible */
+}
+</style>
 </head>
 
 <body>
@@ -243,7 +253,7 @@ if (isset($_POST['sign_up'])){
           <div class="input-field">
             <label for="user-type">District:</label>
             <select name="district" id="user-type" required>
-              <option value="">Select District</option>
+              <option value="" id="option1">Select District</option>
               <?php foreach ($districtList as $districtName => $value): ?>
                                             <option value="<?= htmlspecialchars($districtName) ?>">
                                                 <?= htmlspecialchars($districtName) ?>
@@ -269,7 +279,7 @@ if (isset($_POST['sign_up'])){
           </div>
           <div class="input-field">
             <label for="nid">NID Number:</label>
-            <input type="number" name="nid_number" id="nid_number" placeholder="Enter your NID Number" required>
+            <input type="text" name="nid_number" id="nid_number" placeholder="Enter your NID Number" required>
           </div>
           <div class="image-upload-field">
             <label for="image-upload">Choose NID File:(Scanned Copy)</label>

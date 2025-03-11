@@ -1,13 +1,12 @@
-<?php
+<?php 
 include_once 'php-class-file/SessionManager.php';
 $session = new SessionManager();
 
 include_once 'pop-up.php';
-if($session->get('msg1') != null){
+if ($session->get('msg1') != null){
     showPopup($session->get('msg1'));
     $session->delete('msg1');
 }
-
 if(isset($_POST['verify_email'])){
     include_once 'php-class-file/User.php';
 
@@ -16,22 +15,22 @@ if(isset($_POST['verify_email'])){
     $user->password = $_POST['password'];
 
     // checking for status 0, 1, 2, -1
-    // 0 -> unapproved
-    // 1 -> approved
-    // -1 -> declined
-    // 2 -> blocked
+    // 0 unapproved
+    // 1 approved
+    // -1 declined
+    // 2 Blocked
 
-    if($user->isEmailAvailable($user->email)){
-        include_once 'pop-up.php';
-        showPopup("You have an already an account with this email Address. Please Try with another Email Address.");
-    }else{
-        $session->storeObject('user', $user);
-        $session->set('step', 2);
-        $otp = rand(1000, 9999);
-        $session->set('otp', $otp);
-        echo "<script>window.location.href = 'signup-step-2.php';</script>";
+if ($user->isEmailAvailable($user->email)){
+    include_once 'pop-up.php';
+    showPopup("The Email Address you provide is already used. Please try with another Email Address.");
+} else{
+    $session->storeObject('user', $user);
+    $session->set('step', 2);
+    $otp = rand(1000, 9999);
+    $session->set('otp', $otp);
+    echo "<script>window.location.href='signup-step2.php';</script>";
+}
 
-    }
 }
 ?>
 <!DOCTYPE html>
@@ -108,7 +107,7 @@ if(isset($_POST['verify_email'])){
                 </div>
                 <!-- LOG IN button inside the navbar collapse -->
                 <div class="navbar-collapse collapse justify-content-xl-end" id="navbarDefault">
-                    <button class="button-85 ml-auto" onclick="location.href='login.html'" role="button">LOG IN</button>
+                    <button class="button-85 ml-auto" type="submit" onclick="location.href='login.php'" role="button">LOG IN</button>
                 </div>
             </div>
         </nav>
@@ -117,7 +116,6 @@ if(isset($_POST['verify_email'])){
 
     <section class="section1">
         <!-- HTML !-->
-        <form method="post" action="" enctype="multipart/form-data">
 
             <div class="container2">
 
@@ -132,6 +130,7 @@ if(isset($_POST['verify_email'])){
                     <!-- HTML !-->
                     <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO HOMEPAGE</span></button>
 <hr> -->
+                <form method="post" action="" enctype="multipart/form-data">
 
                     <h2 style="color: white;">Sign Up Here</h2>
                     <hr>
@@ -160,10 +159,10 @@ if(isset($_POST['verify_email'])){
                         <button class="button-56" onclick="location.href='login.html'" role="button">Log In</button>
                     </div> -->
 
-
+                    </form>
                 </div>
             </div>
-        </form>
+      
     </section>
     <footer>
         <!-- Footer Start -->

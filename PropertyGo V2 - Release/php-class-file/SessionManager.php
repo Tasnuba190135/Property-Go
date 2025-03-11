@@ -110,22 +110,26 @@ class SessionManager{
         return isset($_SESSION[$key]) ? unserialize($_SESSION[$key]) : null;
      }
 
-     /**
-      * Copy matching properties from an object to another object
-      *
-      * @param object $source The object to copy from
-      * @param object $destination The object to copy to
-    */
-
-    public static function copyProperties(object $sourceObj, object $destinationObj)
-    {
-        foreach (get_object_vars($sourceObj) as $key => $value){
-            if(property_exists($destinationObj, $key) && $key !== 'conn'){
-                // Only copy if the property exists in the destination object
-                $destinationObj->$key = $value;
-            }
+    /**
+ * Copy matching properties from an object to another object.
+ *
+ * @param object|null $sourceObj The object to copy from (can be null).
+ * @param object $destinationObj The object to copy to.
+ */
+public static function copyProperties(?object $sourceObj, object $destinationObj)
+{
+    if ($sourceObj === null) {
+        // You can choose to throw an exception, log an error, or simply return
+        throw new InvalidArgumentException("Source object is null.");
+    }
+    
+    foreach (get_object_vars($sourceObj) as $key => $value) {
+        if (property_exists($destinationObj, $key) && $key !== 'conn') {
+            $destinationObj->$key = $value;
         }
     }
+}
+
     /**
      * Retrieve an object from the session by key, copy its properties into a new temporary instance,
      * and return the temporary instance.
