@@ -58,8 +58,8 @@ if (isset($_POST['sign_up'])){
   $file3->file_owner_id = $user->user_id;
   $file3->file_id = $file3->insert();
 
-  $userDetails->profile_picture_id = $file1->file_id;
-  $userDetails->nid_file_id = $file2->file_id;
+  $userDetails->profile_picture_id = $file2->file_id;
+  $userDetails->nid_file_id = $file1->file_id;
   $userDetails->other_document_file_id = $file3->file_id;
   $userDetails->update();
 
