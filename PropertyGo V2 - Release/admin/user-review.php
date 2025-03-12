@@ -155,7 +155,7 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
                                                                                         class="rounded-4 profile-avatar"
                                                                                         src="background-image: url(../img/agent-2.jpg)<?php echo $file1->file_new_name; ?>"
                                                                                         alt="image-upload" > -->
-                                                                                        <img src="../img/<?php echo $file1->file_new_name; ?>" alt="User image" class="rounded-4 profile avatar">
+                                                                                        <img src="../file/<?php echo $file1->file_new_name; ?>" alt="User image" class="rounded-4 profile avatar">
                                                                                     
                                                                                 </div>
                                                                                 <!-- <div class="upload-link" title=""
@@ -250,7 +250,7 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <p><strong>NID File:</strong></p>
-                                                                            <a href="../img/<?php echo isset($userDetails->nid_file_id) ? htmlspecialchars($file2->file_new_name) : '0.jpg'; ?>"
+                                                                            <a href="../file/<?php echo isset($userDetails->nid_file_id) ? htmlspecialchars($file2->file_new_name) : '0.jpg'; ?>"
                                                                                 target="_blank">Open File</a>
                                                                         </div>
                                                                     </div>

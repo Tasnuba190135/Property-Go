@@ -74,7 +74,7 @@ if (isset($_POST['sign_up'])){
   $session->delete('user');
   $session->set('msg1', 'Please wait for Admin approval');
   $session->set('msg1_ttl',1);
-  echo"<script>window.location = 'login.php';</script>";
+  // echo"<script>window.location = 'login.php';</script>";
   exit();
 
 }
@@ -283,7 +283,7 @@ select option {
           </div>
           <div class="image-upload-field">
             <label for="image-upload">Choose NID File:(Scanned Copy)</label>
-            <input type="file" id="image-upload" name="upload-nid" accept="file/*" required>
+            <input type="file" id="image-upload" name="upload-nid"  required>
           </div>
           <div class="image-upload-field">
             <label for="image-upload">Choose Image:</label>
