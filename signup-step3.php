@@ -57,13 +57,6 @@ if (isset($_POST['sign_up'])){
   $file3 = new FileManager();
   $file3->file_owner_id = $user->user_id;
   $file3->file_id = $file3->insert();
-  $ans = $file3->doOp($_FILES['0']);
-  if($ans == 1){
-    // echo 'Other Document' is uploaded <br>';
-    $file3->update();
-  } else {
-    // echo 'Other Document' is not uploaded <br>';
-  }
 
   $userDetails->profile_picture_id = $file1->file_id;
   $userDetails->nid_file_id = $file2->file_id;
@@ -73,7 +66,7 @@ if (isset($_POST['sign_up'])){
   // echo 'All Completed'<br>
   $session->delete('user');
   $session->set('msg1', 'Please wait for Admin approval');
-  $session->set('msg1_ttl',1);
+  // $session->set('msg1_ttl',1);
   // echo"<script>window.location = 'login.php';</script>";
   exit();
 
