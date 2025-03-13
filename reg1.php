@@ -4,36 +4,33 @@ include_once '../class-file/UserDetails.php';
 include_once '../class-file/FileManager.php';
 include_once '../popup-1.php';
 
-if (isset($_POST['approve']) || isset($_POST['decline'])) {
+if (isset($_POST['active']) || isset($_POST['deactive'])) {
     $user2 = new User();
-    $userDetails2 = new UserDetails();
 
     $status = 0;
-    if (isset($_POST['approve'])) {
-        $user2->user_id = $_POST['approve'];
+    if (isset($_POST['active'])) {
+        $user2->user_id = $_POST['active'];
         $status = 1;
     } else {
-        $user2->user_id = $_POST['decline'];
-        $status = -1;
+        $user2->user_id = $_POST['deactive'];
+        $status = 2;
     }
 
     $user2->load();
     $user2->status = $status;
     $user2->update();
 
-    $userDetails2->loadByUserId($user2->user_id, 0);
-    $userDetails2->status = $status;
-    $userDetails2->update();
-
-    if ($status == 1) {
-        showPopup("User ID " . $user2->user_id . " (Student ID " . $userDetails2->student_id . ") approved successfully.");
-    } else {
-        showPopup("User ID " . $user2->user_id . " (Student ID " . $userDetails2->student_id . ") declined successfully.");
-    }
+    showPopup("User ID: " . $user2->user_id . " with email: {$user2->email} has been successfully " . ($status == 1 ? "activated" : "deactivated"));
 }
 
 $user = new User();
-$userList = $user->getDistinctUsersByStatus(0, "user"); // Get all users with status 0 (pending)
+$userListActive = $user->getDistinctUsersByStatus(1, "user"); // Get all users with status 1 (active)
+$userListDeactive = $user->getDistinctUsersByStatus(2, "user"); // Get all users with status 2 (deactive)
+
+// Merge the arrays (using an empty array fallback if one of the lists is false)
+$userList = array_merge($userListActive ?: [], $userListDeactive ?: []);
+
+
 
 ?>
 
@@ -206,7 +203,7 @@ $userList = $user->getDistinctUsersByStatus(0, "user"); // Get all users with st
                 <div class="container-fluid px-4">
                     <div class="card__wrapper">
                         <div class="card__title-wrap mb-20">
-                            <h3 class="table__heading-title">All Users Review</h3>
+                            <h3 class="table__heading-title">Manage Users</h3>
                         </div>
 
                         <div class="accordion" id="faqAccordion">
@@ -221,8 +218,11 @@ $userList = $user->getDistinctUsersByStatus(0, "user"); // Get all users with st
                                     <div class="col-lg-3">
                                         <p>Email</p>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-1">
                                         <p>Status</p>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <p>Profile</p>
                                     </div>
                                     <div class="col-lg-3">
                                         <p>Action</p>
@@ -236,12 +236,13 @@ $userList = $user->getDistinctUsersByStatus(0, "user"); // Get all users with st
                             if ($userList && count($userList) > 0) {
                                 foreach ($userList as $userItem) {
                                     $userId = $userItem['user_id'];
-                                    $userEmail = $userItem['email'];
-                                    $userStatus = $userItem['status']; // expected to be 0
+                                    $userObj1 = new User();
+                                    $userObj1->user_id = $userId;
+                                    $userObj1->load();
 
                                     // Create a new instance of UserDetails and load details for this user
                                     $userDetails = new UserDetails();
-                                    $userDetails->loadByUserId($userId, 0);
+                                    $userDetails->loadByUserId($userId, 1);
 
                                     $file = new FileManager();
                                     $file->loadById($userDetails->profile_picture_id);
@@ -255,23 +256,33 @@ $userList = $user->getDistinctUsersByStatus(0, "user"); // Get all users with st
                                     <div class="accordion-item faq-item">
                                         <div class="row">
                                             <div class="col-lg-2 d-flex align-items-center">
-                                                <p><?php echo $userDetails->user_id ; ?></p>
+                                                <p><?php echo htmlspecialchars($userDetails->user_id); ?></p>
                                             </div>
                                             <div class="col-lg-2 d-flex align-items-center">
-                                                <p><?php echo $userDetails->student_id; ?></p>
-                                            </div
+                                                <p><?php echo htmlspecialchars($userDetails->student_id); ?></p>
+                                            </div>
                                             <div class="col-lg-3 d-flex align-items-center">
-                                                <p><?php echo htmlspecialchars($userEmail); ?></p>
+                                                <p><?php echo htmlspecialchars($userObj1->email); ?></p>
                                             </div>
-                                            <div class="col-lg-2 d-flex align-items-center">
+                                            <div class="col-lg-1 d-flex align-items-center">
+                                                <?php if ($userObj1->status == 1) { ?>
+                                                    <span class="bd-badge bg-success">Active</span>
+                                                <?php } else { ?>
+                                                    <span class="bd-badge bg-warning">Deactive</span>
+                                                <?php } ?>
+                                            </div>
+                                            <div class="col-lg-1 d-flex align-items-center">
                                                 <button class="btn btn-primary" data-bs-toggle="collapse"
                                                     data-bs-target="#<?php echo $collapseId; ?>">Details</button>
                                             </div>
                                             <div class="col-lg-3 d-flex align-items-center">
                                                 <div>
                                                     <form action="" method="post">
-                                                        <button type="submit" name="approve" value="<?php echo htmlspecialchars($userId); ?>" class="btn btn-success">Approved</button>
-                                                        <button type="submit" name="decline" value="<?php echo htmlspecialchars($userId); ?>" class="btn btn-danger">Declined</button>
+                                                        <?php if ($userObj1->status == 1) { ?>
+                                                            <button type="submit" name="deactive" value="<?php echo htmlspecialchars($userId); ?>" class="btn btn-success">Deactive</button>
+                                                        <?php } else { ?>
+                                                            <button type="submit" name="active" value="<?php echo htmlspecialchars($userId); ?>" class="btn btn-success">Active</button>
+                                                        <?php } ?>
                                                     </form>
                                                 </div>
                                             </div>
@@ -382,7 +393,7 @@ $userList = $user->getDistinctUsersByStatus(0, "user"); // Get all users with st
                                                     </div>
                                                 </div>
 
-                                                <div class="text-center mt-5 mb-4"> 
+                                                <div class="text-center mt-5 mb-4">
                                                     <h5 class="form-info-title">Other Information</h5>
                                                 </div>
                                                 <div class="row pt-4">
@@ -392,7 +403,8 @@ $userList = $user->getDistinctUsersByStatus(0, "user"); // Get all users with st
                                                         </p>
                                                     </div>
                                                     <!-- <div class="col-lg-4">
-                                                        <p><strong>Note IDs:</strong> <?php echo isset($userDetails->note_ids) ? htmlspecialchars($userDetails->note_ids) : 'N/A'; ?></p>
+                                                        <p><strong>Note IDs:</strong> <?php //echo isset($userDetails->note_ids) ? htmlspecialchars($userDetails->note_ids) : 'N/A'; 
+                                                                                        ?></p>
                                                     </div> -->
                                                     <div class="col-lg-4">
                                                         <p><strong>Created:</strong> <?php echo isset($userDetails->created) ? htmlspecialchars($userDetails->created) : 'N/A'; ?></p>

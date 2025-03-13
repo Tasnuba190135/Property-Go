@@ -248,6 +248,34 @@ public function setValueByPropertyId($property_id = null, $status = null)
     }
     return false;
 }
+/** 
+* @param int|null $user_id Specific user_id to load (optional).
+* @param int|null $status  Status filter (optional).
+* @return array|false Returns array of results, false if no match.
+*/
+public function setValueByUserId($user_id = null, $status = null)
+{
+   $sql = "SELECT * FROM tbl_property_details WHERE 1";
+   if ($user_id !== null) {
+       $sql .= " AND user_id = $user_id";
+   }
+   if ($status !== null) {
+       $sql .= " AND status = $status";
+   }
+   $result = mysqli_query($this->conn, $sql);
+   if ($result && mysqli_num_rows($result) > 0) {
+       $data = [];
+       while ($row = mysqli_fetch_assoc($result)) {
+           $data[] = $row;
+       }
+       if (count($data) === 1) {
+           $this->setProperties($data[0]); // Set properties if only one row found
+       }
+       return $data;
+   }
+   return false;
+}
+
 
 /**
  * Set class properties based on an associative array of values.

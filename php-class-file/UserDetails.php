@@ -199,7 +199,7 @@ class UserDetails
                 WHERE user_details_id = $this->user_details_id";
         $result = mysqli_query($this->conn, $sql);
         if ($result) {
-            echo "User details record updated successfully.<br>";
+            // echo "User details record updated successfully.<br>";
         } else {
             echo "Update failed: " . mysqli_error($this->conn) . "<br>";
         }

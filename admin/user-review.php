@@ -49,6 +49,7 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
+
 </head>
 
 <body>
@@ -114,10 +115,11 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
                                 $file2 = new FileManager();
                                 $file2->setValueById($userDetails->nid_file_id);
 
-                                $file3 = new FileManager();
-                                $file3->setValueById($userDetails->other_document_file_id);
+                                // $file3 = new FileManager();
+                                // $file3->setValueById($userDetails->other_document_file_id);
 
                                 $collapseId = "collapse{$userId}";
+                                
                                 ?>
                                 <tbody>
                                     <tr>
@@ -150,15 +152,18 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
                                                                         <div class="col-md-9">
                                                                             <div
                                                                                 class="d-inline-block position-relative me-4 mb-3 mb-lg-0 account-profile">
-                                                                                <div class="avatar-preview rounded">
-                                                                                    <!-- <img id="imagePreview"
+                                                                                <!-- < class="avatar-preview rounded"> -->
+                                                                                <!-- <img id="imagePreview"
                                                                                         class="rounded-4 profile-avatar"
-                                                                                        src="background-image: url(../img/agent-2.jpg)<?php echo $file1->file_new_name; ?>"
+                                                                                        src="background-image: url(../img/agent-2.jpg)"
                                                                                         alt="image-upload" > -->
-                                                                                        <img src="../file/<?php echo $file1->file_new_name; ?>" alt="User image" class="rounded-4 profile avatar">
-                                                                                    
-                                                                                </div>
-                                                                                <!-- <div class="upload-link" title=""
+                                                                                <img src="../file/<?php echo $file1->file_new_name; ?>"
+                                                                                    height="200px" width="200px"
+                                                                                    alt="User image"
+                                                                                    class="rounded-4 profile avatar">
+
+                                                                            
+                                                                            <!-- <div class="upload-link" title=""
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="right"
                                                                                 data-original-title="update">
@@ -167,131 +172,134 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
                                                                                 <i
                                                                                     class="fa-solid fa-pen-to-square fs-update"></i>
                                                                             </div> -->
-                                                                            </div>
-                                                                            <!-- add a UpDate bUTToN -->
-                                                                            <!-- <a href="#"
-                                                                            class=" btn btn-primary ms-2">Update</a> -->
                                                                         </div>
+                                                                        <!-- add a UpDate bUTToN -->
+                                                                        <!-- <a href="#"
+                                                                            class=" btn btn-primary ms-2">Update</a> -->
                                                                     </div>
                                                                 </div>
-                                                                <div class="mt-2">
-                                                                    <div class="row align-items-center mb-4">
-                                                                        <div class="col-md-6">
-                                                                            <!-- <label class="form-label mb-md-2">Full Name</label> -->
-                                                                            <!-- <input type="text" class="form-control" value="John Doe"> -->
-                                                                            <h5><strong>User ID:
-                                                                                    <?php echo $userDetails->user_id; ?>
-                                                                                </strong></h5>
+                                                                </div>
+                                                           
+                                                            <div class="mt-2">
+                                                                <div class="row align-items-center mb-4">
+                                                                    <div class="col-md-6">
+                                                                        <!-- <label class="form-label mb-md-2">Full Name</label> -->
+                                                                        <!-- <input type="text" class="form-control" value="John Doe"> -->
+                                                                        <h5><strong>User ID:
+                                                                                <?php echo $userDetails->user_id; ?>
+                                                                            </strong></h5>
 
-                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row align-items-center mb-4">
+                                                                    <div class="col-md-6">
+                                                                        <p><strong>User Type:</strong></p>
+                                                                        <p><?php echo isset($user->user_type); ?></p>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <p><strong>Full Name:</strong></p>
+                                                                        <p><?php echo htmlspecialchars($userDetails->full_name); ?>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row align-items-center mb-4">
+                                                                    <div class="col-md-6">
+                                                                        <p><strong>Email:</strong></p>
+                                                                        <p><?php echo htmlspecialchars($userEmail); ?></p>
                                                                     </div>
 
-                                                                    <div class="row align-items-center mb-4">
-                                                                        <div class="col-md-6">
-                                                                            <p><strong>User Type:</strong></p>
-                                                                            <p><?php echo isset($user->user_type); ?></p>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <p><strong>Full Name:</strong></p>
-                                                                            <p><?php echo htmlspecialchars($userDetails->full_name); ?>
-                                                                            </p>
-                                                                        </div>
+                                                                    <div class="col-md-6">
+                                                                        <p><strong>Contact No:</strong></p>
+                                                                        <p><?php echo isset($userDetails->contact_no) ? htmlspecialchars($userDetails->contact_no) : 'N/A'; ?>
+                                                                        </p>
                                                                     </div>
-                                                                    <div class="row align-items-center mb-4">
-                                                                        <div class="col-md-6">
-                                                                            <p><strong>Email:</strong></p>
-                                                                            <p><?php echo htmlspecialchars($userEmail); ?></p>
-                                                                        </div>
-
-                                                                        <div class="col-md-6">
-                                                                            <p><strong>Contact No:</strong></p>
-                                                                            <p><?php echo isset($userDetails->contact_no) ? htmlspecialchars($userDetails->contact_no) : 'N/A'; ?>
-                                                                            </p>
-                                                                        </div>
+                                                                </div>
+                                                                <div class="row align-items-center mb-4">
+                                                                    <div class="col-md-6">
+                                                                        <p><strong>Division:</strong></p>
+                                                                        <p><?php echo isset($userDetails->division) ? htmlspecialchars($userDetails->division) : 'N/A'; ?>
+                                                                        </p>
                                                                     </div>
-                                                                    <div class="row align-items-center mb-4">
-                                                                        <div class="col-md-6">
-                                                                            <p><strong>Division:</strong></p>
-                                                                            <p><?php echo isset($userDetails->division) ? htmlspecialchars($userDetails->division) : 'N/A'; ?>
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <p><strong>District:</strong></p>
-                                                                            <p><?php echo isset($userDetails->district) ? htmlspecialchars($userDetails->district) : 'N/A'; ?>
-                                                                            </p>
-                                                                        </div>
+                                                                    <div class="col-md-6">
+                                                                        <p><strong>District:</strong></p>
+                                                                        <p><?php echo isset($userDetails->district) ? htmlspecialchars($userDetails->district) : 'N/A'; ?>
+                                                                        </p>
                                                                     </div>
-                                                                    <div class="row align-items-center mb-4">
-                                                                        <div class="col-md-6">
-                                                                            <p><strong>Address:</strong></p>
-                                                                            <p><?php echo isset($userDetails->address) ? htmlspecialchars($userDetails->address) : 'N/A'; ?>
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <p><strong>Gender:</strong></p>
-                                                                            <p><?php echo isset($userDetails->gender) ? htmlspecialchars($userDetails->gender) : 'N/A'; ?>
-                                                                            </p>
-                                                                        </div>
+                                                                </div>
+                                                                <div class="row align-items-center mb-4">
+                                                                    <div class="col-md-6">
+                                                                        <p><strong>Address:</strong></p>
+                                                                        <p><?php echo isset($userDetails->address) ? htmlspecialchars($userDetails->address) : 'N/A'; ?>
+                                                                        </p>
                                                                     </div>
+                                                                    <div class="col-md-6">
+                                                                        <p><strong>Gender:</strong></p>
+                                                                        <p><?php echo isset($userDetails->gender) ? htmlspecialchars($userDetails->gender) : 'N/A'; ?>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
 
 
 
-                                                                    <!-- <div class="col-md-6">
+                                                                <!-- <div class="col-md-6">
                                                                         <label class="form-label mb-md-2">Email</label>
                                                                         <input type="email" class="form-control" class="form-control" value="John@gmail.com">
                                                                     </div> -->
 
 
-                                                                    <div class="row align-items-center mb-4">
-                                                                        <div class="col-md-6">
-                                                                            <p><strong>NID No:</strong></p>
-                                                                            <p><?php echo isset($userDetails->nid_number) ? htmlspecialchars($userDetails->nid_number) : 'N/A'; ?>
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <p><strong>NID File:</strong></p>
-                                                                            <a href="../file/<?php echo isset($userDetails->nid_file_id) ? htmlspecialchars($file2->file_new_name) : '0.jpg'; ?>"
-                                                                                target="_blank">Open File</a>
-                                                                        </div>
+                                                                <div class="row align-items-center mb-4">
+                                                                    <div class="col-md-6">
+                                                                        <p><strong>NID No:</strong></p>
+                                                                        <p><?php echo isset($userDetails->nid_number) ? htmlspecialchars($userDetails->nid_number) : 'N/A'; ?>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <p><strong>NID File:</strong></p>
+                                                                        <a href="../file/<?php echo isset($userDetails->nid_file_id) ? htmlspecialchars($file2->file_new_name) : '0.jpg'; ?>"
+                                                                            target="_blank">Open File</a>
                                                                     </div>
                                                                 </div>
-
-
-
-
                                                             </div>
 
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Close</button>
-                                                            </div>
+
+
+
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- Modal End -->
                                             </div>
-                                        </td>
-                                        <td>
-                                            <div class="attendant__action">
-                                                <form method="post" action="">
-                                                    <button class="btn btn-success" name="approve" type="submit"
-                                                        value="<?php echo htmlspecialchars($userId); ?>">Approve</button>
-                                                    <button class="btn btn-danger ms-2" name="reject" type="submit"
-                                                        value="<?php echo htmlspecialchars($userId); ?>">Reject</button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <?php
+                                            <!-- Modal End -->
+                        </div>
+                        </td>
+                        <td>
+                            <div class="attendant__action">
+                                <form method="post" action="">
+                                    <button class="btn btn-success" name="approve" type="submit"
+                                        value="<?php echo htmlspecialchars($userId); ?>">Approve</button>
+                                    <button class="btn btn-danger ms-2" name="reject" type="submit"
+                                        value="<?php echo htmlspecialchars($userId); ?>">Reject</button>
+                                </form>
+                            </div>
+                        </td>
+                        </tr>
+                        </tbody>
+                        <?php
                             }
                         }
                         ?>
-                    </table>
-                </div>
+                </table>
             </div>
         </div>
     </div>
+    </div>
+    
+
 
     <!-- JavaScript -->
     <!-- Bootstrap JS -->

@@ -240,6 +240,7 @@ class User
             $hasPendingApproval = false;
             $hasBlocked = false;
             $hasDeclined = false;
+            
 
             // Iterate through each row to check statuses
             foreach ($rows as $row) {
@@ -270,6 +271,10 @@ class User
 
                 // Check for blocked status (2)
                 if ($status == 2) {
+                    $hasBlocked = true;
+                    return ["2", "Your account is blocked by admin."];
+                }
+                if ($status == -2) {
                     $hasBlocked = true;
                     return ["2", "Your account is blocked by admin."];
                 }
@@ -308,7 +313,7 @@ class User
 
         // Query to check if the email exists with status 0,1,2, or -1
         $sql = "SELECT user_id FROM tbl_user 
-            WHERE email = '$email' AND status IN (0, 1, 2, -1)";
+            WHERE email = '$email' AND status IN (0, 1, 2, -1, -2)";
 
         if ($user_type !== null) {
             $sql .= " AND user_type = '$user_type'";
