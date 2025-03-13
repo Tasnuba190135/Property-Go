@@ -37,7 +37,43 @@ $session = new SessionManager();
 
         <!-- Include Font Awesome (or any icon library) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
+<!-- Custom CSS -->
+<style>
+    .section-latest-properties {
+        padding: 60px 0;
+    }
+    .image-box img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .text-box {
+        padding: 20px;
+    }
+    .property-benefits {
+        list-style: none;
+        padding: 0;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+    .property-benefits li {
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+  
+    /* .btn-slide {
+        background: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 18px;
+        transition: 0.3s;
+    }
+    .btn-slide:hover {
+        background: #0056b3;
+        color: white;
+    } */
+</style>
     
 </head>
 <body>
@@ -102,13 +138,12 @@ $session = new SessionManager();
                     <h1 class="intro-title mb-4"> Find Your
                       <br><span class="color-b">Perfect
                       Home</span><br>With Us</h1>
-                                            <!-- <a href="#"><span class="price-a btn btn-light btn-bg btn-slide hover-slide-right mt-4">rent | $ 12.000</span></a> -->
 
                     <p class="intro-subtitle intro-price">
                    
-                        <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
+                        <!-- <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
                             <span>Explore Now</span>
-                          </a>
+                          </a> -->
                            </p>
                   </div>
                 </div>
@@ -125,22 +160,15 @@ $session = new SessionManager();
               <div class="row">
                 <div class="col-lg-8">
                   <div class="intro-body">
-                    <!-- <p class="intro-title-top">Doral, Florida
-                      <br> 78345</p>
-                    <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Rino
-                      <br> Venda Road Five</h1>
-                    <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
-                    </p> -->
+                   
                     <h1 class="intro-title mb-4"> Find Your
                         <br><span class="color-b">Perfect
                         Home</span><br>With Us</h1>
                       <p class="intro-subtitle intro-price">
                      
-                          <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
+                          <!-- <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-5" id="button-container">
                               <span>Explore Now</span>
-                            </a>
+                            </a> -->
                              </p>
                   </div>
                 </div>
@@ -157,24 +185,16 @@ $session = new SessionManager();
               <div class="row">
                 <div class="col-lg-8">
                   <div class="intro-body">
-                    <!-- <p class="intro-title-top">Doral, Florida
-                      <br> 78345</p>
-                    <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Alira
-                      <br> Roan Road One</h1>
-                    <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
-                    </p> -->
+                   
                     <h1 class="intro-title mb-4"> Find Your
                         <br><span class="color-b">Perfect
                         Home</span><br>With Us</h1>
-                      <p class="intro-subtitle intro-price">
-                        <!-- <a href="#"><span class="price-a btn btn-light btn-bg btn-slide hover-slide-right mt-4">rent | $ 12.000</span></a> -->
+                      <!-- <p class="intro-subtitle intro-price">
                      
                           <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
                               <span>Explore Now</span>
                             </a>
-                             </p>
+                             </p> -->
                   </div>
                 </div>
               </div>
@@ -292,7 +312,7 @@ $session = new SessionManager();
               <h2 class="title-a">Latest Properties</h2>
             </div>
             <div class="title-link">
-              <a href="agents-grid.html">All Properties
+              <a href="property-explore.php">All Properties
                 <span class="fa fa-arrow-right"></span>
               </a>
             </div>
@@ -300,70 +320,12 @@ $session = new SessionManager();
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
-          <div class="card-box-d">
-            <div class="card-img-d">
-              <img src="img/property-1.jpg" alt="" class="img-d img-fluid">
-            </div>
-            <div class="card-overlay card-overlay-hover">
-              <div class="card-header-d">
-                <div class="card-title-d align-self-center">
-                  <h3 class="title-d">
-                    <a href="agent-single.html" class="link-two">View Details</a>
-                  </h3>
-                </div>
-              </div>
-              <div class="card-body-d">
-                <p class="content-d color-text-a">
-                  23/7 Sed porttitor lectus nibh, Cras ultricies ligula sed magna dictum porta two.
-                </p>
-                <div class="info-agents color-a">
-                  <p>
-                    <strong>Phone: </strong> +54 356 945234</p>
-                  <p>
-                    <strong>Email: </strong> abc@example.com</p>
-                </div>
-              </div>
-              <!-- <div class="card-footer-d">
-                <div class="socials-footer d-flex justify-content-center">
-                  <ul class="list-inline">
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-dribbble" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div> -->
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="card-box-d">
             <div class="card-img-d">
               <img src="img/property-2.jpg" alt="" class="img-d img-fluid">
             </div>
-            <div class="card-overlay card-overlay-hover">
+            <!-- <div class="card-overlay card-overlay-hover">
               <div class="card-header-d">
                 <div class="card-title-d align-self-center">
                   <h3 class="title-d">
@@ -382,50 +344,54 @@ $session = new SessionManager();
                     <strong>Email: </strong> abc@example.com</p>
                 </div>
               </div>
-              <!-- <div class="card-footer-d">
-                <div class="socials-footer d-flex justify-content-center">
-                  <ul class="list-inline">
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-dribbble" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div> -->
-            </div>
+            </div> -->
           </div>
         </div>
-        <div class="col-md-4">
+        <!-- <div class="col-md-6">
           <div class="card-box-d">
             <div class="card-img-d">
-              <img src="img/property-3.jpg" alt="" class="img-d img-fluid">
+              <img src="img/property-1.jpg" alt="" class="img-d img-fluid">
+               <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem officia enim amet ipsa repellendus maxime tempora dolor, obcaecati nam animi voluptate eveniet eum saepe a voluptatem, dolorem repudiandae facilis, est libero nulla numquam asperiores. Commodi atque exercitationem maxime debitis deleniti fugiat! Doloribus perferendis reprehenderit voluptatibus saepe possimus cum ipsam! Vero rem laborum quidem doloribus! Mollitia at repellendus distinctio numquam quis ex aliquam unde reprehenderit, natus similique obcaecati, quas dolor. Ratione ullam, debitis impedit consequatur corrupti sint nam soluta animi eveniet similique excepturi voluptate ut fugiat eaque ad unde, exercitationem neque alias voluptates! Minus facere suscipit tempora error eaque animi dolorum.</p>
+            </div> -->
+            <!-- Text Side -->
+            <div class="col-md-6">
+                <div class="text-box">
+                    <h2 class="title">Find Your Dream Property</h2>
+                    <p class="description" style="text-align: justify;">
+    Explore a wide range of residential and commercial properties tailored to your needs. Whether you're searching for a cozy family home, a lucrative investment opportunity, or the perfect business space, we have a diverse collection to choose from.  
+
+    Our platform ensures that every listing is verified, providing you with a seamless and secure property-buying experience. With expert guidance, competitive pricing, and flexible financing options, finding your dream property has never been easier.  
+
+    From modern apartments and luxurious villas to commercial offices and retail spaces, we bring you the best deals in prime locations. Start your journey today and make informed decisions with confidence!
+</p>
+<ul class="property-benefits" >
+    <li>✅ Verified Property Listings</li>
+    <li>✅ Affordable Prices & Flexible Payment Options</li>
+    <li>✅ Easy & Secure Transactions</li>
+    <li>✅ Trusted by Thousands of Customers</li>
+    <li>✅ 24/7 Customer Support for Assistance</li>
+    <li>✅ Detailed Property Insights & Virtual Tours</li>
+    <li>✅ Direct Communication with Property Owners</li>
+    <li>✅ Personalized Recommendations Based on Your Preferences</li>
+</ul>
+
+                    <p class="intro-subtitle intro-price">
+                      <div class="d-flex justify-content-center mt-5">
+                        <a href="property-explore.php" class="btn btn-light btn-bg btn-slide hover-slide-right mt-4 " style="text-align: center;" >
+                            <span>Explore Now</span>
+                        </a>
+                        </div>
+                    </p>
+
+                </div>
             </div>
-            <div class="card-overlay card-overlay-hover">
+        </div>
+    </div>
+            <!-- <div class="card-overlay card-overlay-hover">
               <div class="card-header-d">
                 <div class="card-title-d align-self-center">
                   <h3 class="title-d">
-                    <a href="agent-single.html" class="link-two">Emma Toledo</a>
+                    <a href="agent-single.html" class="link-two">View Details</a>
                   </h3>
                 </div>
               </div>
@@ -440,42 +406,14 @@ $session = new SessionManager();
                     <strong>Email: </strong> abc@example.com</p>
                 </div>
               </div>
-              <!-- <div class="card-footer-d">
-                <div class="socials-footer d-flex justify-content-center">
-                  <ul class="list-inline">
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-dribbble" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div> -->
-            </div>
+            </div> -->
           </div>
         </div>
-      </div>
-    </div>
+
+            </div>
+            
+            
+
   </section>
   <!--/ Agents End /-->
 
