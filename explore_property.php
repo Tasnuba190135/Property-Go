@@ -44,46 +44,7 @@
 </head>
 
 <body>
-  <header>
-    <!-- nav start -->
-    <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
-      <div class="container">
-        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
-          aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <a class="navbar-brand text-brand" href="index.html">PROPERTY<span class="color-b"> GO</span></a>
-
-        <div class="navbar-collapse collapse justify-content-lg-end" id="navbarDefault">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="add_property.html">Add Property</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="explore_property.html">Explore Property</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="about.html">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact Us</a>
-            </li>
-          </ul>
-        </div>
-        <!-- LOG IN button inside the navbar collapse -->
-        <div class="navbar-collapse collapse justify-content-xl-end" id="navbarDefault">
-          <button class="button-85 ml-auto" onclick="location.href='login.html'" role="button">LOG IN</button>
-        </div>
-      </div>
-    </nav>
-    <!--/ Nav End /-->
-  </header>
+  <?php include_once 'navbar-user.php'; ?>
 
   <div class="ftco-blocks-cover-1">
     <div class="site-section-cover overlay" data-stellar-background-ratio="0.5"
@@ -127,38 +88,38 @@
             </select>
           </div>
           <div class="col-md-4 form-group">
-          <div class="row">
-          <div class="col-md-6 form-group">
-            <label for="user-type">Choose Division:</label>
-            <select name="division" id="" class="form-control1 w-100" required>
-              <option value="">All Division</option>
-              <option value="">Dhaka</option>
-              <option value="">Khulna</option>
-              <option value="">Rajshahi</option>
-              <option value="">Barishal</option>
-              <option value="">Chittagong</option>
-              <option value="">Sylhet</option>
-              <option value="">Dinajpur</option>
-              <option value="">Rangpur</option>
-              <option value="">Mymensingh</option>
-            </select>
-          </div>
-            <div class="col-md-6">
-              <label for="user-type">Choose District:</label>
-              <select name="district" id="" class="form-control1 w-100" required>
-                <option value="">All District</option>
-                <option value="">Dhaka</option>
-                <option value="">Khulna</option>
-                <option value="">Rajshahi</option>
-                <option value="">Barishal</option>
-                <option value="">Chittagong</option>
-                <option value="">Sylhet</option>
-                <option value="">Dinajpur</option>
-                <option value="">Rangpur</option>
-                <option value="">Mymensingh</option>
-              </select>
-          </div>
-          </div>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label for="user-type">Choose Division:</label>
+                <select name="division" id="" class="form-control1 w-100" required>
+                  <option value="">All Division</option>
+                  <option value="">Dhaka</option>
+                  <option value="">Khulna</option>
+                  <option value="">Rajshahi</option>
+                  <option value="">Barishal</option>
+                  <option value="">Chittagong</option>
+                  <option value="">Sylhet</option>
+                  <option value="">Dinajpur</option>
+                  <option value="">Rangpur</option>
+                  <option value="">Mymensingh</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="user-type">Choose District:</label>
+                <select name="district" id="" class="form-control1 w-100" required>
+                  <option value="">All District</option>
+                  <option value="">Dhaka</option>
+                  <option value="">Khulna</option>
+                  <option value="">Rajshahi</option>
+                  <option value="">Barishal</option>
+                  <option value="">Chittagong</option>
+                  <option value="">Sylhet</option>
+                  <option value="">Dinajpur</option>
+                  <option value="">Rangpur</option>
+                  <option value="">Mymensingh</option>
+                </select>
+              </div>
+            </div>
           </div>
           <div class="col-md-4 form-group">
             <label for="user-type">Enter Address:</label>
@@ -298,8 +259,8 @@
         </div>
         <div class="row">
           <div class="center-container"> -->
-           
-            <!-- <input type="submit" class="btn btn-black py-3 btn-block" role="button" value="Submit">
+
+  <!-- <input type="submit" class="btn btn-black py-3 btn-block" role="button" value="Submit">
           </div>
         </div>
       </form>

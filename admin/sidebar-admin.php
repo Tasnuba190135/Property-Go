@@ -1,0 +1,41 @@
+<?php
+// Dynamically determine the directory of this navbar file.
+$navbarDir = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(__FILE__)) . '/';
+
+
+// if the logout button pressed
+if (isset($_GET['logout']) == 1) {
+    // Include the SessionManager class from the correct directory
+    // Include the SessionManager class from the correct directory
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/class-file/SessionManager.php';
+    
+    // Create an instance of SessionManager and destroy the session.
+    $session = new SessionManager();
+    $session->destroy();
+
+    unset($_GET['logout']);
+
+    // Redirect to the homepage using JavaScript.
+    echo '<script type="text/javascript">
+            window.location.href = "login.php?logoutMsg=2";
+          </script>';
+    exit;
+}
+?>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+    <h4 class="text-center my-4">Admin Dashboard</h4>
+    <a href="<?= $navbarDir ?>admin-dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard</a>
+    <a href="<?= $navbarDir ?>user-review.php"><i class="fas fa-tachometer-alt me-2"></i> User Review</a>
+    <a href="<?= $navbarDir ?>user-management.php"><i class="fas fa-tachometer-alt me-2"></i> User Management</a>
+    <a href="<?= $navbarDir ?>deleted-user-account.php"><i class="fas fa-tachometer-alt me-2"></i>Delete or retrieve account</a>
+    <a href="<?= $navbarDir ?>edit-user-information.php"><i class="fa-solid fa-pen-to-square me-2"></i> Edit Client's Information</a>
+    <a href="<?= $navbarDir ?>property-review.php"><i class="fas fa-layer-group me-2"></i>Property Review</a>
+    <a href="<?= $navbarDir ?>property-management.php"><i class="fas fa-lock me-2"></i> Property Management</a>
+    <a href="?logout=1" class="mt-auto text-center logout-btn">
+        <i class="fas fa-sign-out-alt me-2"></i> Logout
+    </a>
+</div>
+
+</div>
