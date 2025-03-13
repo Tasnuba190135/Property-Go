@@ -54,20 +54,20 @@ if (isset($_POST['sign_up'])){
     // echo 'Profile Photo' is not uploaded <br>';
   }
   
-  $file3 = new FileManager();
-  $file3->file_owner_id = $user->user_id;
-  $file3->file_id = $file3->insert();
+  // $file3 = new FileManager();
+  // $file3->file_owner_id = $user->user_id;
+  // $file3->file_id = $file3->insert();
 
   $userDetails->profile_picture_id = $file2->file_id;
   $userDetails->nid_file_id = $file1->file_id;
-  $userDetails->other_document_file_id = $file3->file_id;
+  // $userDetails->other_document_file_id = $file3->file_id;
   $userDetails->update();
 
   // echo 'All Completed'<br>
   $session->delete('user');
   $session->set('msg1', 'Please wait for Admin approval');
   // $session->set('msg1_ttl',1);
-  // echo"<script>window.location = 'login.php';</script>";
+  echo"<script>window.location = 'login.php';</script>";
   exit();
 
 }
@@ -197,11 +197,11 @@ select option {
             <label for="fullname">Full Name:</label>
             <input type="text" name="full-name" id="fullname" placeholder="Enter your Full Name" required>
           </div>
-          <div class="input-field">
+          <!-- <div class="input-field">
             <label for="email">Email Address:</label>
             <input type="email" name="email" id="email" placeholder="Enter your email" required>
-          </div>
-          <div class="input-field">
+          </div> -->
+          <!-- <div class="input-field">
             <label for="password">Password:</label>
             <input type="password" name="password" id="password" placeholder="Enter your password" required>
           </div>
@@ -209,10 +209,10 @@ select option {
             <label for="confirm-password">Confirm Password:</label>
             <input type="password" name="confirm-password" id="confirmpassword" placeholder="Confirm your password"
               required>
-          </div>
+          </div> -->
           <div class="input-field">
             <label for="contact">Contact No:</label>
-            <input type="phone" name="contact_no" id="contact" placeholder="Enter your Contact No" required>
+            <input type="tel" name="contact_no" id="contact" placeholder="Enter your Contact No(+8801XXXXXXXXX):" pattern="^\+8801[3-9]\d{8}$" required>
           </div>
 
           <div class="input-field">

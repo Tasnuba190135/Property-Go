@@ -102,8 +102,9 @@ $session = new SessionManager();
                     <h1 class="intro-title mb-4"> Find Your
                       <br><span class="color-b">Perfect
                       Home</span><br>With Us</h1>
+                                            <!-- <a href="#"><span class="price-a btn btn-light btn-bg btn-slide hover-slide-right mt-4">rent | $ 12.000</span></a> -->
+
                     <p class="intro-subtitle intro-price">
-                      <!-- <a href="#"><span class="price-a btn btn-light btn-bg btn-slide hover-slide-right mt-4">rent | $ 12.000</span></a> -->
                    
                         <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
                             <span>Explore Now</span>
@@ -136,7 +137,6 @@ $session = new SessionManager();
                         <br><span class="color-b">Perfect
                         Home</span><br>With Us</h1>
                       <p class="intro-subtitle intro-price">
-                        <!-- <a href="#"><span class="price-a btn btn-light btn-bg btn-slide hover-slide-right mt-4">rent | $ 12.000</span></a> -->
                      
                           <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
                               <span>Explore Now</span>

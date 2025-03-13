@@ -115,10 +115,11 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
                                 $file2 = new FileManager();
                                 $file2->setValueById($userDetails->nid_file_id);
 
-                                $file3 = new FileManager();
-                                $file3->setValueById($userDetails->other_document_file_id);
+                                // $file3 = new FileManager();
+                                // $file3->setValueById($userDetails->other_document_file_id);
 
                                 $collapseId = "collapse{$userId}";
+                                
                                 ?>
                                 <tbody>
                                     <tr>
@@ -161,7 +162,7 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
                                                                                     alt="User image"
                                                                                     class="rounded-4 profile avatar">
 
-                                                                            </div>
+                                                                            
                                                                             <!-- <div class="upload-link" title=""
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="right"
@@ -176,6 +177,7 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
                                                                         <!-- <a href="#"
                                                                             class=" btn btn-primary ms-2">Update</a> -->
                                                                     </div>
+                                                                </div>
                                                                 </div>
                                                            
                                                             <div class="mt-2">

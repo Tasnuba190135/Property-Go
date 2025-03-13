@@ -22,7 +22,9 @@ if(isset($_POST['log_in'])){
         include_once 'pop-up.php';
         showPopup($userCheck[1]);
         $session->storeObject('user', $user);
-        header('Location: index.php');
+        // header('Location: index.php');
+        echo"<script>window.location = 'index.php';</script>";
+
         exit();
 
     }

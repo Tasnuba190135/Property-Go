@@ -19,6 +19,22 @@
 .sidebar a:hover {
     background-color: #5a4ed8;
 }
+.attendant__action form {
+    display: inline-block;
+}
+
+
+.attendant__action {
+    display: flex;
+    gap: 10px; /* Adds spacing between buttons */
+    align-items: center; /* Ensures vertical alignment */
+}
+
+.attendant__action button {
+    
+    font-size: 14px; /* Ensure text consistency */
+    text-align: center;
+}
 
 /* Logout button styling */
 .logout-btn {

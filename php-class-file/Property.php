@@ -10,7 +10,6 @@ class Property
     public $status = 0;
     public $user_id = 0;
     public $note_ids = "";
-    public $sold_to = 0;
     public $property_type = "";
     public $created = "";
     public $updated = "";
@@ -73,10 +72,9 @@ class Property
             1 => ['status',         "ALTER TABLE $table ADD COLUMN status INT NOT NULL"],
             2 => ['user_id',        "ALTER TABLE $table ADD COLUMN user_id INT"],
             3 => ['note_ids',        "ALTER TABLE $table ADD COLUMN note_ids TEXT"],
-            4 => ['sold_to',        "ALTER TABLE $table ADD COLUMN sold_to INT"],
-            5 => ['property_type',  "ALTER TABLE $table ADD COLUMN property_type VARCHAR(50)"],
-            6 => ['created',        "ALTER TABLE $table ADD COLUMN created TIMESTAMP DEFAULT CURRENT_TIMESTAMP"],
-            7 => ['updated',        "ALTER TABLE $table ADD COLUMN updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"]
+            4 => ['property_type',  "ALTER TABLE $table ADD COLUMN property_type VARCHAR(50)"],
+            5 => ['created',        "ALTER TABLE $table ADD COLUMN created TIMESTAMP DEFAULT CURRENT_TIMESTAMP"],
+            6 => ['updated',        "ALTER TABLE $table ADD COLUMN updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"]
         ];
         
         // If a subset of queries is provided, filter the map.
@@ -110,12 +108,11 @@ class Property
     public function insert()
     {
         $this->ensureConnection();
-        $sql = "INSERT INTO tbl_property (status, user_id, note_id, sold_to, property_type)
+        $sql = "INSERT INTO tbl_property (status, user_id, note_id, property_type)
                 VALUES (
                     $this->status,
                     $this->user_id,
                     '$this->note_ids',
-                    $this->sold_to,
                     '$this->property_type'
                 )";
         if (mysqli_query($this->conn, $sql)) {
@@ -142,7 +139,6 @@ class Property
             $this->status = $row['status'];
             $this->user_id = $row['user_id'];
             $this->note_ids = $row['note_ids'];
-            $this->sold_to = $row['sold_to'];
             $this->property_type = $row['property_type'];
             $this->created = $row['created'];
             $this->updated = $row['updated'];
@@ -167,7 +163,6 @@ class Property
                     status = $this->status,
                     user_id = $this->user_id,
                     note_ids = '$this->note_ids',
-                    sold_to = $this->sold_to,
                     property_type = '$this->property_type'
                 WHERE property_id = $this->property_id";
         $result = mysqli_query($this->conn, $sql);
