@@ -6,11 +6,11 @@ class FileManager
     public $file_id = 0;
     public $status = 1; // Default status: Active
     public $file_owner_id = 0;
-    public $file_original_name = '0.jpg';
-    public $file_new_name = '0.jpg';
+    public $file_original_name = "0.jpg";
+    public $file_new_name = "0.jpg";
     public $note_ids = "";
-    public $created;
-    public $updated;
+    public $created = "";
+    public $updated = "";
     private $conn;
 
     /**
@@ -290,8 +290,8 @@ class FileManager
             // Set the destination path in the "../uploads1" directory
             // $destination = 'uploads1/' . $newFileName;
             $destination = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']) . '/file/' . $newFileName;
-            echo $_SERVER['DOCUMENT_ROOT'] . "<br>";
-            echo $destination . "<br>";
+            // echo $_SERVER['DOCUMENT_ROOT'] . "<br>";
+            // echo $destination . "<br>";
 
 
             // Move the uploaded file to the destination directory

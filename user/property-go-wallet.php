@@ -14,18 +14,7 @@
 
 <body>
     <!-- Sidebar -->
-    <div id="sidebar" class="sidebar">
-        <h4 class="text-center my-4">My property</h4>
-        <a href="dashboard.html"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
-        <a href="profile.html"><i class="fas fa-layer-group me-2"></i>My Profile</a>
-        <a href="edit-profile.html"><i class="fa-solid fa-pen-to-square me-2"></i>Edit Profile</a>
-        <a href="property-history.html"><i class="fas fa-lock me-2"></i> Property History</a>
-        <a href="property-go-wallet.html"><i class="fas fa-file-alt me-2"></i> Property Go Wallet</a>
-        <a href="change-password.html"><i class="fas fa-file-alt me-2"></i> password Change</a>
-        <a href="../index.html" class="mt-auto text-center logout-btn">
-            <i class="fas fa-sign-out-alt me-2"></i> Log Out
-        </a>
-    </div>
+    <?php include_once 'sidebar-user.php'; ?>
 
     <!-- Main Content -->
     <div id="main-content" class="main-content">

@@ -9,6 +9,7 @@ class Property
     public $property_id = 0;
     public $status = 0;
     public $user_id = 0;
+    public $sold_to = 0;
     public $note_ids = "";
     public $property_type = "";
     public $created = "";
@@ -71,12 +72,13 @@ class Property
         $alterQueries = [
             1 => ['status',         "ALTER TABLE $table ADD COLUMN status INT NOT NULL"],
             2 => ['user_id',        "ALTER TABLE $table ADD COLUMN user_id INT"],
-            3 => ['note_ids',        "ALTER TABLE $table ADD COLUMN note_ids TEXT"],
+            3 => ['sold_to',        "ALTER TABLE $table ADD COLUMN sold_to INT"],
             4 => ['property_type',  "ALTER TABLE $table ADD COLUMN property_type VARCHAR(50)"],
-            5 => ['created',        "ALTER TABLE $table ADD COLUMN created TIMESTAMP DEFAULT CURRENT_TIMESTAMP"],
-            6 => ['updated',        "ALTER TABLE $table ADD COLUMN updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"]
+            5 => ['note_ids',        "ALTER TABLE $table ADD COLUMN note_ids TEXT"],
+            6 => ['created',        "ALTER TABLE $table ADD COLUMN created TIMESTAMP DEFAULT CURRENT_TIMESTAMP"],
+            7 => ['updated',        "ALTER TABLE $table ADD COLUMN updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"]
         ];
-        
+
         // If a subset of queries is provided, filter the map.
         if ($selectedNums !== null && is_array($selectedNums)) {
             $filteredQueries = [];
@@ -108,10 +110,11 @@ class Property
     public function insert()
     {
         $this->ensureConnection();
-        $sql = "INSERT INTO tbl_property (status, user_id, note_id, property_type)
+        $sql = "INSERT INTO tbl_property (status, user_id, sold_to, note_id, property_type)
                 VALUES (
                     $this->status,
                     $this->user_id,
+                    $this->sold_to,
                     '$this->note_ids',
                     '$this->property_type'
                 )";
@@ -123,7 +126,7 @@ class Property
             return false;
         }
     }
-        /**
+    /**
      * SetValue a property record by property_id.
      * 
      * @return bool|string Returns true if the property is found, or an error message otherwise.
@@ -138,6 +141,7 @@ class Property
             $row = mysqli_fetch_assoc($result);
             $this->status = $row['status'];
             $this->user_id = $row['user_id'];
+            $this->sold_to = $row['sold_to'];
             $this->note_ids = $row['note_ids'];
             $this->property_type = $row['property_type'];
             $this->created = $row['created'];
@@ -162,6 +166,7 @@ class Property
         $sql = "UPDATE tbl_property SET
                     status = $this->status,
                     user_id = $this->user_id,
+                    sold_to = $this->sold_to,
                     note_ids = '$this->note_ids',
                     property_type = '$this->property_type'
                 WHERE property_id = $this->property_id";
@@ -173,5 +178,38 @@ class Property
             return "Error updating record: " . mysqli_error($this->conn);
         }
     }
+
+    /**
+     * Retrieve property rows filtered by user ID and status.
+     *
+     * Both parameters are optional. If provided, the query filters the rows accordingly.
+     *
+     * @param int|null $userId The user ID to filter by. Default is null.
+     * @param int|null $status The property status to filter by. Default is null.
+     * @return array Returns an array of associative arrays representing property rows.
+     */
+    public function getRowsByUserIdAndStatus($userId = null, $status = null)
+    {
+        $sql = "SELECT * FROM tbl_property WHERE 1";
+
+        if ($userId !== null) {
+            $sql .= " AND user_id = " . intval($userId);
+        }
+
+        if ($status !== null) {
+            $sql .= " AND status = " . intval($status);
+        }
+
+        $result = mysqli_query($this->conn, $sql);
+        $rows = [];
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) { 
+                // echo $row['property_id'] . "<br>";
+                $rows[] = $row;
+            }
+        }
+
+        return $rows;
+    }
 }
-?>

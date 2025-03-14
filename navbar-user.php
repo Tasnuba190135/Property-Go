@@ -50,7 +50,7 @@ if (isset($_GET['logout']) == 1) {
                         <a class="nav-link active" href="<?= $navbarDir ?>index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= $navbarDir ?>add_property.php">Add Property</a>
+                        <a class="nav-link" href="<?= $navbarDir ?>add-property.php">Add Property</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= $navbarDir ?>explore_property.php">Explore Property</a>
@@ -75,7 +75,7 @@ if (isset($_GET['logout']) == 1) {
                                     <a href="" class="button-24 ml-auto dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <!-- <a class="dropdown-item" href="Admin Dashboard/Dashbaord.html">View Profile</a> -->
-                                        <a class="dropdown-item" href="user/dashboard.html">View Dashboard</a>
+                                        <a class="dropdown-item" href="user/dashboard.php">View Dashboard</a>
                                         <a class="dropdown-item" href="?logout=1"><i class="fas fa-sign-out-alt me-2"></i>Log Out</a>
                                     </div>
                                 </li>

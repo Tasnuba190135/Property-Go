@@ -14,19 +14,7 @@
 
 <body>
     <!-- Sidebar -->
-    <!-- Sidebar -->
-    <div id="sidebar" class="sidebar">
-        <h4 class="text-center my-4">My Account</h4>
-        <a href="dashboard.html"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
-        <a href="profile.html"><i class="fas fa-layer-group me-2"></i> My Profile</a>
-        <a href="edit-profile.html"><i class="fa-solid fa-pen-to-square me-2"></i>Edit Profile</a>
-        <a href="property-history.html"><i class="fas fa-lock me-2"></i> Property History</a>
-        <a href="property-go-wallet.html"><i class="fas fa-file-alt me-2"></i> Property Go Wallet</a>
-        <a href="change-password.html"><i class="fas fa-file-alt me-2"></i> Password Change</a>
-        <a href="../index.html" class="mt-auto text-center logout-btn">
-            <i class="fas fa-sign-out-alt me-2"></i> Log Out
-        </a>
-    </div>
+    <?php include_once 'sidebar-user.php'; ?>
 
 
     <!-- Main Content -->
@@ -34,7 +22,7 @@
         <!-- Header -->
         <div class="header d-flex justify-content-between align-items-center">
 
-            <h5>DashbOard</h5>
+            <h5>Dashboard</h5>
 
             <!-- Toggle Button -->
             <button class="toggle-btn d-md-none" id="toggle-btn">

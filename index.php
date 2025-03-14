@@ -2,10 +2,10 @@
 include_once 'php-class-file/SessionManager.php';
 $session = new SessionManager();
 
-if(isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
-    include_once 'pop-up.php';
-    showPopup('Logged out successfully!');
-    unset($_GET['logout']);
+if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
+  include_once 'pop-up.php';
+  showPopup('Logged out successfully!');
+  unset($_GET['logout']);
 }
 
 ?>
@@ -43,10 +43,10 @@ if(isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
   <link rel="stylesheet" href="css/agents.css">
 
 
-        <!-- Include Font Awesome (or any icon library) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Include Font Awesome (or any icon library) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    
+
 </head>
 
 <body>
@@ -67,37 +67,38 @@ if(isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
                     <div class="intro-body">
                       <!-- <p class="intro-title-top">Doral, Florida
                       <br> 78345</p> -->
-                    <h1 class="intro-title mb-4"> Find Your
-                      <br><span class="color-b">Perfect
-                      Home</span><br>With Us</h1>
-                                            <!-- <a href="#"><span class="price-a btn btn-light btn-bg btn-slide hover-slide-right mt-4">rent | $ 12.000</span></a> -->
+                      <h1 class="intro-title mb-4"> Find Your
+                        <br><span class="color-b">Perfect
+                          Home</span><br>With Us
+                      </h1>
+                      <!-- <a href="#"><span class="price-a btn btn-light btn-bg btn-slide hover-slide-right mt-4">rent | $ 12.000</span></a> -->
 
-                    <p class="intro-subtitle intro-price">
-                   
-<<<<<<< HEAD
-                        <a href="property-list.php" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
-=======
-                        <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
->>>>>>> df6f6847b508be6acc075c9fe60cade0c3dc93dd
+                      <p class="intro-subtitle intro-price">
+
+                        <<<<<<< HEAD
+                          <a href="property-list.php" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
+                          =======
+                          <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
+                            >>>>>>> df6f6847b508be6acc075c9fe60cade0c3dc93dd
                             <span>Explore Now</span>
                           </a>
-                           </p>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="carousel-item-a intro-item bg-image" style="background-image: url(img/slide-2.jpg)">
-        <div class="overlay overlay-a"></div>
-        <div class="intro-content display-table">
-          <div class="table-cell">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-8">
-                  <div class="intro-body">
-                    <!-- <p class="intro-title-top">Doral, Florida
+        <div class="carousel-item-a intro-item bg-image" style="background-image: url(img/slide-2.jpg)">
+          <div class="overlay overlay-a"></div>
+          <div class="intro-content display-table">
+            <div class="table-cell">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-8">
+                    <div class="intro-body">
+                      <!-- <p class="intro-title-top">Doral, Florida
                       <br> 78345</p>
                     <h1 class="intro-title mb-4">
                       <span class="color-b">204 </span> Rino
@@ -105,36 +106,36 @@ if(isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
                     <p class="intro-subtitle intro-price">
                       <a href="#"><span class="price-a">rent | $ 12.000</span></a>
                     </p> -->
-                    <h1 class="intro-title mb-4"> Find Your
+                      <h1 class="intro-title mb-4"> Find Your
                         <br><span class="color-b">Perfect
                           Home</span><br>With Us
                       </h1>
                       <p class="intro-subtitle intro-price">
-                     
-<<<<<<< HEAD
+
+                        <<<<<<< HEAD
                           <a href="property-list.php" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-5" id="button-container">
-=======
+                          =======
                           <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
->>>>>>> df6f6847b508be6acc075c9fe60cade0c3dc93dd
-                              <span>Explore Now</span>
-                            </a>
-                             </p>
+                            >>>>>>> df6f6847b508be6acc075c9fe60cade0c3dc93dd
+                            <span>Explore Now</span>
+                          </a>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="carousel-item-a intro-item bg-image" style="background-image: url(img/slide-3.jpg)">
-        <div class="overlay overlay-a"></div>
-        <div class="intro-content display-table">
-          <div class="table-cell">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-8">
-                  <div class="intro-body">
-                    <!-- <p class="intro-title-top">Doral, Florida
+        <div class="carousel-item-a intro-item bg-image" style="background-image: url(img/slide-3.jpg)">
+          <div class="overlay overlay-a"></div>
+          <div class="intro-content display-table">
+            <div class="table-cell">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-8">
+                    <div class="intro-body">
+                      <!-- <p class="intro-title-top">Doral, Florida
                       <br> 78345</p>
                     <h1 class="intro-title mb-4">
                       <span class="color-b">204 </span> Alira
@@ -142,19 +143,19 @@ if(isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
                     <p class="intro-subtitle intro-price">
                       <a href="#"><span class="price-a">rent | $ 12.000</span></a>
                     </p> -->
-                    <h1 class="intro-title mb-4"> Find Your
+                      <h1 class="intro-title mb-4"> Find Your
                         <br><span class="color-b">Perfect
-                        Home</span><br>With Us</h1>
+                          Home</span><br>With Us
+                      </h1>
                       <p class="intro-subtitle intro-price">
-<<<<<<< HEAD
-=======
-                        <!-- <a href="#"><span class="price-a btn btn-light btn-bg btn-slide hover-slide-right mt-4">rent | $ 12.000</span></a> -->
->>>>>>> df6f6847b508be6acc075c9fe60cade0c3dc93dd
-                     
+                        <<<<<<< HEAD=======<!-- <a href="#"><span class="price-a btn btn-light btn-bg btn-slide hover-slide-right mt-4">rent | $ 12.000</span></a> -->
+                          >>>>>>> df6f6847b508be6acc075c9fe60cade0c3dc93dd
+
                           <a href="property-list.php" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
-                              <span>Explore Now</span>
-                            </a>
-                             </p>
+                            <span>Explore Now</span>
+                          </a>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -163,8 +164,7 @@ if(isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
   <!--/ Carousel end /-->
 
   <!--/ Services Star /-->
@@ -315,41 +315,41 @@ if(isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
               <img src="img/property-1.jpg" alt="" class="img-d img-fluid">
                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem officia enim amet ipsa repellendus maxime tempora dolor, obcaecati nam animi voluptate eveniet eum saepe a voluptatem, dolorem repudiandae facilis, est libero nulla numquam asperiores. Commodi atque exercitationem maxime debitis deleniti fugiat! Doloribus perferendis reprehenderit voluptatibus saepe possimus cum ipsam! Vero rem laborum quidem doloribus! Mollitia at repellendus distinctio numquam quis ex aliquam unde reprehenderit, natus similique obcaecati, quas dolor. Ratione ullam, debitis impedit consequatur corrupti sint nam soluta animi eveniet similique excepturi voluptate ut fugiat eaque ad unde, exercitationem neque alias voluptates! Minus facere suscipit tempora error eaque animi dolorum.</p>
             </div> -->
-            <!-- Text Side -->
-            <div class="col-md-6">
-                <div class="text-box">
-                    <h2 class="title">Find Your Dream Property</h2>
-                    <p class="description" style="text-align: justify;">
-    Explore a wide range of residential and commercial properties tailored to your needs. Whether you're searching for a cozy family home, a lucrative investment opportunity, or the perfect business space, we have a diverse collection to choose from.  
+        <!-- Text Side -->
+        <div class="col-md-6">
+          <div class="text-box">
+            <h2 class="title">Find Your Dream Property</h2>
+            <p class="description" style="text-align: justify;">
+              Explore a wide range of residential and commercial properties tailored to your needs. Whether you're searching for a cozy family home, a lucrative investment opportunity, or the perfect business space, we have a diverse collection to choose from.
 
-    Our platform ensures that every listing is verified, providing you with a seamless and secure property-buying experience. With expert guidance, competitive pricing, and flexible financing options, finding your dream property has never been easier.  
+              Our platform ensures that every listing is verified, providing you with a seamless and secure property-buying experience. With expert guidance, competitive pricing, and flexible financing options, finding your dream property has never been easier.
 
-    From modern apartments and luxurious villas to commercial offices and retail spaces, we bring you the best deals in prime locations. Start your journey today and make informed decisions with confidence!
-</p>
-<ul class="property-benefits" >
-    <li>✅ Verified Property Listings</li>
-    <li>✅ Affordable Prices & Flexible Payment Options</li>
-    <li>✅ Easy & Secure Transactions</li>
-    <li>✅ Trusted by Thousands of Customers</li>
-    <li>✅ 24/7 Customer Support for Assistance</li>
-    <li>✅ Detailed Property Insights & Virtual Tours</li>
-    <li>✅ Direct Communication with Property Owners</li>
-    <li>✅ Personalized Recommendations Based on Your Preferences</li>
-</ul>
+              From modern apartments and luxurious villas to commercial offices and retail spaces, we bring you the best deals in prime locations. Start your journey today and make informed decisions with confidence!
+            </p>
+            <ul class="property-benefits">
+              <li>✅ Verified Property Listings</li>
+              <li>✅ Affordable Prices & Flexible Payment Options</li>
+              <li>✅ Easy & Secure Transactions</li>
+              <li>✅ Trusted by Thousands of Customers</li>
+              <li>✅ 24/7 Customer Support for Assistance</li>
+              <li>✅ Detailed Property Insights & Virtual Tours</li>
+              <li>✅ Direct Communication with Property Owners</li>
+              <li>✅ Personalized Recommendations Based on Your Preferences</li>
+            </ul>
 
-                    <p class="intro-subtitle intro-price">
-                      <div class="d-flex justify-content-center mt-5">
-                        <a href="latest-property.php" class="btn btn-light btn-bg btn-slide hover-slide-right mt-4 " style="text-align: center;" >
-                            <span>Explore Now</span>
-                        </a>
-                        </div>
-                    </p>
-
-                </div>
+            <p class="intro-subtitle intro-price">
+            <div class="d-flex justify-content-center mt-5">
+              <a href="latest-property.php" class="btn btn-light btn-bg btn-slide hover-slide-right mt-4 " style="text-align: center;">
+                <span>Explore Now</span>
+              </a>
             </div>
+            </p>
+
+          </div>
         </div>
+      </div>
     </div>
-            <!-- <div class="card-overlay card-overlay-hover">
+    <!-- <div class="card-overlay card-overlay-hover">
               <div class="card-header-d">
                 <div class="card-title-d align-self-center">
                   <h3 class="title-d">
@@ -371,30 +371,32 @@ if(isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
                 </div>
               </div>
             </div> -->
-          </div>
-        </div>
+    </div>
+    </div>
 
-            </div>
-            <div class="card-overlay card-overlay-hover">
-              <div class="card-header-d">
-                <div class="card-title-d align-self-center">
-                  <h3 class="title-d">
-                    <a href="agent-single.html" class="link-two">Emma Toledo</a>
-                  </h3>
-                </div>
-              </div>
-              <div class="card-body-d">
-                <p class="content-d color-text-a">
-                  23/7 Sed porttitor lectus nibh, Cras ultricies ligula sed magna dictum porta two.
-                </p>
-                <div class="info-agents color-a">
-                  <p>
-                    <strong>Phone: </strong> +54 356 945234</p>
-                  <p>
-                    <strong>Email: </strong> abc@example.com</p>
-                </div>
-              </div>
-              <!-- <div class="card-footer-d">
+    </div>
+    <div class="card-overlay card-overlay-hover">
+      <div class="card-header-d">
+        <div class="card-title-d align-self-center">
+          <h3 class="title-d">
+            <a href="agent-single.html" class="link-two">Emma Toledo</a>
+          </h3>
+        </div>
+      </div>
+      <div class="card-body-d">
+        <p class="content-d color-text-a">
+          23/7 Sed porttitor lectus nibh, Cras ultricies ligula sed magna dictum porta two.
+        </p>
+        <div class="info-agents color-a">
+          <p>
+            <strong>Phone: </strong> +54 356 945234
+          </p>
+          <p>
+            <strong>Email: </strong> abc@example.com
+          </p>
+        </div>
+      </div>
+      <!-- <div class="card-footer-d">
                 <div class="socials-footer d-flex justify-content-center">
                   <ul class="list-inline">
                     <li class="list-inline-item">
@@ -425,10 +427,10 @@ if(isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
                   </ul>
                 </div>
               </div> -->
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
   </section>
   <!--/ Agents End /-->

@@ -8,7 +8,7 @@ $districtList = new UserDetails();
 $districtList = $districtList->district_array;
 
 
-if (isset($_POST['sign_up'])){
+if (isset($_POST['sign_up'])) {
   include_once 'php-class-file/User.php';
   include_once 'php-class-file/FileManager.php';
   include_once 'php-class-file/NoteManager.php';
@@ -25,7 +25,6 @@ if (isset($_POST['sign_up'])){
   $userDetails->full_name = $_POST['full-name'];
   $userDetails->contact_no = $_POST['contact_no'];
   $userDetails->division = $_POST['division'];
-  $userDetails->district = $_POST['district'];
   $userDetails->address = $_POST['address'];
   $userDetails->gender = $_POST['gender'];
   $userDetails->nid_number = $_POST['nid_number'];
@@ -36,7 +35,7 @@ if (isset($_POST['sign_up'])){
   $file1->file_owner_id = $user->user_id;
   $file1->file_id = $file1->insert();
   $ans = $file1->doOp($_FILES['upload-nid']);
-  if($ans == 1){
+  if ($ans == 1) {
     // echo 'NID File is uploaded <br>';
     $file1->update();
   } else {
@@ -47,13 +46,13 @@ if (isset($_POST['sign_up'])){
   $file2->file_owner_id = $user->user_id;
   $file2->file_id = $file2->insert();
   $ans = $file2->doOp($_FILES['image-upload']);
-  if($ans == 1){
+  if ($ans == 1) {
     // echo 'Profile Photo' is uploaded <br>';
     $file2->update();
   } else {
     // echo 'Profile Photo' is not uploaded <br>';
   }
-  
+
   // $file3 = new FileManager();
   // $file3->file_owner_id = $user->user_id;
   // $file3->file_id = $file3->insert();
@@ -67,9 +66,8 @@ if (isset($_POST['sign_up'])){
   $session->delete('user');
   $session->set('msg1', 'Please wait for Admin approval');
   // $session->set('msg1_ttl',1);
-  echo"<script>window.location = 'login.php';</script>";
+  echo "<script>window.location = 'login.php';</script>";
   exit();
-
 }
 ?>
 <!DOCTYPE html>
@@ -109,15 +107,17 @@ if (isset($_POST['sign_up'])){
   <!-- Include Font Awesome (or any icon library) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
-  select {
-    background-color: black;
-    color: white;
-}
-select option {
-    background-color: black;
-    color: white; /* Ensures text is visible */
-}
-</style>
+    select {
+      background-color: black;
+      color: white;
+    }
+
+    select option {
+      background-color: black;
+      color: white;
+      /* Ensures text is visible */
+    }
+  </style>
 </head>
 
 <body>
@@ -183,7 +183,7 @@ select option {
           <h2 style="color: white;">Sign Up Here</h2>
           <hr>
           <h2>Step 3</h2>
-          <p >Please provide all information to create an account.</p>
+          <p>Please provide all information to create an account.</p>
           <hr>
 
           <div class="input-field">
@@ -229,31 +229,7 @@ select option {
               <option value="mymensingh" id="option1">Mymensingh</option>
             </select>
           </div>
-          <!-- <div class="input-field">
-            <label for="user-type">District:</label>
-            <select name="district" id="user-type" required>
-              <option value="dhaka" id="option1">Dhaka</option>
-              <option value="khulna" id="option1">Khulna</option>
-              <option value="sylhet" id="option1">Sylhet</option>
-              <option value="barisal" id="option1">Barisal</option>
-              <option value="chittagong" id="option1">Chittagong</option>
-              <option value="dinajpur" id="option1">Dinajpur</option>
-              <option value="rajshahi" id="option1">Rajshahi</option>
-              <option value="rangpur" id="option1">Rangpur</option>
-              <option value="mymensingh" id="option1">Mymensingh</option>
-            </select>
-          </div> -->
-          <div class="input-field">
-            <label for="user-type">District:</label>
-            <select name="district" id="user-type" required>
-              <option value="" id="option1">Select District</option>
-              <?php foreach ($districtList as $districtName => $value): ?>
-                                            <option value="<?= htmlspecialchars($districtName) ?>">
-                                                <?= htmlspecialchars($districtName) ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-          </div>
+          
           <div class="input-field">
             <label for="address">Address:</label>
             <input type="text" name="address" id="contact" placeholder="Enter your Address" required>
@@ -261,7 +237,7 @@ select option {
           <div class="input-field gender-field">
             <label for="gender">Gender:</label>
             <div class="radio-group" required>
-            <!-- <select name="gender" id="gender" class="radio-group" required> -->
+              <!-- <select name="gender" id="gender" class="radio-group" required> -->
               <input type="radio" id="male" name="gender" value="male" required>
               <label for="male">Male</label>
               <input type="radio" id="female" name="gender" value="female" required>
@@ -276,7 +252,7 @@ select option {
           </div>
           <div class="image-upload-field">
             <label for="image-upload">Choose NID File:(Scanned Copy)</label>
-            <input type="file" id="image-upload" name="upload-nid"  required>
+            <input type="file" id="image-upload" name="upload-nid" required>
           </div>
           <div class="image-upload-field">
             <label for="image-upload">Choose Image:</label>

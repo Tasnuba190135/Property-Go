@@ -32,7 +32,7 @@ class User
             $db = new DbConnector();
             $db->connect();
             $this->conn = $db->getConnection();
-        }else{
+        } else {
             return 0;
         }
     }
@@ -82,18 +82,18 @@ class User
             7 => ['updated',   "ALTER TABLE $table ADD COLUMN updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"]
         ];
 
-                // If a subset of queries is provided, filter the map.
-                if ($selectedNums !== null && is_array($selectedNums)) {
-                    // Build a new map containing only selected keys.
-                    $filteredQueries = [];
-                    foreach ($selectedNums as $num) {
-                        if (isset($alterQueries[$num])) {
-                            $filteredQueries[$num] = $alterQueries[$num];
-                        }
-                    }
-                    $alterQueries = $filteredQueries;
+        // If a subset of queries is provided, filter the map.
+        if ($selectedNums !== null && is_array($selectedNums)) {
+            // Build a new map containing only selected keys.
+            $filteredQueries = [];
+            foreach ($selectedNums as $num) {
+                if (isset($alterQueries[$num])) {
+                    $filteredQueries[$num] = $alterQueries[$num];
                 }
-        
+            }
+            $alterQueries = $filteredQueries;
+        }
+
 
         // Execute each query.
         foreach ($alterQueries as $num => $queryInfo) {
@@ -136,6 +136,20 @@ class User
     }
 
     /**
+     * Hashes the provided plaintext password and sets the password property.
+     *
+     * This function uses PHP's password_hash() with the PASSWORD_DEFAULT algorithm.
+     *
+     * @param string $password The plaintext password to be hashed.
+     * @return void
+     */
+    public function setHashedPassword($password)
+    {
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+
+    /**
      * SetValue a user record by user_id
      * 
      * @return  bool|string Returns true if the user  is found , false otherwise.
@@ -146,7 +160,7 @@ class User
         $sql = "SELECT * FROM tbl_user WHERE user_id = $user_id LIMIT 1";
         $result = mysqli_query($this->conn, $sql);
 
-        if($result && mysqli_num_rows($result) > 0){
+        if ($result && mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
             $this->status = $row['status'];
             $this->email = $row['email'];
@@ -156,10 +170,10 @@ class User
             $this->created = $row['created'];
             $this->updated = $row['updated'];
             return true;
-    } else {
-        return "No record found for user_id: $user_id";
+        } else {
+            return "No record found for user_id: $user_id";
+        }
     }
-}
 
     /**
      * Update user record based on user_id.
@@ -171,7 +185,7 @@ class User
         if (!$this->user_id) {
             return "User ID is not set. Cannot update.";
         }
-    
+
         $sql = "UPDATE tbl_user SET
                     status = $this->status,
                     email = '$this->email',
@@ -179,11 +193,12 @@ class User
                     user_type = '$this->user_type',
                     note_ids = '$this->note_ids'
                 WHERE user_id = $this->user_id";
-        
-        return mysqli_query($this->conn, $sql) ? true : "Error updating record: " . mysqli_error($this->conn);
 
+        return mysqli_query($this->conn, $sql) ? true : "Error updating record: " . mysqli_error($this->conn);
     }
-        /**
+
+
+    /**
      * Get distinct rows based on user_id and status.
      * 
      * @param int|null $status (Optional) Status filter
@@ -238,7 +253,7 @@ class User
             $hasPendingApproval = false;
             $hasBlocked = false;
             $hasDeclined = false;
-            
+
 
             // Iterate through each row to check statuses
             foreach ($rows as $row) {
@@ -285,14 +300,11 @@ class User
                     $this->update();
                     return ["-1", "Your account registration was declined by the admin. Please register again using <b>this email<b> or other email account."];
                 }
-
-                
+            }
         }
-    }
         // If no account is found, return a default status
         return ["-99", "No account found with the email '$email'."];
-    
-}
+    }
 
 
 
@@ -330,7 +342,3 @@ class User
 
 // $user = new User();
 // $user->alterTableAddColumns([1, 4]);
-
-
-
-?>
