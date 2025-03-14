@@ -141,9 +141,9 @@ $session = new SessionManager();
 
                     <p class="intro-subtitle intro-price">
                    
-                        <!-- <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
+                        <a href="property-list.php" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
                             <span>Explore Now</span>
-                          </a> -->
+                          </a>
                            </p>
                   </div>
                 </div>
@@ -166,9 +166,9 @@ $session = new SessionManager();
                         Home</span><br>With Us</h1>
                       <p class="intro-subtitle intro-price">
                      
-                          <!-- <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-5" id="button-container">
+                          <a href="property-list.php" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-5" id="button-container">
                               <span>Explore Now</span>
-                            </a> -->
+                            </a>
                              </p>
                   </div>
                 </div>
@@ -189,12 +189,12 @@ $session = new SessionManager();
                     <h1 class="intro-title mb-4"> Find Your
                         <br><span class="color-b">Perfect
                         Home</span><br>With Us</h1>
-                      <!-- <p class="intro-subtitle intro-price">
+                      <p class="intro-subtitle intro-price">
                      
-                          <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
+                          <a href="property-list.php" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
                               <span>Explore Now</span>
                             </a>
-                             </p> -->
+                             </p>
                   </div>
                 </div>
               </div>
@@ -312,7 +312,7 @@ $session = new SessionManager();
               <h2 class="title-a">Latest Properties</h2>
             </div>
             <div class="title-link">
-              <a href="property-explore.php">All Properties
+              <a href="latest-property.php">All Properties
                 <span class="fa fa-arrow-right"></span>
               </a>
             </div>
@@ -377,7 +377,7 @@ $session = new SessionManager();
 
                     <p class="intro-subtitle intro-price">
                       <div class="d-flex justify-content-center mt-5">
-                        <a href="property-explore.php" class="btn btn-light btn-bg btn-slide hover-slide-right mt-4 " style="text-align: center;" >
+                        <a href="latest-property.php" class="btn btn-light btn-bg btn-slide hover-slide-right mt-4 " style="text-align: center;" >
                             <span>Explore Now</span>
                         </a>
                         </div>
