@@ -1,3 +1,18 @@
+<?php
+// Include necessary PHP class files (adjust paths as needed)
+include_once '../php-class-file/SessionManager.php';
+include_once '../php-class-file/User.php';
+include_once '../php-class-file/Property.php';
+include_once '../php-class-file/PropertyDetails.php';
+
+// TODO: action
+
+// Retrieve properties for this user
+$property = new Property();
+$properties = $property->getRowsByUserIdAndStatus(null, 0);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,8 +82,7 @@
             list-style-type: none !important;
         }
     </style>
-
-
+    
 </head>
 
 <body>
@@ -111,92 +125,94 @@
                     <table id="userTable" class="display">
                         <thead>
                             <tr>
-                                <th>Item Name</th>
-                                <th>ID</th>
+                                <th>Property title</th>
+                                <th>Property ID</th>
                                 <th>Created</th>
-                                <th>User Status</th>
                                 <th>Details</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>304 Blaster Up</td>
+                            <?php
+                            if (!empty($properties)) {
+                                foreach ($properties as $prop) {
+                                    // Load property details for the current property_id
+                                    $propertyDetails = new PropertyDetails();
+                                    $propertyDetails->setValueByPropertyId($prop['property_id']);
 
-                                <td>24312312</td>
-                                <td>12-02-2023</td>
+                                    // $file load
+                            ?>
+                                    <tr>
+                                        <td><?php echo $propertyDetails->property_title; ?></td>
 
-                                <td>
-                                    <div class="attendant__status">
-                                        <span class="attendant__status--pending">Pending</span>
-                                    </div>
-                                </td>
-                                <!-- <td>
+                                        <td><?php echo $propertyDetails->property_id; ?></td>
+                                        <td><?php echo $propertyDetails->created; ?></td>
+                                        <!-- <td>
                                     <div class="attendant__action">
                                             <button class="btn btn-primary">Details</button>
                                     </div>
                                 </td> -->
-                                <td>
-                                    <div class="attendant__action">
-                                        <!-- <div class="d-flex align-items-center justify-content-center gap-10"> -->
-                                        <button class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">Details</button>
+                                        <td>
+                                            <div class="attendant__action">
+                                                <!-- <div class="d-flex align-items-center justify-content-center gap-10"> -->
+                                                <button class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal">Details</button>
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                            Property Review in Detail</h1>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                                    Property Review in Detail</h1>
 
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
 
-                                                    <div>
-                                                        <!--/ Intro Single star /-->
-                                                        <section class="intro-single modal-intro-single-section">
-                                                            <div class="container">
-                                                                <div class="row">
-                                                                    <div class="col-md-12 col-lg-8">
-                                                                        <div class="title-single-box">
-                                                                            <h1 class="title-single">304 Blaster Up(For
-                                                                                Sale)</h1>
-                                                                            <span class="color-text-a">23/7 Dhanmondi,
-                                                                                Dhaka</span>
+                                                            <div>
+                                                                <!--/ Intro Single star /-->
+                                                                <section class="intro-single modal-intro-single-section">
+                                                                    <div class="container">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12 col-lg-8">
+                                                                                <div class="title-single-box">
+                                                                                    <h1 class="title-single">304 Blaster Up(For
+                                                                                        Sale)</h1>
+                                                                                    <span class="color-text-a">23/7 Dhanmondi,
+                                                                                        Dhaka</span>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        </section>
-                                                        <!--/ Intro Single End /-->
+                                                                </section>
+                                                                <!--/ Intro Single End /-->
 
-                                                        <!--/ Property Single Star /-->
-                                                        <section class="property-single nav-arrow-b">
-                                                            <div class="container">
-                                                                <div class="row">
-                                                                    <div class="col-sm-12">
+                                                                <!--/ Property Single Star /-->
+                                                                <section class="property-single nav-arrow-b">
+                                                                    <div class="container">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
 
-                                                                        <div id="property-single-carousel"
-                                                                            class="owl-carousel owl-arrow gallery-property">
-                                                                            <div class="carousel-item-b">
-                                                                                <img src="img/slide-2.jpg" alt="">
-                                                                            </div>
-                                                                            <div class="carousel-item-b">
-                                                                                <img src="img/slide-3.jpg" alt="">
-                                                                            </div>
-                                                                            <div class="carousel-item-b">
-                                                                                <img src="img/slide-1.jpg" alt="">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row justify-content-between">
-                                                                            <div class="col-md-5 col-lg-4">
-                                                                                <div
-                                                                                    class="property-price d-flex justify-content-center foo">
-                                                                                    <div class="card-header-c d-flex">
-                                                                                        <!-- <div class="card-box-ico">
+                                                                                <div id="property-single-carousel"
+                                                                                    class="owl-carousel owl-arrow gallery-property">
+                                                                                    <div class="carousel-item-b">
+                                                                                        <img src="img/slide-2.jpg" alt="">
+                                                                                    </div>
+                                                                                    <!-- <div class="carousel-item-b">
+                                                                                        <img src="img/slide-3.jpg" alt="">
+                                                                                    </div>
+                                                                                    <div class="carousel-item-b">
+                                                                                        <img src="img/slide-1.jpg" alt="">
+                                                                                    </div> -->
+                                                                                </div>
+                                                                                <div class="row justify-content-between">
+                                                                                    <div class="col-md-5 col-lg-4">
+                                                                                        <div
+                                                                                            class="property-price d-flex justify-content-center foo">
+                                                                                            <div class="card-header-c d-flex">
+                                                                                                <!-- <div class="card-box-ico">
                                                                                             <span class="ion-money">15
                                                                                             </span>
                                                                                         </div>
@@ -205,223 +221,176 @@
                                                                                             <h5 class="title-c">Lakh
                                                                                             </h5>
                                                                                         </div> -->
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="property-summary">
-                                                                                    <div class="row">
-                                                                                        <div class="col-sm-12">
-                                                                                            <div
-                                                                                                class="title-box-d section-t4">
-                                                                                                <h3 class="title-d">
-                                                                                                    Type: For Sale</h3>
                                                                                             </div>
-                                                                                            <div
-                                                                                                class="title-box-d section-t2">
-                                                                                                <h3 class="title-d">
-                                                                                                    Quick Summary</h3>
+                                                                                        </div>
+                                                                                        <div class="property-summary">
+                                                                                            <div class="row">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <div
+                                                                                                        class="title-box-d section-t4">
+                                                                                                        <h3 class="title-d">
+                                                                                                            Type: For Sale</h3>
+                                                                                                    </div>
+                                                                                                    <div
+                                                                                                        class="title-box-d section-t2">
+                                                                                                        <h3 class="title-d">
+                                                                                                            Quick Summary</h3>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="summary-list">
+                                                                                                <ul class="list">
+                                                                                                    <li
+                                                                                                        class="d-flex justify-content-between">
+                                                                                                        <strong>Property
+                                                                                                            ID:</strong>
+                                                                                                        <span>1134</span>
+                                                                                                    </li>
+                                                                                                    <li
+                                                                                                        class="d-flex justify-content-between">
+                                                                                                        <strong>Property
+                                                                                                            Type:</strong>
+                                                                                                        <span>Residential</span>
+                                                                                                    </li>
+
+                                                                                                    <li
+                                                                                                        class="d-flex justify-content-between">
+                                                                                                        <strong>Division:</strong>
+                                                                                                        <span>Dhaka</span>
+                                                                                                    </li>
+                                                                                                    <li
+                                                                                                        class="d-flex justify-content-between">
+                                                                                                        <strong>Location:</strong>
+                                                                                                        <span>24/7
+                                                                                                            Dhanmondi,Dhaka</span>
+                                                                                                    </li>
+                                                                                                    <li
+                                                                                                        class="d-flex justify-content-between">
+                                                                                                        <strong>BedRooms:</strong>
+                                                                                                        <span>4</span>
+                                                                                                    </li>
+                                                                                                    <li
+                                                                                                        class="d-flex justify-content-between">
+                                                                                                        <strong>BathRooms:</strong>
+                                                                                                        <span>2</span>
+                                                                                                    </li>
+                                                                                                    <li
+                                                                                                        class="d-flex justify-content-between">
+                                                                                                        <strong>Price:</strong>
+                                                                                                        <span>15lakh</span>
+                                                                                                    </li>
+                                                                                                    <li
+                                                                                                        class="d-flex justify-content-between">
+                                                                                                        <strong>Area:</strong>
+                                                                                                        <span>340m
+                                                                                                            <sup>2</sup>
+                                                                                                        </span>
+                                                                                                    </li>
+                                                                                                </ul>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="summary-list">
-                                                                                        <ul class="list">
-                                                                                            <li
-                                                                                                class="d-flex justify-content-between">
-                                                                                                <strong>Property
-                                                                                                    ID:</strong>
-                                                                                                <span>1134</span>
-                                                                                            </li>
-                                                                                            <li
-                                                                                                class="d-flex justify-content-between">
-                                                                                                <strong>Property
-                                                                                                    Type:</strong>
-                                                                                                <span>Residential</span>
-                                                                                            </li>
-                                                                                            <!-- <li class="d-flex justify-content-between">
-                      <strong>Status:</strong>
-                      <span>Sale</span>
-                    </li> -->
-                                                                                            <li
-                                                                                                class="d-flex justify-content-between">
-                                                                                                <strong>Division:</strong>
-                                                                                                <span>Dhaka</span>
-                                                                                            </li>
-                                                                                            <li
-                                                                                                class="d-flex justify-content-between">
-                                                                                                <strong>Location:</strong>
-                                                                                                <span>24/7
-                                                                                                    Dhanmondi,Dhaka</span>
-                                                                                            </li>
-                                                                                            <li
-                                                                                                class="d-flex justify-content-between">
-                                                                                                <strong>BedRooms:</strong>
-                                                                                                <span>4</span>
-                                                                                            </li>
-                                                                                            <li
-                                                                                                class="d-flex justify-content-between">
-                                                                                                <strong>BathRooms:</strong>
-                                                                                                <span>2</span>
-                                                                                            </li>
-                                                                                            <li
-                                                                                                class="d-flex justify-content-between">
-                                                                                                <strong>Price:</strong>
-                                                                                                <span>15lakh</span>
-                                                                                            </li>
-                                                                                            <li
-                                                                                                class="d-flex justify-content-between">
-                                                                                                <strong>Area:</strong>
-                                                                                                <span>340m
-                                                                                                    <sup>2</sup>
-                                                                                                </span>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-md-7 col-lg-7 section-md-t3">
-                                                                                <div class="row">
-                                                                                    <div class="col-sm-12">
-                                                                                        <div class="title-box-d">
-                                                                                            <h3 class="title-d">Property
-                                                                                                Description</h3>
+                                                                                    <div
+                                                                                        class="col-md-7 col-lg-7 section-md-t3">
+                                                                                        <div class="row">
+                                                                                            <div class="col-sm-12">
+                                                                                                <div class="title-box-d">
+                                                                                                    <h3 class="title-d">Property
+                                                                                                        Description</h3>
+                                                                                                </div>
+                                                                                            </div>
                                                                                         </div>
+                                                                                        <div class="property-description">
+                                                                                            <p class="description color-text-a">
+                                                                                                Vestibulum ante ipsum primis in
+                                                                                                faucibus orci luctus et ultrices
+                                                                                                posuere cubilia Curae; Donec
+                                                                                                velit
+                                                                                                neque, auctor sit amet
+                                                                                                aliquam vel, ullamcorper sit
+                                                                                                amet ligula. Cras ultricies
+                                                                                                ligula sed magna dictum porta.
+                                                                                                Curabitur aliquet quam id dui
+                                                                                                posuere blandit. Mauris blandit
+                                                                                                aliquet elit, eget tincidunt
+                                                                                                nibh pulvinar quam id dui
+                                                                                                posuere blandit.
+                                                                                            </p>
+                                                                                            <p
+                                                                                                class="description color-text-a no-margin">
+                                                                                                Curabitur arcu erat, accumsan id
+                                                                                                imperdiet et, porttitor at sem.
+                                                                                                Donec rutrum congue leo eget
+                                                                                                malesuada. Quisque velit nisi,
+                                                                                                pretium ut lacinia in, elementum
+                                                                                                id enim. Donec sollicitudin
+                                                                                                molestie malesuada.
+                                                                                            </p>
+                                                                                        </div>
+
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="property-description">
-                                                                                    <p class="description color-text-a">
-                                                                                        Vestibulum ante ipsum primis in
-                                                                                        faucibus orci luctus et ultrices
-                                                                                        posuere cubilia Curae; Donec
-                                                                                        velit
-                                                                                        neque, auctor sit amet
-                                                                                        aliquam vel, ullamcorper sit
-                                                                                        amet ligula. Cras ultricies
-                                                                                        ligula sed magna dictum porta.
-                                                                                        Curabitur aliquet quam id dui
-                                                                                        posuere blandit. Mauris blandit
-                                                                                        aliquet elit, eget tincidunt
-                                                                                        nibh pulvinar quam id dui
-                                                                                        posuere blandit.
-                                                                                    </p>
-                                                                                    <p
-                                                                                        class="description color-text-a no-margin">
-                                                                                        Curabitur arcu erat, accumsan id
-                                                                                        imperdiet et, porttitor at sem.
-                                                                                        Donec rutrum congue leo eget
-                                                                                        malesuada. Quisque velit nisi,
-                                                                                        pretium ut lacinia in, elementum
-                                                                                        id enim. Donec sollicitudin
-                                                                                        molestie malesuada.
-                                                                                    </p>
-                                                                                </div>
-                                                                                <div class="row section-t3">
-                                                                                    <div class="col-sm-12">
-                                                                                        <!-- <div class="title-box-d">
-                    <h3 class="title-d">Amenities</h3>
-                  </div> -->
+                                                                            </div>
+                                                                            <div class="col-md-10 offset-md-1">
+                                                                                <ul class="nav nav-pills-a nav-pills mb-3 section-t3"
+                                                                                    id="pills-tab" role="tablist">
+                                                                                    <li class="nav-item">
+                                                                                        <a class="nav-link active"
+                                                                                            id="pills-video-tab"
+                                                                                            data-toggle="pill"
+                                                                                            href="#pills-video" role="tab"
+                                                                                            aria-controls="pills-video"
+                                                                                            aria-selected="true">Video</a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                                <div class="tab-content" id="pills-tabContent">
+                                                                                    <div class="tab-pane fade show active"
+                                                                                        id="pills-video" role="tabpanel"
+                                                                                        aria-labelledby="pills-video-tab">
+                                                                                        <iframe
+                                                                                            src="https://player.vimeo.com/video/73221098"
+                                                                                            width="100%" height="460"
+                                                                                            frameborder="0"
+                                                                                            webkitallowfullscreen
+                                                                                            mozallowfullscreen
+                                                                                            allowfullscreen></iframe>
                                                                                     </div>
-                                                                                </div>
-                                                                                <div
-                                                                                    class="amenities-list color-text-a">
-                                                                                    <ul class="list-a no-margin">
-                                                                                        <li>Balcony</li>
-                                                                                        <li>Outdoor Kitchen</li>
-                                                                                        <li>Cable Tv</li>
-                                                                                        <li>Deck</li>
-                                                                                        <li>Tennis Courts</li>
-                                                                                        <li>Internet</li>
-                                                                                        <li>Parking</li>
-                                                                                        <li>Sun Room</li>
-                                                                                        <li>Concrete Flooring</li>
-                                                                                    </ul>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-md-10 offset-md-1">
-                                                                        <ul class="nav nav-pills-a nav-pills mb-3 section-t3"
-                                                                            id="pills-tab" role="tablist">
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link active"
-                                                                                    id="pills-video-tab"
-                                                                                    data-toggle="pill"
-                                                                                    href="#pills-video" role="tab"
-                                                                                    aria-controls="pills-video"
-                                                                                    aria-selected="true">Video</a>
-                                                                            </li>
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link" id="pills-plans-tab"
-                                                                                    data-toggle="pill"
-                                                                                    href="#pills-plans" role="tab"
-                                                                                    aria-controls="pills-plans"
-                                                                                    aria-selected="false">Floor
-                                                                                    Plans</a>
-                                                                            </li>
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link" id="pills-map-tab"
-                                                                                    data-toggle="pill" href="#pills-map"
-                                                                                    role="tab" aria-controls="pills-map"
-                                                                                    aria-selected="false">Ubication</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="tab-content" id="pills-tabContent">
-                                                                            <div class="tab-pane fade show active"
-                                                                                id="pills-video" role="tabpanel"
-                                                                                aria-labelledby="pills-video-tab">
-                                                                                <iframe
-                                                                                    src="https://player.vimeo.com/video/73221098"
-                                                                                    width="100%" height="460"
-                                                                                    frameborder="0"
-                                                                                    webkitallowfullscreen
-                                                                                    mozallowfullscreen
-                                                                                    allowfullscreen></iframe>
-                                                                            </div>
-                                                                            <div class="tab-pane fade" id="pills-plans"
-                                                                                role="tabpanel"
-                                                                                aria-labelledby="pills-plans-tab">
-                                                                                <img src="img/plan2.jpg" alt=""
-                                                                                    class="img-fluid">
-                                                                            </div>
-                                                                            <div class="tab-pane fade" id="pills-map"
-                                                                                role="tabpanel"
-                                                                                aria-labelledby="pills-map-tab">
-                                                                                <iframe
-                                                                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1422937950147!2d-73.98731968482413!3d40.75889497932681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes+Square!5e0!3m2!1ses-419!2sve!4v1510329142834"
-                                                                                    width="100%" height="460"
-                                                                                    frameborder="0" style="border:0"
-                                                                                    allowfullscreen></iframe>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- <a href="payment.html"
+                                                                        <!-- <a href="payment.html"
                                                                     class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4 btn-explore">
                                                                     <span>Proceed To Go Ahead</span>
                                                                 </a> -->
+                                                                    </div>
+
+                                                                </section>
+
                                                             </div>
 
-                                                        </section>
-
+                                                        </div>
                                                     </div>
-
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
 
-                                </td>
+                                        </td>
 
-                                <td>
-                                    <div class="attendant__action">
-                                        <button class="btn btn-success">Approve</button>
-                                        <button class="btn btn-danger ms-2">Reject</button>
-                                    </div>
+                                        <td>
+                                            <div class="attendant__action">
+                                                <button class="btn btn-success">Approve</button>
+                                                <button class="btn btn-danger ms-2">Reject</button>
+                                            </div>
                 </div>
                 </td>
                 </tr>
-
-                </tbody>
-                </table>
+        <?php
+                                }
+                            } else {
+                                echo "<p>No properties found.</p>";
+                            }
+        ?>
+        </tbody>
+        </table>
             </div>
         </div>
     </div>

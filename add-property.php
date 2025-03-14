@@ -103,6 +103,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
       $propertyDetails->description = $propertyDescription;
 
       $propertyDetails->property_image_file_ids = implode(',', $imageFileIds);
+      // [1,2,3] -> "1,2,3"
+      // ans = explode(',',$propertyDetails->property_image_file_ids );
       $propertyDetails->property_video_file_ids = $videoFileId;
 
       $propertyDetails->insert();
