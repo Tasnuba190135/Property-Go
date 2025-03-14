@@ -60,21 +60,7 @@ $userList = array_merge($userListActive ?: [], $userListDisable ?: []);
 </head>
 
 <body>
-    <!-- Sidebar -->
-    <div id="sidebar" class="sidebar">
-        <h4 class="text-center my-4">Admin Dashboard</h4>
-        <a href="admin-dashboard.html"><i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard</a>
-        <a href="user-review.html"><i class="fas fa-tachometer-alt me-2"></i> User Review</a>
-        <a href="user-management.html"><i class="fas fa-tachometer-alt me-2"></i> User Management</a>
-        <a href="user-account-recovery.html"><i class="fas fa-tachometer-alt me-2"></i> User Account Recovery</a>
-        <a href="edit-user-information.html"><i class="fa-solid fa-pen-to-square me-2"></i> Edit Client's
-            Information</a>
-        <a href="property-review.html"><i class="fas fa-layer-group me-2"></i>Property Review</a>
-        <a href="property-management.html"><i class="fas fa-lock me-2"></i> Property Management</a>
-        <a href="#" class="mt-auto text-center logout-btn">
-            <i class="fas fa-sign-out-alt me-2"></i> Logout
-        </a>
-    </div>
+    <?php include_once 'sidebar-admin.php'; ?>
 
     <!-- Main Content -->
     <div id="main-content" class="main-content">

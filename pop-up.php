@@ -32,14 +32,14 @@ function showPopup($message = "Notification", $title = "Information", $icon = "f
     
     <style>
         body {
-            padding: 20px;
+            /* padding: 20px; */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         /* Notification container */
         .notification-container {
             position: fixed;
-            top: 20px;
+            top: 30px;
             right: 20px;
             z-index: 1050;
             display: flex;

@@ -44,46 +44,7 @@
 </head>
 
 <body>
-  <header>
-    <!-- nav start -->
-     <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
-         <div class="container">
-             <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
-             aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-             <span></span>
-             <span></span>
-             <span></span> 
-             </button>
-
-           <a class="navbar-brand text-brand" href="index.html">PROPERTY<span class="color-b"> GO</span></a>
-
-             <div class="navbar-collapse collapse justify-content-lg-end" id="navbarDefault">
-                 <ul class="navbar-nav">
-                     <li class="nav-item">
-                         <a class="nav-link active" href="index.html">Home</a>
-                     </li>
-                     <li class="nav-item">
-                      <a class="nav-link" href="add_property.html">Add Property</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="explore_property.html">Explore Property</a>
-                  </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="about.html">About Us</a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="contact.html">Contact Us</a>
-                     </li>
-                 </ul>
-                </div>
-                 <!-- LOG IN button inside the navbar collapse -->
-                  <div class="navbar-collapse collapse justify-content-xl-end" id="navbarDefault">
-                 <button class="button-85 ml-auto" onclick="location.href='login.html'" role="button">LOG IN</button>
-                </div>
-         </div>
-     </nav>
-     <!--/ Nav End /-->
- </header>
+<?php include_once 'navbar-user.php'; ?>
 
   <div class="ftco-blocks-cover-1">
     <div class="site-section-cover overlay" data-stellar-background-ratio="0.5"

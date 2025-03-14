@@ -172,8 +172,6 @@ class User
             return "User ID is not set. Cannot update.";
         }
     
-       
-
         $sql = "UPDATE tbl_user SET
                     status = $this->status,
                     email = '$this->email',
