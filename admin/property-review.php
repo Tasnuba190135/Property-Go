@@ -27,17 +27,17 @@
     <link rel="stylesheet" href="../css/property.css">
     <!-- <link rel="stylesheet" href="login.css"> -->
 
-      <!-- Favicon -->
-  <link href="img/favicon.ico" rel="icon">
-  <link rel="stylesheet" href="fonts/icomoon/style.css">
-  <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700&display=swap" rel="stylesheet">
 
-  <!-- <link rel="stylesheet" href="fonts/icomoon/style.css"> -->
-   <link rel="stylesheet" href="../fonts/icomoon/style.css">
+    <!-- <link rel="stylesheet" href="fonts/icomoon/style.css"> -->
+    <link rel="stylesheet" href="../fonts/icomoon/style.css">
 
-  <!-- Favicons -->
-  <link href="img/favicon.png" rel="icon">
-  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Favicons -->
+    <link href="img/favicon.png" rel="icon">
+    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
 
 
@@ -149,7 +149,7 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                           Property Review in Detail</h1>
+                                                            Property Review in Detail</h1>
 
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
@@ -429,16 +429,16 @@
 
     <!-- JavaScript -->
 
-      <!-- JavaScript Libraries -->
-  <script src="../lib/jquery/jquery.min.js"></script>
-  <script src="../lib/jquery/jquery-migrate.min.js"></script>
-  <script src="../lib/popper/popper.min.js"></script>
-  <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../lib/easing/easing.min.js"></script>
-  <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="../lib/scrollreveal/scrollreveal.min.js"></script>
-  <!-- Contact Form JavaScript File -->
-  <script src="../css/contactform/contactform.js"></script>
+    <!-- JavaScript Libraries -->
+    <script src="../lib/jquery/jquery.min.js"></script>
+    <script src="../lib/jquery/jquery-migrate.min.js"></script>
+    <script src="../lib/popper/popper.min.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../lib/scrollreveal/scrollreveal.min.js"></script>
+    <!-- Contact Form JavaScript File -->
+    <script src="../css/contactform/contactform.js"></script>
 
 
     <!-- Bootstrap JS -->
@@ -461,7 +461,7 @@
 
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#userTable').DataTable(); // Initialize DataTables on #userTable
         });
 
