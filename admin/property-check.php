@@ -73,10 +73,10 @@ if (isset($_GET['propertyId'])) {
 </head>
 
 <body>
-  <h2 style="text-align: center;">Property Review in detail</h2>
+  <h1 style="text-align: center; padding: 30px 0;">Property Review in detail</h1>
 
   <!--/ Intro Single star /-->
-  <section class="intro-single">
+  <section class="intro-single1">
     <div class="container">
       <div class="row">
         <div class="col-md-12 col-lg-8">
@@ -198,28 +198,6 @@ if (isset($_GET['propertyId'])) {
   </section>
 
   <!-- Footer -->
-  <footer>
-    <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
-      <div class="container py-5">
-        <div class="row g-5">
-          <div class="col-lg-3 col-md-6">
-            <h5 class="text-white mb-4">Get In Touch</h5>
-            <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-            <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <h5 class="text-white mb-4">Quick Links</h5>
-            <a class="btn btn-link text-white-50" href="">About Us</a>
-            <a class="btn btn-link text-white-50" href="">Contact Us</a>
-            <a class="btn btn-link text-white-50" href="">Our Services</a>
-            <a class="btn btn-link text-white-50" href="">Privacy Policy</a>
-            <a class="btn btn-link text-white-50" href="">Terms & Condition</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
 
   <!-- JavaScript Libraries -->
   <script src="../lib/jquery/jquery.min.js"></script>
