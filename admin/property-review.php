@@ -6,7 +6,42 @@ include_once '../php-class-file/Property.php';
 include_once '../php-class-file/PropertyDetails.php';
 include_once '../pop-up.php';
 
-// TODO: action
+// $session = new SessionManager();
+
+if (isset($_POST['approve']) || isset($_POST['reject'])) {
+    $property = new Property();
+    $propertyDetails = new PropertyDetails();
+
+    $property_id = $_POST['property_id'];
+
+    if (isset($_POST['approve'])) {
+        $property->property_id = $property_id;
+        $property->setValue();
+        $property->status = 1;
+        $property->update();
+
+        $propertyDetails->setValueByPropertyId($property->property_id);
+        $propertyDetails->status = 1;
+        $propertyDetails->update();
+
+        include_once '../pop-up.php';
+        showPopup("Accepted");
+    }
+    // Check if 'reject' button was clicked and set status to 0 (rejected)
+    elseif (isset($_POST['reject'])) {
+        $property->property_id = $property_id;
+        $property->setValue();
+        $property->status = 0;
+        $property->update();
+
+        $propertyDetails->setValueByPropertyId($property->property_id);
+        $propertyDetails->status = 0;
+        $propertyDetails->update();
+
+        include_once '../pop-up.php';
+        showPopup("Rejected");
+    }
+}
 
 // Retrieve properties for this user
 $property = new Property();
@@ -33,7 +68,6 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-
     <!-- Template Stylesheet -->
     <link href="../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -41,23 +75,13 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
     <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/property.css">
-    <!-- <link rel="stylesheet" href="login.css"> -->
-
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
     <link rel="stylesheet" href="fonts/icomoon/style.css">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700&display=swap" rel="stylesheet">
-
-    <!-- <link rel="stylesheet" href="fonts/icomoon/style.css"> -->
     <link rel="stylesheet" href="../fonts/icomoon/style.css">
-
-    <!-- Favicons -->
     <link href="img/favicon.png" rel="icon">
     <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
-
-
-
-
 
     <style>
         .modal-dialog {
@@ -74,7 +98,6 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
             padding: 60px 0px !important;
         }
 
-
         .modal-dialog-scrollable .modal-content {
             overflow-y: auto !important;
         }
@@ -82,34 +105,30 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
         ul li {
             list-style-type: none !important;
         }
+
+
+        /* Set the carousel image size and ensure full view without cropping */
+        #propertyCarousel .carousel-inner img {
+            width: 500px;
+            height: 500px;
+            object-fit: contain;
+            margin: auto;
+            /* Center the image horizontally */
+        }
     </style>
-    
+
+
 </head>
 
 <body>
     <!-- Sidebar -->
-    <div id="sidebar" class="sidebar">
-        <h4 class="text-center my-4" style="color: #ffffff;">Admin Dashboard</h4>
-        <a href="admin-dashboard.html"><i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard</a>
-        <a href="user-review.html"><i class="fas fa-tachometer-alt me-2"></i> User Review</a>
-        <a href="user-management.html"><i class="fas fa-tachometer-alt me-2"></i> User Management</a>
-        <a href="user-account-recovery.html"><i class="fas fa-tachometer-alt me-2"></i> User Account Recovery</a>
-        <a href="edit-user-information.html"><i class="fa-solid fa-pen-to-square me-2"></i> Edit Client's
-            Information</a>
-        <a href="property-review.html"><i class="fas fa-layer-group me-2"></i>Property Review</a>
-        <a href="property-management.html"><i class="fas fa-lock me-2"></i> Property Management</a>
-        <a href="#" class="mt-auto text-center logout-btn">
-            <i class="fas fa-sign-out-alt me-2"></i> Logout
-        </a>
-    </div>
+    <?php include_once 'sidebar-admin.php'; ?>
 
     <!-- Main Content -->
     <div id="main-content" class="main-content">
         <!-- Header -->
         <div class="header d-flex justify-content-between align-items-center">
-
             <h5>Property Review</h5>
-
             <!-- Toggle Button -->
             <button class="toggle-btn d-md-none" id="toggle-btn">
                 <i class="fas fa-bars"></i>
@@ -140,21 +159,14 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
                                     // Load property details for the current property_id
                                     $propertyDetails = new PropertyDetails();
                                     $propertyDetails->setValueByPropertyId($prop['property_id']);
-
-                                    // $file load
                             ?>
                                     <tr>
                                         <td><?php echo $propertyDetails->property_title; ?></td>
-
                                         <td><?php echo $propertyDetails->property_id; ?></td>
                                         <td><?php echo $propertyDetails->created; ?></td>
-                                        <!-- <td>
-                                    <div class="attendant__action">
-                                            <button class="btn btn-primary">Details</button>
-                                    </div>
-                                </td> -->
                                         <td>
                                             <div class="attendant__action">
+<<<<<<< HEAD
                                                 <!-- <div class="d-flex align-items-center justify-content-center gap-10"> -->
                                                 <button class="btn btn-primary" data-bs-toggle="modal"
                                                     data-bs-target="#exampleModal">Details</button>
@@ -350,30 +362,37 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
                                                         </div>
                                                     </div>
                                                 </div>
+=======
+                                                <a href="property-check.php?propertyId=<?php echo $propertyDetails->property_id; ?>" target="_blank" class="btn btn-primary">Details</a>
+>>>>>>> 5b15be2fd66fdd7164c3666a70dcd49cb2acb2bd
                                             </div>
-
                                         </td>
 
                                         <td>
                                             <div class="attendant__action">
-                                                <button class="btn btn-success">Approve</button>
-                                                <button class="btn btn-danger ms-2">Reject</button>
+                                                <form method="POST" action="">
+                                                    <!-- Hidden property_id field to pass along with form submission -->
+                                                    <input type="hidden" name="property_id" value="<?php echo $propertyDetails->property_id; ?>" />
+                                                    <button type="submit" name="approve" value="1" class="btn btn-success">Approve</button>
+                                                    <button type="submit" name="reject" value="0" class="btn btn-danger">Reject</button>
+                                                </form>
+
                                             </div>
-                </div>
-                </td>
-                </tr>
-        <?php
+                                        </td>
+                                    </tr>
+                            <?php
                                 }
                             } else {
                                 echo "<p>No properties found.</p>";
                             }
-        ?>
-        </tbody>
-        </table>
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    </div>
+
 
     <!-- JavaScript -->
 
@@ -388,25 +407,19 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
     <!-- Contact Form JavaScript File -->
     <script src="../css/contactform/contactform.js"></script>
 
-
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="../lib/easing/easing.min.js"></script>
     <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="../lib/scrollreveal/scrollreveal.min.js"></script>
 
-
     <!-- Template Main Javascript File -->
     <script src="../js/main.js"></script>
     <script src="js/service.js"></script>
-
-
-
 
     <script>
         $(document).ready(function() {
