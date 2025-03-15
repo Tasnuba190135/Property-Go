@@ -172,10 +172,10 @@ class Property
                 WHERE property_id = $this->property_id";
         $result = mysqli_query($this->conn, $sql);
         if ($result) {
-            echo "Property record updated successfully.<br>";
+            // echo "Property record updated successfully.<br>";
             return true;
         } else {
-            return "Error updating record: " . mysqli_error($this->conn);
+            // return "Error updating record: " . mysqli_error($this->conn);
         }
     }
 

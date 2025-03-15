@@ -211,9 +211,9 @@ class PropertyDetails
                 WHERE property_details_id = $this->property_details_id";
         $result = mysqli_query($this->conn, $sql);
         if ($result) {
-            echo "Property details record updated successfully.<br>";
+            // echo "Property details record updated successfully.<br>";
         } else {
-            "Error updating record: " . mysqli_error($this->conn);
+            // "Error updating record: " . mysqli_error($this->conn);
         }
         return $result;
     }
