@@ -73,7 +73,7 @@ if (isset($_GET['logout']) == 1) {
                             <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto m-0 p-0">
                                 <li class="nav-item dropdown">
                                     <a href="" class="button-24 ml-auto dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account</a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <!-- <a class="dropdown-item" href="Admin Dashboard/Dashbaord.html">View Profile</a> -->
                                         <a class="dropdown-item" href="user/dashboard.php">View Dashboard</a>
                                         <a class="dropdown-item" href="?logout=1"><i class="fas fa-sign-out-alt me-2"></i>Log Out</a>
@@ -81,6 +81,7 @@ if (isset($_GET['logout']) == 1) {
                                 </li>
                             </ul>
                         </nav>
+                        
                         <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right">
                             <span class="icon-menu h3"></span>
                         </a>

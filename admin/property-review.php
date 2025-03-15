@@ -4,6 +4,7 @@ include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/Property.php';
 include_once '../php-class-file/PropertyDetails.php';
+include_once '../pop-up.php';
 
 // TODO: action
 
@@ -178,10 +179,8 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
                                                                         <div class="row">
                                                                             <div class="col-md-12 col-lg-8">
                                                                                 <div class="title-single-box">
-                                                                                    <h1 class="title-single">304 Blaster Up(For
-                                                                                        Sale)</h1>
-                                                                                    <span class="color-text-a">23/7 Dhanmondi,
-                                                                                        Dhaka</span>
+                                                                                    <h1 class="title-single"><?php echo $propertyDetails->property_title; ?></h1>
+                                                                                    <span class="color-text-a"><?php echo $propertyDetails->address; ?></span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -198,7 +197,7 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
                                                                                 <div id="property-single-carousel"
                                                                                     class="owl-carousel owl-arrow gallery-property">
                                                                                     <div class="carousel-item-b">
-                                                                                        <img src="img/slide-2.jpg" alt="">
+                                                                                        <img src="/img/person_1-min.jpg" alt="">
                                                                                     </div>
                                                                                     <!-- <div class="carousel-item-b">
                                                                                         <img src="img/slide-3.jpg" alt="">
@@ -229,7 +228,7 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
                                                                                                     <div
                                                                                                         class="title-box-d section-t4">
                                                                                                         <h3 class="title-d">
-                                                                                                            Type: For Sale</h3>
+                                                                                                            Type: <?php echo $property->property_type; ?></h3>
                                                                                                     </div>
                                                                                                     <div
                                                                                                         class="title-box-d section-t2">
@@ -244,45 +243,44 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
                                                                                                         class="d-flex justify-content-between">
                                                                                                         <strong>Property
                                                                                                             ID:</strong>
-                                                                                                        <span>1134</span>
+                                                                                                        <span><?php echo $propertyDetails-> property_id; ?></span>
                                                                                                     </li>
                                                                                                     <li
                                                                                                         class="d-flex justify-content-between">
                                                                                                         <strong>Property
-                                                                                                            Type:</strong>
-                                                                                                        <span>Residential</span>
+                                                                                                            Category:</strong>
+                                                                                                        <span><?php echo $propertyDetails->property_category; ?></span>
                                                                                                     </li>
 
                                                                                                     <li
                                                                                                         class="d-flex justify-content-between">
                                                                                                         <strong>Division:</strong>
-                                                                                                        <span>Dhaka</span>
+                                                                                                        <span><?php echo $propertyDetails->division; ?></span>
                                                                                                     </li>
                                                                                                     <li
                                                                                                         class="d-flex justify-content-between">
-                                                                                                        <strong>Location:</strong>
-                                                                                                        <span>24/7
-                                                                                                            Dhanmondi,Dhaka</span>
+                                                                                                        <strong>Address:</strong>
+                                                                                                        <span><?php echo $propertyDetails->address ?></span>
                                                                                                     </li>
                                                                                                     <li
                                                                                                         class="d-flex justify-content-between">
                                                                                                         <strong>BedRooms:</strong>
-                                                                                                        <span>4</span>
+                                                                                                        <span><?php echo $propertyDetails->bedroom_no; ?></span>
                                                                                                     </li>
                                                                                                     <li
                                                                                                         class="d-flex justify-content-between">
                                                                                                         <strong>BathRooms:</strong>
-                                                                                                        <span>2</span>
+                                                                                                        <span><?php echo $propertyDetails->bathroom_no; ?></span>
                                                                                                     </li>
                                                                                                     <li
                                                                                                         class="d-flex justify-content-between">
                                                                                                         <strong>Price:</strong>
-                                                                                                        <span>15lakh</span>
+                                                                                                        <span><?php echo $propertyDetails->price; ?></span>
                                                                                                     </li>
                                                                                                     <li
                                                                                                         class="d-flex justify-content-between">
                                                                                                         <strong>Area:</strong>
-                                                                                                        <span>340m
+                                                                                                        <span><?php echo $propertyDetails->area; ?>
                                                                                                             <sup>2</sup>
                                                                                                         </span>
                                                                                                     </li>
@@ -302,31 +300,12 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
                                                                                         </div>
                                                                                         <div class="property-description">
                                                                                             <p class="description color-text-a">
-                                                                                                Vestibulum ante ipsum primis in
-                                                                                                faucibus orci luctus et ultrices
-                                                                                                posuere cubilia Curae; Donec
-                                                                                                velit
-                                                                                                neque, auctor sit amet
-                                                                                                aliquam vel, ullamcorper sit
-                                                                                                amet ligula. Cras ultricies
-                                                                                                ligula sed magna dictum porta.
-                                                                                                Curabitur aliquet quam id dui
-                                                                                                posuere blandit. Mauris blandit
-                                                                                                aliquet elit, eget tincidunt
-                                                                                                nibh pulvinar quam id dui
-                                                                                                posuere blandit.
+                                                                                               <?php echo $propertyDetails->description;?>
                                                                                             </p>
-                                                                                            <p
-                                                                                                class="description color-text-a no-margin">
-                                                                                                Curabitur arcu erat, accumsan id
-                                                                                                imperdiet et, porttitor at sem.
-                                                                                                Donec rutrum congue leo eget
-                                                                                                malesuada. Quisque velit nisi,
-                                                                                                pretium ut lacinia in, elementum
-                                                                                                id enim. Donec sollicitudin
-                                                                                                molestie malesuada.
-                                                                                            </p>
+                                                                                            
+                                                                                           
                                                                                         </div>
+                                                                                        
 
                                                                                     </div>
                                                                                 </div>
