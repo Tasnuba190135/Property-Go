@@ -9,6 +9,8 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
 }
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
