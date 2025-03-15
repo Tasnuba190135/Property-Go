@@ -32,7 +32,7 @@ if (isset($_POST['approve']) || isset($_POST['reject'])) {
     elseif (isset($_POST['reject'])) {
         $property->property_id = $property_id;
         $property->setValue();
-        $property->status = 0;
+        $property->status = -1;
         $property->update();
 
         $propertyDetails->setValueByPropertyId($property->property_id);
@@ -54,10 +54,10 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
 <html lang="en">
 
 <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Dashboard - Profile</title>
-
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -65,25 +65,8 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Template Stylesheet -->
-    <link href="../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/navbar.css">
-    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/property.css">
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../fonts/icomoon/style.css">
-    <link href="img/favicon.png" rel="icon">
-    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
-
+</head>
     <style>
         .modal-dialog {
             max-width: 1050px !important;
@@ -177,7 +160,7 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
                                                     <!-- Hidden property_id field to pass along with form submission -->
                                                     <input type="hidden" name="property_id" value="<?php echo $propertyDetails->property_id; ?>" />
                                                     <button type="submit" name="approve" value="1" class="btn btn-success">Approve</button>
-                                                    <button type="submit" name="reject" value="0" class="btn btn-danger">Reject</button>
+                                                    <button type="submit" name="reject" value="-1" class="btn btn-danger">Reject</button>
                                                 </form>
 
                                             </div>
