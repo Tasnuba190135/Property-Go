@@ -204,7 +204,7 @@ class Property
         $rows = [];
 
         if ($result && mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) { 
+            while ($row = mysqli_fetch_assoc($result)) {
                 // echo $row['property_id'] . "<br>";
                 $rows[] = $row;
             }
@@ -212,4 +212,24 @@ class Property
 
         return $rows;
     }
+
+    /**
+     * Extract only the property_id values from a list of property rows.
+     *
+     * @param array $properties An array of rows (e.g. from getRowsByUserIdAndStatus).
+     * @return array An array of property_id values.
+     */
+    public function getIdsarray(array $properties)
+    {
+        $ids = [];
+        foreach ($properties as $row) {
+            if (isset($row['property_id'])) {
+                $ids[] = $row['property_id'];
+            }
+        }
+        return $ids;
+    }
 }
+
+?>
+// end

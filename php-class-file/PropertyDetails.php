@@ -341,6 +341,44 @@ class PropertyDetails
 
         return $rows;
     }
+
+    /**
+     * Retrieve property details rows filtered by a list of property IDs and an optional status.
+     *
+     * @param array $property_ids An array of property IDs to filter by.
+     * @param int|null $status The status to filter by (optional).
+     * @return array An array of associative arrays representing the matching property details rows.
+     */
+    public function getRowsByPropertyIdsAndStatus(array $property_ids = [], $status = null)
+    {
+        // Start with a basic query
+        $sql = "SELECT * FROM tbl_property_details WHERE 1";
+
+        // If we have property IDs in the array, build an IN clause
+        if (!empty($property_ids)) {
+            // Safely convert each ID to an integer
+            $idList = implode(',', array_map('intval', $property_ids));
+            $sql .= " AND property_id IN ($idList)";
+        }
+
+        // If status is provided, add it to the query
+        if ($status !== null) {
+            $sql .= " AND status = " . intval($status);
+        }
+
+        // Execute the query
+        $result = mysqli_query($this->conn, $sql);
+        $rows = [];
+
+        // Fetch and store the result set in an array
+        if ($result && mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $rows[] = $row;
+            }
+        }
+
+        return $rows;
+    }
 }
 
 // end
