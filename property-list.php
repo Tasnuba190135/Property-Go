@@ -153,7 +153,7 @@
                   <div class="price-box d-flex">
                     <span class="price-a">rent | $ 12.000</span>
                   </div>
-                  <a href="property-single.html" class="link-a">Click here to view
+                  <a href="property-single.php" class="link-a">Click here to view
                     <span class="ion-ios-arrow-forward"></span>
                   </a>
                 </div>
@@ -200,7 +200,7 @@
                   <div class="price-box d-flex">
                     <span class="price-a">rent | $ 12.000</span>
                   </div>
-                  <a href="property-single.html" class="link-a">Click here to view
+                  <a href="property-single.php" class="link-a">Click here to view
                     <span class="ion-ios-arrow-forward"></span>
                   </a>
                 </div>
@@ -247,7 +247,7 @@
                   <div class="price-box d-flex">
                     <span class="price-a">rent | $ 12.000</span>
                   </div>
-                  <a href="property-single.html" class="link-a">Click here to view
+                  <a href="property-single.php" class="link-a">Click here to view
                     <span class="ion-ios-arrow-forward"></span>
                   </a>
                 </div>
@@ -294,7 +294,7 @@
                   <div class="price-box d-flex">
                     <span class="price-a">rent | $ 12.000</span>
                   </div>
-                  <a href="property-single.html" class="link-a">Click here to view
+                  <a href="property-single.php" class="link-a">Click here to view
                     <span class="ion-ios-arrow-forward"></span>
                   </a>
                 </div>
