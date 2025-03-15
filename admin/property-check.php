@@ -73,7 +73,7 @@ if (isset($_GET['propertyId'])) {
 </head>
 
 <body>
-  
+  <h2 style="text-align: center;">Property Review in detail</h2>
 
   <!--/ Intro Single star /-->
   <section class="intro-single">
@@ -191,8 +191,8 @@ if (isset($_GET['propertyId'])) {
         </div>
 
       </div>
-      <a href="payment.html" class="btn btn-light btn-bg btn-slide hover-slide-right mt-4 btn-explore">
-        <span>Proceed To Go Ahead</span>
+      <a href="property-review.php" class="btn btn-light btn-bg btn-slide hover-slide-right mt-4 btn-explore">
+        <span>Back To Property Review</span>
       </a>
     </div>
   </section>
