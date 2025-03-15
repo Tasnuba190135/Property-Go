@@ -380,5 +380,6 @@ class PropertyDetails
         return $rows;
     }
 }
+?>
 
-// end
+<!-- end -->

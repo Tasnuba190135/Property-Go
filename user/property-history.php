@@ -86,8 +86,8 @@ $properties = $property->getRowsByUserIdAndStatus($user->user_id);
                         <p><strong>Status:</strong> <?php echo $statusText; ?></p>
                         <p><strong>Type:</strong> <?php echo $prop['property_type'] ?></p>
                         <div class="d-flex justify-content-between mt-3">
-                          <a href="../user-property-single-history.html" class="btn btn-info btn-sm">View</a>
-                          <a href="../explore_property.html" class="btn btn-warning btn-sm">Edit</a>
+                          <a href="../property-single.php?propertyId=<?php echo $propertyDetails->property_id; ?>" class="btn btn-info btn-sm">View</a>
+                          <a href="edit-property.php?propertyId=<?php echo $propertyDetails->property_id; ?>" class="btn btn-warning btn-sm">Edit</a>
                         </div>
                       </div>
                     </div>

@@ -61,6 +61,8 @@ if (isset($_GET['propertyId'])) {
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
@@ -69,12 +71,13 @@ if (isset($_GET['propertyId'])) {
     <!-- <link rel="stylesheet" href="login.css"> -->
     <!-- <link rel="stylesheet" href="css/agents.css"> -->
 
+
     <!-- Include Font Awesome (or any icon library) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         .swiper {
             width: 100%;
-            height: 100%;
+            height: 500px;
         }
 
         .swiper-slide {
@@ -99,46 +102,8 @@ if (isset($_GET['propertyId'])) {
 </head>
 
 <body>
-    <header>
-        <!-- nav start -->
-        <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
-            <div class="container">
-                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
-                    aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
 
-                <a class="navbar-brand text-brand" href="index.html">PROPERTY<span class="color-b"> GO</span></a>
-
-                <div class="navbar-collapse collapse justify-content-lg-end" id="navbarDefault">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="add_property.html">Add Property</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="explore_property.html">Explore Property</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact Us</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- LOG IN button inside the navbar collapse -->
-                <div class="navbar-collapse collapse justify-content-xl-end" id="navbarDefault">
-                    <button class="button-85 ml-auto" onclick="location.href='login.html'" role="button">LOG IN</button>
-                </div>
-            </div>
-        </nav>
-        <!--/ Nav End /-->
-    </header>
+<?php include_once 'navbar-user.php'; ?>
 
     <!--/ Intro Single star /-->
     <section class="intro-single">
@@ -344,7 +309,6 @@ if (isset($_GET['propertyId'])) {
             </div>
         </div>
     </div>
-    </div>
     <!-- Footer End -->
 
 </footer>
@@ -362,20 +326,20 @@ if (isset($_GET['propertyId'])) {
 <!-- Contact Form JavaScript File -->
 <script src="contactform/contactform.js"></script>
 <script src="../lib/jquery/jquery.min.js"></script>
-  <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="../js/main.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="../js/main.js"></script>
 
-  <!-- Initialize Swiper -->
-  <script>
+<!-- Initialize Swiper -->
+<script>
     var swiper = new Swiper(".mySwiper", {
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
     });
-  </script>
+</script>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>

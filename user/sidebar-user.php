@@ -22,6 +22,9 @@ if (isset($_POST['logout'])) {
 <!-- Sidebar -->
 <div id="sidebar" class="sidebar">
     <h4 class="text-center my-4">My Account</h4>
+    <a href="<?= $rootDir ?>index.php">
+        <i class="fas fa-tachometer-alt me-2"></i> Home
+    </a>
     <a href="<?= $navbarDir ?>dashboard.php">
         <i class="fas fa-tachometer-alt me-2"></i> Dashboard
     </a>

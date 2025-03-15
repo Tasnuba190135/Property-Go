@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
       $propertyDetails->insert();
 
       $session->set('msg1', 'Property added successfully.');
-      header('Location: add-property.php');
+      echo "<script>window.location.href.reload();</script>";
       exit();
     } else {
       $session->set('msg1', 'Failed to add property.');

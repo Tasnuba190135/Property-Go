@@ -222,14 +222,12 @@ class Property
     public function getIdsarray(array $properties)
     {
         $ids = [];
-        foreach ($properties as $row) {
-            if (isset($row['property_id'])) {
-                $ids[] = $row['property_id'];
-            }
+        for($i = 0; $i < count($properties); $i++) {
+            $ids[] = $properties[$i]['property_id'];
         }
         return $ids;
     }
 }
 
 ?>
-// end
+<!-- end -->
