@@ -191,9 +191,9 @@ if (isset($_GET['propertyId'])) {
         </div>
 
       </div>
-      <a href="property-review.php" class="btn btn-light btn-bg btn-slide hover-slide-right mt-4 btn-explore">
+      <!-- <a href="property-review.php" class="btn btn-light btn-bg btn-slide hover-slide-right mt-4 btn-explore">
         <span>Back To Property Review</span>
-      </a>
+      </a> -->
     </div>
   </section>
 
