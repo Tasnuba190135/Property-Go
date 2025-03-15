@@ -73,7 +73,7 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
                           Home</span><br>With Us
                       </h1>
                       <p class="intro-subtitle intro-price">
-                        <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
+                        <a href="property-list.php" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
                           <span>Explore Now</span>
                         </a>
                       </p>
@@ -105,7 +105,7 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
                           Home</span><br>With Us
                       </h1>
                       <p class="intro-subtitle intro-price">
-                        <a href="index.html" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
+                        <a href="property-list.php" class=" btn btn-light btn-bg btn-slide hover-slide-right mt-4">
                           <span>Explore Now</span>
                         </a>
                       </p>
