@@ -166,7 +166,6 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
                                         <td><?php echo $propertyDetails->created; ?></td>
                                         <td>
                                             <div class="attendant__action">
-<<<<<<< HEAD
                                                 <!-- <div class="d-flex align-items-center justify-content-center gap-10"> -->
                                                 <button class="btn btn-primary" data-bs-toggle="modal"
                                                     data-bs-target="#exampleModal">Details</button>
@@ -362,9 +361,6 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
                                                         </div>
                                                     </div>
                                                 </div>
-=======
-                                                <a href="property-check.php?propertyId=<?php echo $propertyDetails->property_id; ?>" target="_blank" class="btn btn-primary">Details</a>
->>>>>>> 5b15be2fd66fdd7164c3666a70dcd49cb2acb2bd
                                             </div>
                                         </td>
 
