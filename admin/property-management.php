@@ -11,23 +11,25 @@ if (isset($_POST['archive'])) {
     $propertyDetails = new PropertyDetails();
 
     $property_id = $_POST['property_id'];
-    $new_status = $_POST['archive'] == 2 ? 2 : 1; // 2 for Archive, 1 for Unarchive
+    $status = $_POST['archive'] == 2 ? 2 : 1; // 2 for Archive, 1 for Unarchive
 
     $property->property_id = $property_id;
     $property->setValue();
-    $property->status = $new_status;
+    $property->status = $status;
     $property->update();
 
     $propertyDetails->setValueByPropertyId($property->property_id);
-    $propertyDetails->status = $new_status;
+    $propertyDetails->status = $status;
     $propertyDetails->update();
 
     include_once '../pop-up.php';
-    showPopup($new_status == 2 ? "Archived" : "Unarchived");
+    showPopup($status == 2 ? "Archived" : "Unarchived");
 }
 
 $property = new Property();
 $properties = $property->getRowsByUserIdAndStatus(null);
+
+;
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +53,7 @@ $properties = $property->getRowsByUserIdAndStatus(null);
     <?php include_once 'sidebar-admin.php'; ?>
     <div id="main-content" class="main-content">
         <div class="header d-flex justify-content-between align-items-center">
-            <h5>Property Review</h5>
+            <h5>Property Management</h5>
             <button class="toggle-btn d-md-none" id="toggle-btn">
                 <i class="fas fa-bars"></i>
             </button>
@@ -60,7 +62,7 @@ $properties = $property->getRowsByUserIdAndStatus(null);
         <div class="container mt-4">
             <div class="card__wrapper">
                 <div class="card__title-wrap mb-20">
-                    <h3 class="table__heading-title">Property Review</h3>
+                    <h3 class="table__heading-title">Property Management</h3>
                 </div>
                 <div class="attendant__wrapper ">
                     <table id="userTable" class="display">

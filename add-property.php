@@ -109,9 +109,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
       $propertyDetails->insert();
 
-      $session->set('msg1', 'Property added successfully.');
-      echo "<script>window.location.href.reload();</script>";
-      exit();
+      // $session->set('msg1', 'Property added successfully.');
+      // echo "<script>window.location.href.reload();</script>";
+      include_once 'pop-up.php';
+      showPopup('Property added Successfully');
+      // exit();
     } else {
       $session->set('msg1', 'Failed to add property.');
     }
@@ -191,7 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
       <div class="container tab-content">
         <form method="post" enctype="multipart/form-data" action="" id="for-sale">
           <div class="row">
-            <div class="col-md-4 form-group">
+            <div class="col-md-12 form-group">
               <label for="user-type">Property title:</label>
               <input type="text" class="form-control1 w-100" name="property-title" placeholder="Titile" required>
             </div>
@@ -257,14 +259,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
           </div>
 
           <div class="row">
-            <div class="col-md-4 form-group">
+            <div class="col-md-12 form-group">
               <label for="property-description">Enter Property Description:</label>
               <textarea id="property-description" class="form-control2 w-100" name="property-description" placeholder="Enter Property Description" required></textarea>
             </div>
           </div>
 
           <div class="row">
-            <div class="center-container">
+            <div class="center-container" style="padding-top: 50px;">
               <input type="submit" class="btn btn-black py-3 btn-block" name="submit" value="Submit">
             </div>
           </div>

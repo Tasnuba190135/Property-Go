@@ -134,7 +134,7 @@ if ($session->getObject('admin_user') !== null) {
                             HOMEPAGE</span></button> -->
                     <!-- <hr> -->
                     <?php if ($alreadyLoggedIn === false) { ?>
-                    <form method="post" action="admin-dashboard.html" enctype="multipart/form-data">
+                    <form method="post" action="admin-dashboard.php" enctype="multipart/form-data">
                     <h2>Login Here</h2>
                     <!-- <p class="signup-text1">Please Login using User ID and Password</p> -->
                     <hr>
