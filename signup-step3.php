@@ -137,13 +137,13 @@ if (isset($_POST['sign_up'])) {
         <div class="navbar-collapse collapse justify-content-lg-end" id="navbarDefault">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" href="index.html">Home</a>
+              <a class="nav-link active" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="add_property.html">Add Property</a>
+              <a class="nav-link" href="add_property.php">Add Property</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="explore_property.html">Explore Property</a>
+              <a class="nav-link" href="explore_property.php">Explore Property</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="about.html">About Us</a>

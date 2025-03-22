@@ -110,7 +110,7 @@ class Property
     public function insert()
     {
         $this->ensureConnection();
-        $sql = "INSERT INTO tbl_property (status, user_id, sold_to, note_id, property_type)
+        $sql = "INSERT INTO tbl_property (status, user_id, sold_to, note_ids, property_type)
                 VALUES (
                     $this->status,
                     $this->user_id,

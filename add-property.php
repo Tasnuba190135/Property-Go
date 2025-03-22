@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $price               = $_POST['price'];
     $area                = $_POST['area'];
     $propertyDescription = $_POST['property-description'];
+    echo $propertyTitle."<br>";
 
     // Handle file uploads for multiple images and a single video
     $imageFilesOriginal = $_FILES['upload-image'];
@@ -87,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $property->property_type = $propertyCategory;
 
     $insertedPropertyId = $property->insert();
+    echo $insertedPropertyId."<br>";
 
     if ($insertedPropertyId) {
       // Insert property details record

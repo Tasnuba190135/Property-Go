@@ -76,7 +76,7 @@
 
   <div class="realestate-tabpane pb-5">
     <div class="container tab-content">
-      <form method="post" action="property-grid.html" id="for-buy">
+      <form method="post" action="property-grid.php" id="for-buy">
         <div class="row">
           <div class="col-md-4 form-group">
             <label for="user-type">Choose Property Category:</label>

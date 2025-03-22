@@ -7,7 +7,7 @@ $navbarDir = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(__FILE__)) . '/'
 if (isset($_GET['logout']) == 1) {
     // Include the SessionManager class from the correct directory
     // Include the SessionManager class from the correct directory
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/class-file/SessionManager.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/php-class-file/SessionManager.php';
     
     // Create an instance of SessionManager and destroy the session.
     $session = new SessionManager();
