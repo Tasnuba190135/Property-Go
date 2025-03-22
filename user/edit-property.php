@@ -3,7 +3,6 @@
 include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/Property.php';
-include_once '../php-class-file/PropertyDetails.php';
 include_once '../php-class-file/FileManager.php';
 
 $session = new SessionManager();
@@ -13,15 +12,16 @@ $sUser   = $session->getObject("user");
 $propertyId = isset($_GET['propertyId']) ? intval($_GET['propertyId']) : 0;
 
 // Instantiate PropertyDetails and load the data
-$propertyDetails = new PropertyDetails();
-$propertyDetails->setValueByPropertyId($propertyId);
+$property = new Property();
+$property->getByPropertyIdAndStatus($propertyId);
 
-$imageFileIds = explode(',', $propertyDetails->property_image_file_ids);
+$imageFileIds = explode(',', $property->property_image_file_ids);
 $imageFileIds = array_filter(array_map('trim', $imageFileIds));
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,6 +53,7 @@ $imageFileIds = array_filter(array_map('trim', $imageFileIds));
   <link rel="stylesheet" href="../css/navbar.css">
   <link rel="stylesheet" href="../css/property.css">
 </head>
+
 <body>
   <?php include_once 'sidebar-user.php'; ?>
 
@@ -80,8 +81,7 @@ $imageFileIds = array_filter(array_map('trim', $imageFileIds));
                   name="property-title"
                   placeholder="Title"
                   required
-                  value="<?php echo htmlspecialchars($propertyDetails->property_title); ?>"
-                >
+                  value="<?php echo $property->property_title; ?>">
               </div>
             </div>
 
@@ -90,8 +90,8 @@ $imageFileIds = array_filter(array_map('trim', $imageFileIds));
               <div class="col-md-4 form-group">
                 <label for="property_category">Choose Property Category:</label>
                 <select name="property_category" class="form-control1 w-100" required>
-                  <?php 
-                    $currentCategory = $propertyDetails->property_category;
+                  <?php
+                  $currentCategory = $property->property_category;
                   ?>
                   <option value="residential"
                     <?php echo ($currentCategory === 'residential') ? 'selected' : ''; ?>>
@@ -101,25 +101,28 @@ $imageFileIds = array_filter(array_map('trim', $imageFileIds));
                     <?php echo ($currentCategory === 'commercial') ? 'selected' : ''; ?>>
                     Commercial
                   </option>
-                  <option value="both"
-                    <?php echo ($currentCategory === 'both') ? 'selected' : ''; ?>>
-                    Both
-                  </option>
                 </select>
               </div>
               <div class="col-md-4 form-group">
                 <label for="division">Choose Division:</label>
                 <select name="division" class="form-control1 w-100" required>
-                  <?php 
-                    $currentDivision = $propertyDetails->division;
-                    $divisions = [
-                      'dhaka','khulna','rajshahi','barishal','chittagong',
-                      'sylhet','dinajpur','rangpur','mymensingh'
-                    ];
-                    foreach ($divisions as $d) {
-                      $selected = ($currentDivision === $d) ? 'selected' : '';
-                      echo "<option value='{$d}' {$selected}>".ucfirst($d)."</option>";
-                    }
+                  <?php
+                  $currentDivision = $property->division;
+                  $divisions = [
+                    'dhaka',
+                    'khulna',
+                    'rajshahi',
+                    'barishal',
+                    'chittagong',
+                    'sylhet',
+                    'dinajpur',
+                    'rangpur',
+                    'mymensingh'
+                  ];
+                  foreach ($divisions as $d) {
+                    $selected = ($currentDivision === $d) ? 'selected' : '';
+                    echo "<option value='{$d}' {$selected}>" . ucfirst($d) . "</option>";
+                  }
                   ?>
                 </select>
               </div>
@@ -131,8 +134,7 @@ $imageFileIds = array_filter(array_map('trim', $imageFileIds));
                   name="location"
                   placeholder="Address"
                   required
-                  value="<?php echo htmlspecialchars($propertyDetails->address); ?>"
-                >
+                  value="<?php echo ($property->address); ?>">
               </div>
             </div>
 
@@ -146,8 +148,7 @@ $imageFileIds = array_filter(array_map('trim', $imageFileIds));
                   name="bedroom"
                   placeholder="Choose Bedrooms"
                   required
-                  value="<?php echo htmlspecialchars($propertyDetails->bedroom_no); ?>"
-                >
+                  value="<?php echo ($property->bedroom_no); ?>">
               </div>
               <div class="col-md-4 form-group">
                 <label for="bathroom">Choose Bathrooms:</label>
@@ -157,8 +158,7 @@ $imageFileIds = array_filter(array_map('trim', $imageFileIds));
                   name="bathroom"
                   placeholder="Choose Bathrooms"
                   required
-                  value="<?php echo htmlspecialchars($propertyDetails->bathroom_no); ?>"
-                >
+                  value="<?php echo ($property->bathroom_no); ?>">
               </div>
               <div class="col-md-4 form-group">
                 <label for="price">Enter Price:</label>
@@ -168,139 +168,156 @@ $imageFileIds = array_filter(array_map('trim', $imageFileIds));
                   class="form-control1 w-100"
                   placeholder="Please Enter the Price"
                   required
-                  value="<?php echo htmlspecialchars($propertyDetails->price); ?>"
-                >
+                  value="<?php echo ($property->price); ?>">
               </div>
             </div>
 
             <!-- Image, Video, Area -->
             <div class="row">
-            <div class="row mb-3">
-  <div class="col-md-12">
-    <label>Existing Images:</label>
-    <?php if (!empty($imageFileIds)): ?>
-      <div class="d-flex flex-wrap">
-        <?php foreach ($imageFileIds as $fileId): ?>
-          <?php
-            // Retrieve file info from FileManager
-            $file = new FileManager();
-            $file->setValueById($fileId);
+              <div class="col-md-4 form-group">
+                <label for="upload-image">Upload Image:</label>
+                <input
+                  type="file"
+                  id="upload-image"
+                  name="upload-image[]"
+                  class="form-control1 w-100"
+                  multiple>
+              </div>
+              <div class="col-md-8 form-group">
+                <label>Existing Images:</label>
+                <?php if (!empty($imageFileIds)): ?>
+                  <div class="d-flex flex-wrap">
+                    <?php foreach ($imageFileIds as $fileId): ?>
+                      <?php
+                      // Retrieve file info from FileManager
+                      $file = new FileManager();
+                      $file->setValueById($fileId);
 
-            // The "file_new_name" is the unique name stored on the server
-            // Path is "../file/"
-            $imagePath = '../file/' . $file->file_new_name;
-          ?>
-          
-          <div class="position-relative me-3 mb-3" style="width: 120px;">
-            <!-- Thumbnail that links to the full image -->
-            <a href="<?php echo $imagePath; ?>" target="_blank">
-              <img
-                src="<?php echo $imagePath; ?>"
-                alt="Property Image"
-                style="width: 120px; height: 80px; object-fit: cover;"
-              >
-            </a>
+                      // The "file_new_name" is the unique name stored on the server
+                      // Path is "../file/"
+                      $imagePath = '../file/' . $file->file_new_name;
+                      ?>
 
-            <!-- Delete link (X) -->
-            <!-- This calls deleteImage.php with file_id and propertyId in the URL -->
-            <a
-              href="deleteImage.php?file_id=<?php echo urlencode($fileId); ?>&propertyId=<?php echo urlencode($propertyId); ?>"
-              class="text-danger fw-bold position-absolute top-0 end-0 bg-white px-2"
-              style="text-decoration: none; cursor: pointer;"
-              onclick="return confirm('Are you sure you want to delete this image?');"
-            >
-              &times;
-            </a>
-          </div>
-        <?php endforeach; ?>
-      </div>
-    <?php else: ?>
-      <p>No images uploaded yet.</p>
-    <?php endif; ?>
-  </div>
-</div>
+                      <div class="position-relative me-3 mb-3" style="width: 120px;">
+                        <!-- Thumbnail that links to the full image -->
+                        <a href="<?php echo $imagePath; ?>" target="_blank">
+                          <img
+                            src="<?php echo $imagePath; ?>"
+                            alt="Property Image"
+                            style="width: 120px; height: 80px; object-fit: cover;">
+                        </a>
+
+                        <!-- Delete link (X) -->
+                        <!-- This calls deleteImage.php with file_id and propertyId in the URL -->
+                        <a
+                          href="deleteImage.php?file_id=<?php echo urlencode($fileId); ?>&propertyId=<?php echo urlencode($propertyId); ?>"
+                          class="text-danger fw-bold position-absolute top-0 end-0 bg-white px-2"
+                          style="text-decoration: none; cursor: pointer;"
+                          onclick="return confirm('Are you sure you want to delete this image?');">
+                          &times;
+                        </a>
+                      </div>
+                    <?php endforeach; ?>
+                  </div>
+                <?php else: ?>
+                  <p>No images uploaded yet.</p>
+                <?php endif; ?>
+              </div>
+            </div>
+
+            <div class="row">
               <div class="col-md-4 form-group">
                 <label for="upload-video">Upload Video:</label>
                 <input
                   type="file"
                   id="upload-video"
                   name="upload-video"
-                  class="form-control1 w-100"
-                >
+                  class="form-control1 w-100">
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="upload-video">Current video</label>
                 <?php
-                  // If there's an existing record, show the existing video
-                  if ($propertyId && !empty($propertyDetails->property_video_file_ids)) {
-                    echo "<p>Current video file ID: " 
-                      . htmlspecialchars($propertyDetails->property_video_file_ids) 
-                      . "</p>";
-                  }
+                $videoFile = new FileManager();
+                $videoFile->setValueById($property->property_video_file_ids);
+                ?>
+                <video width="320" height="240" controls>
+                  <source src="../file/<?php echo $videoFile->file_new_name; ?>" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <?php
+                // If there's an existing record, show the existing video
+                if ($propertyId && !empty($property->property_video_file_ids)) {
+                  echo "<p>Current video file ID: "
+                    . ($property->property_video_file_ids)
+                    . "</p>";
+                }
                 ?>
               </div>
-              <div class="col-md-4 form-group">
-                <label for="area">Enter Area (in Square/Feet):</label>
-                <input
-                  type="number"
-                  step="any"
-                  class="form-control1 w-100"
-                  name="area"
-                  placeholder="Enter Area"
-                  required
-                  value="<?php echo htmlspecialchars($propertyDetails->area); ?>"
-                >
-              </div>
             </div>
 
-            <!-- Description -->
-            <div class="row">
-              <div class="col-md-4 form-group">
-                <label for="property-description">Enter Property Description:</label>
-                <textarea
-                  id="property-description"
-                  class="form-control2 w-100"
-                  name="property-description"
-                  placeholder="Enter Property Description"
-                  required
-                ><?php echo htmlspecialchars($propertyDetails->description); ?></textarea>
-              </div>
+            <div class="col-md-4 form-group">
+              <label for="area">Enter Area (in Square/Feet):</label>
+              <input
+                type="number"
+                step="any"
+                class="form-control1 w-100"
+                name="area"
+                placeholder="Enter Area"
+                required
+                value="<?php echo ($property->area); ?>">
             </div>
-
-            <!-- Submit -->
-            <div class="row">
-              <div class="center-container">
-                <input
-                  type="submit"
-                  class="btn btn-black py-3 btn-block"
-                  name="submit"
-                  value="<?php echo ($propertyId ? 'Update Property' : 'Submit'); ?>"
-                >
-              </div>
-            </div>
-          </form>
         </div>
+
+        <!-- Description -->
+        <div class="row">
+          <div class="col-md-8">
+            <label for="property-description">Enter Property Description:</label>
+            <textarea
+              id="property-description"
+              class="form-control2 w-100"
+              name="property-description"
+              placeholder="Enter Property Description"
+              required><?php echo ($property->description); ?></textarea>
+          </div>
+        </div>
+
+
+
+        <!-- Submit -->
+        <div class="center-container">
+          <input
+            type="submit"
+            class="btn btn-black py-3 btn-block"
+            name="submit"
+            value="<?php echo ($propertyId ? 'Update Property' : 'Submit'); ?>">
+        </div>
+        </form>
       </div>
-    <?php else: ?>
-      <p>Please log in to see or edit property details.</p>
-    <?php endif; ?>
-
   </div>
-  <footer>
-    <!-- Footer Content -->
-  </footer>
+<?php else: ?>
+  <p>Please log in to see or edit property details.</p>
+<?php endif; ?>
 
-  <!-- JavaScript Libraries -->
-  <script src="../lib/jquery/jquery.min.js"></script>
-  <script src="../lib/jquery/jquery-migrate.min.js"></script>
-  <script src="../lib/popper/popper.min.js"></script>
-  <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../lib/easing/easing.min.js"></script>
-  <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="../lib/scrollreveal/scrollreveal.min.js"></script>
-  <script src="../contactform/contactform.js"></script>
-  <script src="../js/main.js"></script>
-  <script src="../js/service.js"></script>
-  <script src="../lib/jquery/jquery.min.js"></script>
-  <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../js/main.js"></script>
+</div>
+<footer>
+  <!-- Footer Content -->
+</footer>
+
+<!-- JavaScript Libraries -->
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery/jquery-migrate.min.js"></script>
+<script src="../lib/popper/popper.min.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../lib/easing/easing.min.js"></script>
+<script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="../lib/scrollreveal/scrollreveal.min.js"></script>
+<script src="../contactform/contactform.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/service.js"></script>
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../js/main.js"></script>
 
 </body>
+
 </html>

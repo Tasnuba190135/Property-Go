@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PG v3</title>
+
   <!-- Favicon -->
   <link href="img/favicon.ico" rel="icon">
   <link rel="stylesheet" href="fonts/icomoon/style.css">
@@ -15,7 +16,6 @@
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
   <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
-
 
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +36,6 @@
 
   <!-- Customized Bootstrap Stylesheet -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
-
 
   <!-- Template Stylesheet -->
   <link href="css/style.css" rel="stylesheet">

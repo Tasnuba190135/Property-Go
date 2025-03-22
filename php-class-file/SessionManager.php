@@ -10,7 +10,8 @@
  * -Deleting a specific session variable
  * -Destroying the session
  */
-class SessionManager{
+class SessionManager
+{
 
 
     /**
@@ -20,7 +21,7 @@ class SessionManager{
      */
     public function __construct()
     {
-        if (session_status() === PHP_SESSION_NONE){
+        if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
     }
@@ -53,7 +54,7 @@ class SessionManager{
      */
     public function delete($key)
     {
-        if(isset($_SESSION[$key])){
+        if (isset($_SESSION[$key])) {
             unset($_SESSION[$key]);
         }
     }
@@ -70,12 +71,12 @@ class SessionManager{
         $_SESSION = [];
 
         // Delete the session cookie if one exists.
-        if(ini_get("session.use_cookies")){
+        if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
             setcookie(
                 session_name(),
                 '',
-                time() -42000,
+                time() - 42000,
                 $params["path"],
                 $params["domain"],
                 $params["secure"],
@@ -85,7 +86,6 @@ class SessionManager{
 
         // Destroy the session
         session_destroy();
-
     }
 
     /**
@@ -105,30 +105,30 @@ class SessionManager{
      * @return object|null Returns the deserialized object if it exists, otherwise null
      */
 
-     public function getObject($key)
-     {
+    public function getObject($key)
+    {
         return isset($_SESSION[$key]) ? unserialize($_SESSION[$key]) : null;
-     }
+    }
 
     /**
- * Copy matching properties from an object to another object.
- *
- * @param object|null $sourceObj The object to copy from (can be null).
- * @param object $destinationObj The object to copy to.
- */
-public static function copyProperties(?object $sourceObj, object $destinationObj)
-{
-    if ($sourceObj === null) {
-        // You can choose to throw an exception, log an error, or simply return
-        throw new InvalidArgumentException("Source object is null.");
-    }
-    
-    foreach (get_object_vars($sourceObj) as $key => $value) {
-        if (property_exists($destinationObj, $key) && $key !== 'conn') {
-            $destinationObj->$key = $value;
+     * Copy matching properties from an object to another object.
+     *
+     * @param object|null $sourceObj The object to copy from (can be null).
+     * @param object $destinationObj The object to copy to.
+     */
+    public static function copyProperties(?object $sourceObj, object $destinationObj)
+    {
+        if ($sourceObj === null) {
+            // You can choose to throw an exception, log an error, or simply return
+            throw new InvalidArgumentException("Source object is null.");
+        }
+
+        foreach (get_object_vars($sourceObj) as $key => $value) {
+            if (property_exists($destinationObj, $key) && $key !== 'conn') {
+                $destinationObj->$key = $value;
+            }
         }
     }
-}
 
     /**
      * Retrieve an object from the session by key, copy its properties into a new temporary instance,
@@ -142,7 +142,7 @@ public static function copyProperties(?object $sourceObj, object $destinationObj
         // Retrieve the object from the session using getObject()
         $sourceObj = $this->getObject($key);
 
-        if($sourceObj === null){
+        if ($sourceObj === null) {
             return null; //no object found for the provided key
         }
 
@@ -156,11 +156,7 @@ public static function copyProperties(?object $sourceObj, object $destinationObj
         // Return the temporary object with all the properties copied over
         return $tempObj;
     }
-  
-   
-
-
-
-
 }
 ?>
+
+<!-- end -->

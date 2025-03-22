@@ -3,31 +3,25 @@
 include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/Property.php';
-include_once '../php-class-file/PropertyDetails.php';
 include_once '../pop-up.php';
 
-if (isset($_POST['archive'])) {
-    $property = new Property();
-    $propertyDetails = new PropertyDetails();
+if (isset($_POST['action'])) {
+    $property = new property();
 
     $property_id = $_POST['property_id'];
-    $status = $_POST['archive'] == 2 ? 2 : 1; // 2 for Archive, 1 for Unarchive
+    $status = $_POST['action'];
 
     $property->property_id = $property_id;
     $property->setValue();
     $property->status = $status;
     $property->update();
 
-    $propertyDetails->setValueByPropertyId($property->property_id);
-    $propertyDetails->status = $status;
-    $propertyDetails->update();
-
     include_once '../pop-up.php';
-    showPopup($status == 2 ? "Archived" : "Unarchived");
+    showPopup($status == 2 ? "Property has been archived. Property ID: $property_id" : "Property has been activated. Property ID: $property_id");
 }
 
 $property = new Property();
-$properties = $property->getRowsByUserIdAndStatus(null);
+$properties = $property->getByPropertyIdAndStatus(null, [1, 2]);
 
 ;
 ?>
@@ -80,27 +74,28 @@ $properties = $property->getRowsByUserIdAndStatus(null);
                             <?php
                             if (!empty($properties)) {
                                 foreach ($properties as $prop) {
-                                    $propertyDetails = new PropertyDetails();
-                                    $propertyDetails->setValueByPropertyId($prop['property_id']);
-                                    $statusText = $propertyDetails->status == 2 ? "Archived" : "Active";
-                                    $buttonText = $propertyDetails->status == 2 ? "Unarchive" : "Archive";
-                                    $buttonValue = $propertyDetails->status == 2 ? 1 : 2;
+                                    // echo $prop['property_id'] . "<br>";
+                                    $singleProperty = new Property();
+                                    $singleProperty->setProperties($prop);
+                                    $statusText = $singleProperty->status == 2 ? "Archive" : "Active";
+                                    $buttonText = $singleProperty->status == 2 ? "Active" : "Archive";
+                                    $buttonValue = $singleProperty->status == 2 ? 1 : 2;
                             ?>
                                     <tr>
-                                        <td><?php echo $propertyDetails->property_title; ?></td>
-                                        <td><?php echo $propertyDetails->property_id; ?></td>
-                                        <td><?php echo $propertyDetails->created; ?></td>
+                                        <td><?php echo $singleProperty->property_title; ?></td>
+                                        <td><?php echo $singleProperty->property_id; ?></td>
+                                        <td><?php echo $singleProperty->created; ?></td>
                                         <td><?php echo $statusText; ?></td>
                                         <td>
                                             <div class="attendant__action">
-                                                <a href="property-check.php?propertyId=<?php echo $propertyDetails->property_id; ?> & property-check.php?status=<?php echo $propertyDetails->status; ?> "target="_blank" class="btn btn-primary">Details</a>
+                                                <a href="property-check.php?propertyId=<?php echo $singleProperty->property_id; ?>&status=<?php echo $property->status; ?> "target="_blank" class="btn btn-primary">Details</a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="attendant__action">
                                                 <form method="POST" action="">
-                                                    <input type="hidden" name="property_id" value="<?php echo $propertyDetails->property_id; ?>" />
-                                                    <button type="submit" name="archive" value="<?php echo $buttonValue; ?>" class="btn btn-success"><?php echo $buttonText; ?></button>
+                                                    <input type="hidden" name="property_id" value="<?php echo $singleProperty->property_id; ?>" />
+                                                    <button type="submit" name="action" value="<?php echo $buttonValue; ?>" class="btn btn-success"><?php echo $buttonText; ?></button>
                                                 </form>
                                             </div>
                                         </td>

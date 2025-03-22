@@ -3,7 +3,6 @@
 include_once 'php-class-file/SessionManager.php';
 include_once 'php-class-file/User.php';
 include_once 'php-class-file/Property.php';
-include_once 'php-class-file/PropertyDetails.php';
 include_once 'php-class-file/FileManager.php';
 
 $session = new SessionManager();
@@ -14,6 +13,7 @@ $sUser = $session->getObject("user");
 // Create a new User object and set its user_id from the session
 $user = new User();
 if ($sUser) {
+  // echo $sUser->user_id . " ok ----- <br>";
   $user->user_id = $sUser->user_id;
   $user->setValue();
 } else {
@@ -43,13 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $propertyTitle       = $_POST['property-title'];
     $propertyCategory    = $_POST['property_category'];
     $division            = $_POST['division'];
-    $location            = $_POST['location'];
-    $bedroom             = $_POST['bedroom'];
-    $bathroom            = $_POST['bathroom'];
+    $address             = $_POST['address'];
+    $bedroom_no             = $_POST['bedroom_no'];
+    $bathroom_no            = $_POST['bathroom_no'];
     $price               = $_POST['price'];
     $area                = $_POST['area'];
     $propertyDescription = $_POST['property-description'];
-    echo $propertyTitle."<br>";
+    // echo $propertyTitle . "<br>";
 
     // Handle file uploads for multiple images and a single video
     $imageFilesOriginal = $_FILES['upload-image'];
@@ -84,45 +84,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     // Insert property record
     $property = new Property();
     $property->user_id = $user->user_id;
-    $property->status = 0;
-    $property->property_type = $propertyCategory;
+    $property->property_title = $propertyTitle;
+    $property->property_category = $propertyCategory;
+    $property->area = $area;
+    $property->description = $propertyDescription;
+    $property->division = $division;
+    $property->address = $address;
+    $property->bedroom_no = $bedroom_no;
+    $property->bathroom_no = $bathroom_no;
+    $property->price = $price;
 
-    $insertedPropertyId = $property->insert();
-    echo $insertedPropertyId."<br>";
+    $property->property_image_file_ids = implode(',', $imageFileIds);
+    // [1,2,3] -> "1,2,3"
+    $property->property_video_file_ids = $videoFileId;
+    $property->insert();
 
-    if ($insertedPropertyId) {
-      // Insert property details record
-      $propertyDetails = new PropertyDetails();
-      $propertyDetails->property_title = $propertyTitle;
-      $propertyDetails->property_id = $insertedPropertyId;
-      $propertyDetails->property_category = $propertyCategory;
-      $propertyDetails->division = $division;
-      $propertyDetails->address = $location;
-      $propertyDetails->bedroom_no = $bedroom;
-      $propertyDetails->bathroom_no = $bathroom;
-      $propertyDetails->price = $price;
-      $propertyDetails->area = $area;
-      $propertyDetails->description = $propertyDescription;
-
-      $propertyDetails->property_image_file_ids = implode(',', $imageFileIds);
-      // [1,2,3] -> "1,2,3"
-      // ans = explode(',',$propertyDetails->property_image_file_ids );
-      $propertyDetails->property_video_file_ids = $videoFileId;
-
-      $propertyDetails->insert();
-
-      // $session->set('msg1', 'Property added successfully.');
-      // echo "<script>window.location.href.reload();</script>";
-      include_once 'pop-up.php';
-      showPopup('Property added Successfully');
-      // exit();
-    } else {
-      $session->set('msg1', 'Failed to add property.');
-    }
+    // $session->set('msg1', 'Property added successfully.');
+    // echo "<script>window.location.href.reload();</script>";
+    include_once 'pop-up.php';
+    showPopup('Property added Successfully');
+    // exit();
   } else {
-    $session->set('msg1', 'Please log in to add a property.');
+    $session->set('msg1', 'Failed to add property.');
   }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -175,8 +161,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
   <!-- Display session message if it exists -->
   <?php
-  if ($session->get('msg1')) {
-    echo "<div class='alert alert-info'>{$session->get('msg1')}</div>";
+  $msg = $session->get('msg1');
+  // echo $msg."<br>";
+  if ($msg) {
+    include_once 'pop-up.php';
+    showPopup($msg);
     $session->delete('msg1');
   }
   ?>
@@ -206,7 +195,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
               <select name="property_category" class="form-control1 w-100" required>
                 <option value="residential">Residential</option>
                 <option value="commercial">Commercial</option>
-                <option value="both">Both</option>
               </select>
             </div>
             <div class="col-md-4 form-group">
@@ -225,18 +213,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
             </div>
             <div class="col-md-4 form-group">
               <label for="user-type">Enter Address:</label>
-              <input type="text" class="form-control1 w-100" name="location" placeholder="Address" required>
+              <input type="text" class="form-control1 w-100" name="address" placeholder="Address" required>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-4 form-group">
               <label for="user-type">Choose Bedrooms:</label>
-              <input type="number" class="form-control1 w-100" name="bedroom" placeholder="Choose Bedrooms" required>
+              <input type="number" class="form-control1 w-100" name="bedroom_no" placeholder="Choose Bedrooms" required>
             </div>
             <div class="col-md-4 form-group">
               <label for="user-type">Choose Bathrooms:</label>
-              <input type="number" class="form-control1 w-100" name="bathroom" placeholder="Choose Bathrooms" required>
+              <input type="number" class="form-control1 w-100" name="bathroom_no" placeholder="Choose Bathrooms" required>
             </div>
             <div class="col-md-4 form-group">
               <label for="user-type">Enter Price:</label>

@@ -4,40 +4,28 @@
 include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/Property.php';
-include_once '../php-class-file/PropertyDetails.php';
 include_once '../pop-up.php';
 
 // $session = new SessionManager();
 
 if (isset($_POST['approve']) || isset($_POST['reject'])) {
     $property = new Property();
-    $propertyDetails = new PropertyDetails();
-
     $property_id = $_POST['property_id'];
+    $property->property_id = $property_id;
 
     if (isset($_POST['approve'])) {
-        $property->property_id = $property_id;
         $property->setValue();
         $property->status = 1;
         $property->update();
-
-        $propertyDetails->setValueByPropertyId($property->property_id);
-        $propertyDetails->status = 1;
-        $propertyDetails->update();
 
         include_once '../pop-up.php';
         showPopup("Accepted");
     }
     // Check if 'reject' button was clicked and set status to 0 (rejected)
     elseif (isset($_POST['reject'])) {
-        $property->property_id = $property_id;
         $property->setValue();
         $property->status = -1;
         $property->update();
-
-        $propertyDetails->setValueByPropertyId($property->property_id);
-        $propertyDetails->status = -1;
-        $propertyDetails->update();
 
         include_once '../pop-up.php';
         showPopup("Rejected");
@@ -46,7 +34,7 @@ if (isset($_POST['approve']) || isset($_POST['reject'])) {
 
 // Retrieve properties for this user
 $property = new Property();
-$properties = $property->getRowsByUserIdAndStatus(null, 0);
+$properties = $property->getByPropertyIdAndStatus(null, 0, 'ASC');
 ?>
 
 
@@ -141,8 +129,9 @@ $properties = $property->getRowsByUserIdAndStatus(null, 0);
                             if (!empty($properties)) {
                                 foreach ($properties as $prop) {
                                     // Load property details for the current property_id
-                                    $propertyDetails = new PropertyDetails();
-                                    $propertyDetails->setValueByPropertyId($prop['property_id']);
+                                    // echo $prop['property_id'] . "<br>";
+                                    $propertyDetails = new Property();
+                                    $propertyDetails->setProperties($prop);
                             ?>
                                     <tr>
                                         <td><?php echo $propertyDetails->property_title; ?></td>

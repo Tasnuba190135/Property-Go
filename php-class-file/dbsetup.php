@@ -3,7 +3,6 @@ include_once 'DbConnector.php';
 include_once 'User.php';
 include_once 'UserDetails.php';
 include_once 'Property.php';
-include_once 'PropertyDetails.php';
 include_once 'FileManager.php';
 include_once 'NoteManager.php';
 include_once 'PostLimit.php';

@@ -1,13 +1,22 @@
 <?php
 include_once 'php-class-file/SessionManager.php';
 include_once 'php-class-file/Property.php';
-include_once 'php-class-file/PropertyDetails.php';
+
+if (isset($_POST['searchProperty'])) {
+  // Capture the form data
+  $propertyCategory = isset($_POST['property_category']) ? $_POST['property_category'] : null;
+  $division = isset($_POST['division']) ? $_POST['division'] : null;
+  $bedroom = isset($_POST['bedroom']) ? $_POST['bedroom'] : null;
+  $bathroom = isset($_POST['bathroom']) ? $_POST['bathroom'] : null;
+  $minPrice = isset($_POST['minimum_price']) ? $_POST['minimum_price'] : null;
+  $maxPrice = isset($_POST['maximum_price']) ? $_POST['maximum_price'] : null;
+  $area = isset($_POST['area']) ? $_POST['area'] : null;
+
+  $filteredProperties = $propertyDetails->getFilteredProperties($propertyCategory, $division, $bedroom, $bathroom, $minPrice, $maxPrice, $area);
+}
 
 $property = new Property();
-$propertyDetails = new PropertyDetails();
-$properties = $property->getRowsByUserIdAndStatus(null, 1);
-$propertyIds = $property->getIdsarray($properties);
-$propertyDetailsList = $propertyDetails->getRowsByPropertyIdsAndStatus($propertyIds);
+$propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
 
 ?>
 
@@ -74,108 +83,175 @@ $propertyDetailsList = $propertyDetails->getRowsByPropertyIdsAndStatus($property
       <div class="row">
         <div class="col-md-12 col-lg-8">
           <div class="title-single-box">
-            <h1 class="title-single">Our Properties</h1>
-            <span class="color-text-a">Grid Properties</span>
+            <h1 class="title-single">Properties</h1>
           </div>
         </div>
-        <div class="col-md-12 col-lg-4">
-          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a href="#">Home</a>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">
-                Properties Grid
-              </li>
-            </ol>
-          </nav>
-        </div>
+
       </div>
     </div>
   </section>
   <!--/ Intro Single End /-->
 
   <!--/ Property Grid Star /-->
-  <!--/ Property Grid Star /-->
-  <section class="property-grid grid">
 
+  <?php if ($propertyLists === false) { ?>
     <div class="container">
       <div class="row">
-        <?php
-        foreach ($propertyDetailsList as $propertyDetail) {
-        ?>
-          <!-- card start -->
-          <div class="col-md-4">
-            <div class="card-box-a card-shadow">
-              <div class="img-box-a">
-                <img src="img/property-3.jpg" alt="" class="img-a img-fluid">
-              </div>
-              <div class="card-overlay">
-                <div class="card-overlay-a-content">
-                  <div class="card-header-a">
-                    <h2 class="card-title-a">
-                      <p><?php echo $propertyDetail['property_title']; ?></p>                      </p>
-                    </h2>
-                  </div>
-                  <div class="card-body-a">
-                    <div class="price-box d-flex">
-                      <span class="price-a">Price | <?php echo $propertyDetail['price'] ?>BDT </span>
+        <div class="col-md-12">
+          <h2>No properties found.</h2>
+        </div>
+      </div>
+    </div>
+  <?php } else { ?>
+
+    <!-- filter start -->
+    <div class="property-filter">
+      <div class="container">
+        <div class="row">
+          <!-- Min Price Input -->
+          <div class="col-md-3">
+            <label for="min-price">Min Price:</label>
+            <input type="number" id="min-price" class="form-control" placeholder="Min Price" min="0">
+          </div>
+
+          <!-- Max Price Input -->
+          <div class="col-md-3">
+            <label for="max-price">Max Price:</label>
+            <input type="number" id="max-price" class="form-control" placeholder="Max Price" min="0">
+          </div>
+
+          <!-- Property Category Dropdown -->
+          <div class="col-md-3">
+            <label for="property-category">Property Category:</label>
+            <select id="property-category" class="form-control">
+              <option value="">Select Category</option>
+              <option value="residential">Residential</option>
+              <option value="commercial">Commercial</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+
+          <!-- Division Dropdown -->
+          <div class="col-md-3">
+            <label for="division">Division:</label>
+            <select id="division" class="form-control">
+              <option value="">Select Division</option>
+              <option value="Dhaka">Dhaka</option>
+              <option value="Khulna">Khulna</option>
+              <option value="Rajshahi">Rajshahi</option>
+              <option value="Chittagong">Chittagong</option>
+            </select>
+          </div>
+
+          <!-- Bedroom Input -->
+          <div class="col-md-3">
+            <label for="bedroom">Bedrooms:</label>
+            <input type="number" id="bedroom" class="form-control" placeholder="Number of Bedrooms" min="1">
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Bathroom Input -->
+          <div class="col-md-3">
+            <label for="bathroom">Bathrooms:</label>
+            <input type="number" id="bathroom" class="form-control" placeholder="Number of Bathrooms" min="1">
+          </div>
+
+          <!-- Area Input (sq ft) -->
+          <div class="col-md-3">
+            <label for="area">Area (sq feet):</label>
+            <input type="number" id="area" class="form-control" placeholder="Area in Sq Ft" min="1">
+          </div>
+
+          <div class="col-md-3">
+            <button id="apply-filters" class="btn btn-primary" style="margin-top: 30px;">Apply Filters</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- filter end -->
+
+
+    <section class="intro-single property-grid grid">
+
+      <div class="container">
+        <div class="row">
+          <?php
+          foreach ($propertyLists as $prop) {
+            $singleProperty = new Property();
+            $singleProperty->setProperties($prop);
+          ?>
+            <!-- card start -->
+            <div class="col-md-4">
+              <div class="card-box-a card-shadow">
+                <div class="img-box-a">
+                  <img src="img/property-3.jpg" alt="" class="img-a img-fluid">
+                </div>
+                <div class="card-overlay">
+                  <div class="card-overlay-a-content">
+                    <div class="card-header-a">
+                      <h2 class="card-title-a">
+                        <p><?php echo $singleProperty->property_title; ?></p>
+                        </p>
+                      </h2>
                     </div>
-                    <a href="property-single.php?propertyId=<?php echo $propertyDetail['property_id']; ?>" class="link-a">Click here to view
-                      <span class="ion-ios-arrow-forward"></span>
-                    </a>
-                  </div>
-                  <div class="card-footer-a">
-                    <ul class="card-info d-flex justify-content-around">
-                      <li>
-                        <h4 class="card-info-title">Area</h4>
-                        <span><?php echo $propertyDetail['area']; ?>m
-                          <sup>2</sup>
-                        </span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Beds</h4>
-                        <span><?php echo $propertyDetail['bedroom_no']; ?></span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Baths</h4>
-                        <span><?php echo $propertyDetail['bathroom_no']; ?></span>
-                      </li>
-                    </ul>
+                    <div class="card-body-a">
+                      <div class="price-box d-flex">
+                        <span class="price-a">Price | <?php echo $singleProperty->price; ?>BDT </span>
+                      </div>
+                      <a href="property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="link-a">Click here to view
+                        <span class="ion-ios-arrow-forward"></span>
+                      </a>
+                    </div>
+                    <div class="card-footer-a">
+                      <ul class="card-info d-flex justify-content-around">
+                        <li>
+                          <h4 class="card-info-title">Area</h4>
+                          <span><?php echo $singleProperty->area; ?>m
+                            <sup>2</sup>
+                          </span>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title">Beds</h4>
+                          <span><?php echo $singleProperty->bedroom_no; ?></span>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title">Baths</h4>
+                          <span><?php echo $singleProperty->bathroom_no; ?></span>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- card end -->
-        <?php
-        }
-        ?>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-12">
-          <nav class="pagination-a">
-            <ul class="pagination justify-content-end">
-              <li class="page-item previous">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span class="ion-ios-arrow-back"></span>
-                </a>
-              </li>
-              <li class="page-item" data-page="1"><a class="page-link" href="#">1</a></li>
-              <li class="page-item" data-page="2"><a class="page-link" href="#">2</a></li>
-              <li class="page-item" data-page="3"><a class="page-link" href="#">3</a></li>
-              <li class="page-item next">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span class="ion-ios-arrow-forward"></span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+            <!-- card end -->
+          <?php } ?>
         </div>
-      </div>
-  </section>
-  <!--/ Property Grid End /-->
+
+        <div class="row">
+          <div class="col-sm-12">
+            <nav class="pagination-a">
+              <ul class="pagination justify-content-end">
+                <li class="page-item previous">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span class="ion-ios-arrow-back"></span>
+                  </a>
+                </li>
+                <li class="page-item" data-page="1"><a class="page-link" href="#">1</a></li>
+                <li class="page-item" data-page="2"><a class="page-link" href="#">2</a></li>
+                <li class="page-item" data-page="3"><a class="page-link" href="#">3</a></li>
+                <li class="page-item next">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span class="ion-ios-arrow-forward"></span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+    </section>
+  <?php } ?>
   <!--/ Property Grid End /-->
 
 
@@ -277,6 +353,8 @@ $propertyDetailsList = $propertyDetails->getRowsByPropertyIdsAndStatus($property
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
   <script src="js/service.js"></script>
+
+
 </body>
 
 </html>

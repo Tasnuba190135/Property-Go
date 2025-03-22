@@ -3,7 +3,6 @@
 include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/Property.php';
-include_once '../php-class-file/PropertyDetails.php';
 
 // Start session and get session user object
 $session = new SessionManager();
@@ -22,7 +21,7 @@ $user->setValue();
 // Instantiate Property class and retrieve all properties for this user.
 // We assume a function in Property class like getRowsByUserIdAndStatus($userId, $status=null)
 $property = new Property();
-$properties = $property->getRowsByUserIdAndStatus($user->user_id);
+$properties = $property->getByUserIdAndStatus($user->user_id);
 ?>
 
 
@@ -68,12 +67,8 @@ $properties = $property->getRowsByUserIdAndStatus($user->user_id);
               if (!empty($properties)) {
                 foreach ($properties as $prop) {
                   // Load property details for the current property_id
-                  $propertyDetails = new PropertyDetails();
-                  $propertyDetails->setValueByPropertyId($prop['property_id']);
-
-                  // Assume property title is stored in propertyDetails->property_title; 
-                  // if not available, fallback to property type.
-                  $title = isset($propertyDetails->property_title) ? $propertyDetails->property_title : $prop['property_type'];
+                  $singleProperty = new Property();
+                  $singleProperty->setProperties($prop);
 
                   // Determine status text: 0 = Pending, 1 = Live on Site.
                   $statusText = ($prop['status'] == 0) ? "Pending" : (($prop['status'] == 1) ? "Live on Site" : "Unknown");
@@ -81,13 +76,13 @@ $properties = $property->getRowsByUserIdAndStatus($user->user_id);
                   <div class="col-md-4 mb-4">
                     <div class="card card-sale">
                       <div class="card-body">
-                        <h5 class="card-title"><?php echo $title; ?></h5>
-                        <p><strong>ID:</strong> <?php echo $prop['property_id']; ?></p>
+                        <h5 class="card-title"><?php echo $singleProperty->property_title; ?></h5>
+                        <p><strong>ID:</strong> <?php echo $singleProperty->property_id; ?></p>
                         <p><strong>Status:</strong> <?php echo $statusText; ?></p>
-                        <p><strong>Type:</strong> <?php echo $prop['property_type'] ?></p>
+                        <p><strong>Category:</strong> <?php echo $singleProperty->property_category ?></p>
                         <div class="d-flex justify-content-between mt-3">
-                          <a href="../property-single.php?propertyId=<?php echo $propertyDetails->property_id; ?>" class="btn btn-info btn-sm">View</a>
-                          <a href="edit-property.php?propertyId=<?php echo $propertyDetails->property_id; ?>" class="btn btn-warning btn-sm">Edit</a>
+                          <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-info btn-sm">View</a>
+                          <a href="edit-property.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-warning btn-sm">Edit</a>
                         </div>
                       </div>
                     </div>

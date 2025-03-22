@@ -35,7 +35,6 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
   <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
 
-
   <!-- Customized Bootstrap Stylesheet -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -44,17 +43,14 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/agents.css">
 
-
   <!-- Include Font Awesome (or any icon library) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
 
 </head>
 
 <body>
 
   <?php include_once 'navbar-user.php'; ?>
-
 
   <!--/ Carousel Start /-->
   <section>

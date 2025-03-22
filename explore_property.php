@@ -76,108 +76,83 @@
 
   <div class="realestate-tabpane pb-5">
     <div class="container tab-content">
-      <form method="post" action="property-grid.php" id="for-buy">
+      <form method="post" action="property-list.php" id="for-buy">
         <div class="row">
           <div class="col-md-4 form-group">
             <label for="user-type">Choose Property Category:</label>
             <select name="property_category" id="" class="form-control1 w-100" required>
-              <option value="">All Type</option>
-              <option value="">Residential Type</option>
-              <option value="">Commercial Type</option>
-              <option value="">Both</option>
+              <option value="">All type</option>
+              <option value="residential">Residential</option>
+              <option value="commercial">Commercial</option>
             </select>
           </div>
           <div class="col-md-4 form-group">
-            <div class="row">
-              <div class="col-md-6 form-group">
-                <label for="user-type">Choose Division:</label>
-                <select name="division" id="" class="form-control1 w-100" required>
-                  <option value="">All Division</option>
-                  <option value="">Dhaka</option>
-                  <option value="">Khulna</option>
-                  <option value="">Rajshahi</option>
-                  <option value="">Barishal</option>
-                  <option value="">Chittagong</option>
-                  <option value="">Sylhet</option>
-                  <option value="">Dinajpur</option>
-                  <option value="">Rangpur</option>
-                  <option value="">Mymensingh</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="user-type">Choose District:</label>
-                <select name="district" id="" class="form-control1 w-100" required>
-                  <option value="">All District</option>
-                  <option value="">Dhaka</option>
-                  <option value="">Khulna</option>
-                  <option value="">Rajshahi</option>
-                  <option value="">Barishal</option>
-                  <option value="">Chittagong</option>
-                  <option value="">Sylhet</option>
-                  <option value="">Dinajpur</option>
-                  <option value="">Rangpur</option>
-                  <option value="">Mymensingh</option>
-                </select>
+            <label for="user-type">Choose Division:</label>
+            <select name="division" class="form-control1 w-100" required>
+              <option value="dhaka">Dhaka</option>
+              <option value="khulna">Khulna</option>
+              <option value="rajshahi">Rajshahi</option>
+              <option value="barishal">Barishal</option>
+              <option value="chittagong">Chittagong</option>
+              <option value="sylhet">Sylhet</option>
+              <option value="dinajpur">Dinajpur</option>
+              <option value="rangpur">Rangpur</option>
+              <option value="mymensingh">Mymensingh</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 form-group">
+              <label for="user-type">Choose BedRooms:</label>
+              <input type="number" class="form-control1 w-100" name="bedroom" placeholder="Choose  BedRooms" required>
+            </div>
+            <div class="col-md-4 form-group">
+              <label for="user-type">Choose BathRooms:</label>
+              <input type="number" class="form-control1 w-100" name="bathroom" placeholder="Choose BathRooms" required>
+            </div>
+            <div class="col-md-4 form-group">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label for="user-type">Choose Minimum Price:</label>
+                  <select name="minimum_price" id="" class="form-control1 w-100" required>
+                    <option value="">Min Price</option>
+                    <option value="">10000</option>
+                    <option value="">20000</option>
+                    <option value="">30000</option>
+                    <option value="">40000</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="user-type">Choose Maximum Price:</label>
+                  <select name="maximum_price" id="" class="form-control1 w-100" required>
+                    <option value="">Max Price</option>
+                    <option value="">25,000</option>
+                    <option value="">50,000</option>
+                    <option value="">75,000</option>
+                    <option value="">100,000</option>
+                    <option value="">100,000,000</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4 form-group">
-            <label for="user-type">Enter Address:</label>
-            <input type="text" class="form-control1 w-100" name="address" placeholder="Location" required>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-4 form-group">
-            <label for="user-type">Choose BedRooms:</label>
-            <input type="number" class="form-control1 w-100" name="bedroom" placeholder="Choose  BedRooms" required>
-          </div>
-          <div class="col-md-4 form-group">
-            <label for="user-type">Choose BathRooms:</label>
-            <input type="number" class="form-control1 w-100" name="bathroom" placeholder="Choose BathRooms" required>
-          </div>
-          <div class="col-md-4 form-group">
-            <div class="row">
-              <div class="col-md-6 form-group">
-                <label for="user-type">Choose Minimum Price:</label>
-                <select name="minimum_price" id="" class="form-control1 w-100" required>
-                  <option value="">Min Price</option>
-                  <option value="">10000</option>
-                  <option value="">20000</option>
-                  <option value="">30000</option>
-                  <option value="">40000</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="user-type">Choose Maximum Price:</label>
-                <select name="maximum_price" id="" class="form-control1 w-100" required>
-                  <option value="">Max Price</option>
-                  <option value="">25,000</option>
-                  <option value="">50,000</option>
-                  <option value="">75,000</option>
-                  <option value="">100,000</option>
-                  <option value="">100,000,000</option>
-                </select>
-              </div>
+          <div class="row">
+            <div class="col-md-4 form-group">
+              <label for="user-type">Enter Area(in Square/Feet):</label>
+              <input type="number" class="form-control1 w-100" name="area" placeholder="Enter Area" required>
             </div>
           </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-4 form-group">
-            <label for="user-type">Enter Area(in Square/Feet):</label>
-            <input type="number" class="form-control1 w-100" name="area" placeholder="Enter Area" required>
-          </div>
-        </div>
 
 
-        <div class="row">
-          <div class="center-container">
-            <!-- <button class="home" onclick="location.href='index.html'" role="button"><span
+          <div class="row">
+            <div class="center-container">
+              <!-- <button class="home" onclick="location.href='index.html'" role="button"><span
                 class="text">SUBMIT</span></button> -->
-            <input type="submit" class="btn btn-black py-3 btn-block" role="button" value="Submit">
+              <input type="submit" class="btn btn-black py-3 btn-block" role="button" name="searchProperty"
+                value="Submit">
+            </div>
           </div>
-        </div>
       </form>
     </div>
   </div>

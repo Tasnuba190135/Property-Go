@@ -3,24 +3,21 @@
 include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/Property.php';
-include_once '../php-class-file/PropertyDetails.php';
 include_once '../php-class-file/FileManager.php';
 
 // $session = new SessionManager();
 
 $property = new Property();
-$propertyDetails = new PropertyDetails();
 
 $imageFiles;
 $videoFile;
 
 if (isset($_GET['propertyId'])) {
   $property->property_id = $_GET['propertyId'];
-  $property->setValue();
-  $propertyDetails->setValueByPropertyId($property->property_id);
+  $property->getByPropertyIdAndStatus($property->property_id);
 
-  $imageFiles = explode(',', $propertyDetails->property_image_file_ids);
-  $videoFile = $propertyDetails->property_video_file_ids;
+  $imageFiles = explode(',', $property->property_image_file_ids);
+  $videoFile = $property->property_video_file_ids;
 }
 ?>
 
@@ -81,7 +78,7 @@ if (isset($_GET['propertyId'])) {
       <div class="row">
         <div class="col-md-12 col-lg-8">
           <div class="title-single-box">
-            <h1 class="title-single"><?php echo $propertyDetails->property_title; ?></h1>
+            <h1 class="title-single"><?php echo $property->property_title; ?></h1>
           </div>
         </div>
       </div>
@@ -120,7 +117,7 @@ if (isset($_GET['propertyId'])) {
               <div class="property-price d-flex justify-content-center foo">
                 <div class="card-header-c d-flex">
                   <div class="card-box-ico">
-                    <span class="ion-money"><?php echo $propertyDetails->price; ?> </span>
+                    <span class="ion-money"><?php echo $property->user_id; ?> </span>
                   </div>
                 </div>
               </div>
@@ -129,31 +126,31 @@ if (isset($_GET['propertyId'])) {
                   <ul class="list">
                     <li class="d-flex justify-content-between">
                       <strong>Property ID:</strong>
-                      <span><?php echo $propertyDetails->property_id; ?></span>
+                      <span><?php echo $property->property_id; ?></span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>Property Type:</strong>
-                      <span><?php echo $propertyDetails->property_category; ?></span>
+                      <span><?php echo $property->property_category; ?></span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>Location:</strong>
-                      <span><?php echo $propertyDetails->address; ?></span>
+                      <span><?php echo $property->address; ?></span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>BedRooms:</strong>
-                      <span><?php echo $propertyDetails->bedroom_no; ?></span>
+                      <span><?php echo $property->bedroom_no; ?></span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>BathRooms:</strong>
-                      <span><?php echo $propertyDetails->bathroom_no; ?></span>
+                      <span><?php echo $property->bathroom_no; ?></span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>Price:</strong>
-                      <span><?php echo $propertyDetails->price; ?> Lakh</span>
+                      <span><?php echo $property->price; ?> Lakh</span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>Area:</strong>
-                      <span><?php echo $propertyDetails->area; ?> m²</span>
+                      <span><?php echo $property->area; ?> m²</span>
                     </li>
                   </ul>
                 </div>
@@ -170,7 +167,7 @@ if (isset($_GET['propertyId'])) {
               </div>
               <div class="property-description">
                 <p class="description color-text-a">
-                  <?php echo $propertyDetails->description; ?>
+                  <?php echo $property->description; ?>
                 </p>
               </div>
             </div>
@@ -185,7 +182,10 @@ if (isset($_GET['propertyId'])) {
               $videoTemp = new FileManager();
               $videoTemp->setValueById($videoFile);
               ?>
-              <iframe src="../file/<?php echo $videoTemp->file_new_name; ?>" width="100%" height="460" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              <!-- TODO: Add video player here -->
+              <video width="720" height="480" controls>
+                <source src="../file/<?php echo $videoTemp->file_new_name; ?>" type="video/mp4">
+                Your browser does not support the video tag.
             <?php } ?>
           </div>
         </div>
@@ -216,6 +216,9 @@ if (isset($_GET['propertyId'])) {
     });
   </script>
 
+<!-- Template Main Javascript File -->
+<script src="js/main.js"></script>
+<script src="js/service.js"></script>
 </body>
 
 </html>
