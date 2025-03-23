@@ -21,7 +21,7 @@
         <!-- Header -->
         <div class="header d-flex justify-content-between align-items-center">
 
-            <h5>DashbOard</h5>
+            <h5>DashbOard(User) - Property Go Wallet</h5>
 
             <!-- Toggle Button -->
             <button class="toggle-btn d-md-none" id="toggle-btn">
