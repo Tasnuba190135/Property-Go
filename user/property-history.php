@@ -100,6 +100,7 @@ $properties = $property->getByUserIdAndStatus($user->user_id);
         </div>
       </section>
     </div>
+    
   </div>
 
   <!-- JavaScript for Sidebar Toggle -->

@@ -76,7 +76,7 @@ if (isset($_POST['sign_up'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Signup Step-3</title>
 
   <!-- Favicon -->
   <link href="img/favicon.ico" rel="icon">
