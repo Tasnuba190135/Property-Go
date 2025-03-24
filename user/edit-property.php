@@ -3,6 +3,9 @@ include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/Property.php';
 include_once '../php-class-file/FileManager.php';
+include_once '../php-class-file/Division.php'; // Include file to fetch divisions and districts
+
+$divisions = getDivisions(); // $divisions is an associative array: division => array(district1, district2, ...)
 
 $session = new SessionManager();
 $sUser   = $session->getObject("user");
@@ -22,39 +25,27 @@ if ($propertyId) {
   $originalVideoIds = array_filter(array_map('trim', explode(',', $property->property_video_file_ids)));
 }
 
-
 if (isset($_POST['propertyUpdate'])) {
   // Update property details from form
   $property->property_id        = $_POST['propertyUpdate'];
-  $property->property_title    = $_POST['property-title'];
-  $property->property_category = $_POST['property_category'];
-  $property->division          = $_POST['division'];
-  $property->address           = $_POST['address'];
-  $property->bedroom_no        = $_POST['bedroom'];
-  $property->bathroom_no       = $_POST['bathroom'];
-  $property->price             = $_POST['price'];
-  $property->area              = $_POST['area'];
-  $property->description       = $_POST['property-description'];
+  $property->property_title     = $_POST['property-title'];
+  $property->property_category  = $_POST['property_category'];
+  $property->division           = $_POST['division'];
+  $property->district           = $_POST['district'];  // Added district update
+  $property->address            = $_POST['address'];
+  $property->bedroom_no         = $_POST['bedroom'];
+  $property->bathroom_no        = $_POST['bathroom'];
+  $property->price              = $_POST['price'];
+  $property->area               = $_POST['area'];
+  $property->description        = $_POST['property-description'];
 
-  /*
-   * Forward only the IDs that are not deleted.
-   * The hidden fields "existingImageIds" and "existingVideoIds" are updated via JavaScript.
-   */
+  // Process existing file IDs (images & videos)
   $remainingImageIds = isset($_POST['existingImageIds'])
     ? array_filter(array_map('trim', explode(',', $_POST['existingImageIds'])))
     : [];
   $remainingVideoIds = isset($_POST['existingVideoIds'])
     ? array_filter(array_map('trim', explode(',', $_POST['existingVideoIds'])))
     : [];
-
-  // foreach ($remainingImageIds as $id) {
-  //   echo $id . " iamge <br>";
-  // }
-  // foreach ($remainingVideoIds as $id) {
-  //   echo $id . " vidoe<br>";
-  // }
-
-  // exit;
 
   // Process new image uploads
   $newImageIds = [];
@@ -71,16 +62,14 @@ if (isset($_POST['propertyUpdate'])) {
     $newId = $fileManager->doOp($fileArray);
     $fileManager->update();
     if ($newId) {
-      // echo $fileManager->file_id . " new image <br>";
       $newImageIds[] = $fileManager->file_id;
     }
   }
-
-  // Merge the remaining image IDs with new ones
+  // Merge the image IDs
   $finalImageIds = array_merge($remainingImageIds, $newImageIds);
   $property->property_image_file_ids = !empty($finalImageIds) ? implode(',', $finalImageIds) : '';
 
-  // Process videos in the same way
+  // Process new video uploads
   $newVideoIds = [];
   if (!empty($_FILES['property-videos-upload']['name'][0])) {
     for ($i = 0; $i < count($_FILES['property-videos-upload']['name']); $i++) {
@@ -100,18 +89,11 @@ if (isset($_POST['propertyUpdate'])) {
       }
     }
   }
-  $finalVideoIds = array_merge($remainingVideoIds, $newVideoIds);
+  // $finalVideoIds = array_merge($remainingVideoIds, $newVideoIds);
+  $finalVideoIds = $newVideoIds; // Only new videos are allowed to be uploaded
   $property->property_video_file_ids = !empty($finalVideoIds) ? implode(',', $finalVideoIds) : '';
 
-  // printing all properties of this class
-  // echo "<pre>";
-  // print_r($property);
-  // echo "</pre>";
-
-  echo $property->property_image_file_ids . " image <br>";
-  echo $property->property_video_file_ids . " video <br>";
-  // Finally, update the property record in the database.
-  // $property->update();
+  // Update property record
   if ($property->update()) {
     include_once '../pop-up.php';
     showPopup("Property details updated successfully. Property ID: {$property->property_id}");
@@ -119,8 +101,7 @@ if (isset($_POST['propertyUpdate'])) {
     include_once '../pop-up.php';
     showPopup("Error updating property details. Property ID: {$property->property_id}. <br> Please try again.");
   }
-
-  // (Optionally) Refresh the original arrays if needed.
+  // Refresh original arrays if needed
   $originalImageIds = $finalImageIds;
   $originalVideoIds = $finalVideoIds;
 }
@@ -128,7 +109,6 @@ if (isset($_POST['propertyUpdate'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -138,7 +118,9 @@ if (isset($_POST['propertyUpdate'])) {
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../css/dashboard.css">
-  <!-- CSS for Media Edit -->
+  <!-- jQuery (needed for animate effect) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- CSS for Media Edit and gallery layout -->
   <style>
     .file-container {
       display: inline-block;
@@ -148,31 +130,79 @@ if (isset($_POST['propertyUpdate'])) {
       overflow: hidden;
       position: relative;
     }
-
     .file-container img,
     .file-container video {
       display: block;
       width: 100%;
       height: auto;
     }
-
-    .delete-btn {
-      display: inline-block;
-      background-color: rgba(255, 0, 0, 0.8);
-      color: #fff;
-      padding: 5px 10px;
-      margin-top: 5px;
-      border-radius: 4px;
+    /* Delete overlay styles */
+    .delete-overlay {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: rgba(255,0,0,0.8);
+      color: white;
+      padding: 2px 5px;
+      font-size: 12px;
+      border-radius: 3px;
       cursor: pointer;
-      transition: background-color 0.2s ease;
     }
-
-    .delete-btn:hover {
-      background-color: rgba(255, 0, 0, 1);
+    /* Gallery layout */
+    .image-gallery,
+    .video-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .image-card,
+    .video-card {
+      position: relative;
+      width: 200px; /* adjust width as needed */
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .image-card img,
+    .video-card video {
+      width: 100%;
+      display: block;
+    }
+    /* Mark a container as deleted (lower opacity) */
+    .deleted {
+      opacity: 0.3;
+      pointer-events: none;
     }
   </style>
+  
+  <!-- Dynamic District Dropdown Script -->
+  <script>
+    // Load divisions and their districts from PHP
+    var divisionsData = <?php echo json_encode($divisions); ?>;
+    function updateDistricts() {
+      var divisionSelect = document.getElementById('division');
+      var districtSelect = document.getElementById('district');
+      var selectedDivision = divisionSelect.value;
+      districtSelect.innerHTML = "<option value=''>Select District</option>";
+      if (divisionsData[selectedDivision]) {
+        divisionsData[selectedDivision].forEach(function(district) {
+          var option = document.createElement("option");
+          option.value = district;
+          option.text = district;
+          districtSelect.appendChild(option);
+        });
+      }
+      // If the property already has a district, set it as selected.
+      <?php if (!empty($property->district)) { ?>
+         districtSelect.value = "<?php echo $property->district; ?>";
+      <?php } ?>
+    }
+    document.addEventListener("DOMContentLoaded", function(){
+      updateDistricts();
+      document.getElementById('division').addEventListener('change', updateDistricts);
+    });
+  </script>
 </head>
-
 <body>
   <!-- Sidebar -->
   <?php include_once 'sidebar-user.php'; ?>
@@ -185,7 +215,6 @@ if (isset($_POST['propertyUpdate'])) {
     </div>
 
     <div class="container mt-4">
-      <!-- Display Message if exists -->
       <?php if (!empty($message)) { ?>
         <div class="alert alert-info">
           <?php echo $message; ?>
@@ -193,7 +222,6 @@ if (isset($_POST['propertyUpdate'])) {
       <?php } ?>
 
       <div class="card__wrapper">
-        <!-- Property Details Header -->
         <div class="card__title-wrap mb-20">
           <h3 class="table__heading-title mb-4">Property Details</h3>
           <h4 class="table__heading-title mb-3">Property ID: <?php echo $property->property_id; ?></h4>
@@ -202,7 +230,7 @@ if (isset($_POST['propertyUpdate'])) {
 
         <!-- Form: Edit Property Details -->
         <form action="" method="post" class="profile-page-form mb-4" enctype="multipart/form-data">
-          <!-- Hidden fields to forward only non-deleted IDs -->
+          <!-- Hidden fields for existing file IDs -->
           <input type="hidden" name="existingImageIds" id="existingImageIds" value="<?php echo implode(',', $originalImageIds); ?>">
           <input type="hidden" name="existingVideoIds" id="existingVideoIds" value="<?php echo implode(',', $originalVideoIds); ?>">
 
@@ -214,20 +242,34 @@ if (isset($_POST['propertyUpdate'])) {
             </div>
           </div>
 
-          <!-- Category, Division, Address -->
+          <!-- Category, Division, District, Address -->
           <div class="row mb-4">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label for="property_category" class="form-label">Property Category:</label>
               <select class="form-control" id="property_category" name="property_category" required>
                 <option value="residential" <?php if ($property->property_category === 'residential') echo 'selected'; ?>>Residential</option>
                 <option value="commercial" <?php if ($property->property_category === 'commercial') echo 'selected'; ?>>Commercial</option>
               </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label for="division" class="form-label">Division:</label>
-              <input type="text" class="form-control" id="division" name="division" value="<?php echo $property->division; ?>" required>
+              <select class="form-control" id="division" name="division" required>
+                <option value="">Select Division</option>
+                <?php
+                  foreach($divisions as $divisionName => $districtArray) {
+                    $selected = ($property->division === $divisionName) ? 'selected' : '';
+                    echo '<option value="' . htmlspecialchars($divisionName) . '" ' . $selected . '>' . ucfirst($divisionName) . '</option>';
+                  }
+                ?>
+              </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+              <label for="district" class="form-label">District:</label>
+              <select class="form-control" id="district" name="district" required>
+                <option value="">Select District</option>
+              </select>
+            </div>
+            <div class="col-md-3">
               <label for="address" class="form-label">Address:</label>
               <input type="text" class="form-control" id="address" name="address" value="<?php echo $property->address; ?>" required>
             </div>
@@ -249,7 +291,7 @@ if (isset($_POST['propertyUpdate'])) {
             </div>
           </div>
 
-          <!-- Area, Description -->
+          <!-- Area and Description -->
           <div class="row mb-4">
             <div class="col-md-4">
               <label for="area" class="form-label">Area (in Square Feet):</label>
@@ -265,14 +307,14 @@ if (isset($_POST['propertyUpdate'])) {
           <div class="row mb-4">
             <div class="col-md-12">
               <label for="property-images" class="form-label">Property Images:</label>
-              <div class="row" id="imagesContainer">
+              <div id="imagesContainer" class="image-gallery">
                 <?php foreach ($originalImageIds as $fileId) {
                   $file = new FileManager();
                   $file->setValueById($fileId);
                 ?>
-                  <div class="col-md-3 file-container" data-file-id="<?php echo $file->file_id; ?>" data-type="image">
-                    <img src="../file/<?php echo $file->file_new_name; ?>" alt="Property Image" class="img-fluid">
-                    <div class="delete-btn">Delete</div>
+                  <div class="image-card file-container" data-file-id="<?php echo $file->file_id; ?>" data-type="image">
+                    <img src="../file/<?php echo $file->file_new_name; ?>" alt="Property Image">
+                    <div class="delete-overlay">Delete</div>
                   </div>
                 <?php } ?>
               </div>
@@ -285,16 +327,16 @@ if (isset($_POST['propertyUpdate'])) {
           <div class="row mb-4">
             <div class="col-md-12">
               <label for="property-videos" class="form-label">Property Videos:</label>
-              <div class="row" id="videosContainer">
+              <div id="videosContainer" class="video-gallery">
                 <?php foreach ($originalVideoIds as $fileId) {
                   $file = new FileManager();
                   $file->setValueById($fileId);
                 ?>
-                  <div class="col-md-3 file-container" data-file-id="<?php echo $file->file_id; ?>" data-type="video">
+                  <div class="video-card file-container" data-file-id="<?php echo $file->file_id; ?>" data-type="video">
                     <video controls>
                       <source src="../file/<?php echo $file->file_new_name; ?>" type="video/mp4">
                     </video>
-                    <div class="delete-btn">Delete</div>
+                    <div class="delete-overlay">Delete</div>
                   </div>
                 <?php } ?>
               </div>
@@ -312,29 +354,30 @@ if (isset($_POST['propertyUpdate'])) {
     </div>
   </div>
 
-  <!-- JavaScript: Update hidden fields on deletion -->
+  <!-- JavaScript: Update hidden fields on deletion and mark as removed -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // When a delete button is clicked, remove the container and update the hidden input.
-      document.querySelectorAll('.delete-btn').forEach(function(btn) {
+      // When a delete button is clicked, animate the container's opacity to a lower value to indicate removal.
+      document.querySelectorAll('.delete-overlay').forEach(function(btn) {
         btn.addEventListener('click', function() {
           var container = this.closest('.file-container');
           var fileId = container.getAttribute('data-file-id');
           var type = container.getAttribute('data-type'); // image or video
-          // Remove the container from the DOM
-          container.parentNode.removeChild(container);
-
-          // Update the corresponding hidden input
-          if (type === 'image') {
-            updateHiddenField('existingImageIds', fileId);
-          } else {
-            updateHiddenField('existingVideoIds', fileId);
-          }
+          // Animate to lower opacity (e.g., 0.3) to indicate removal
+          $(container).animate({opacity: 0.3}, 500, function() {
+            // After animation, add a "deleted" class to disable further clicks
+            $(container).addClass('deleted');
+            // Update the hidden input field to mark this file as removed
+            if (type === 'image') {
+              updateHiddenField('existingImageIds', fileId);
+            } else {
+              updateHiddenField('existingVideoIds', fileId);
+            }
+          });
         });
       });
 
-      // Function to remove a fileId from a comma-separated hidden input field.
       function updateHiddenField(fieldId, fileIdToRemove) {
         var hiddenField = document.getElementById(fieldId);
         var ids = hiddenField.value ? hiddenField.value.split(',') : [];
@@ -346,5 +389,4 @@ if (isset($_POST['propertyUpdate'])) {
     });
   </script>
 </body>
-
 </html>

@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $propertyTitle       = $_POST['property-title'];
     $propertyCategory    = $_POST['property_category'];
     $division            = $_POST['division'];
+    $district            = $_POST['district'];
     $address             = $_POST['address'];
     $bedroom_no             = $_POST['bedroom_no'];
     $bathroom_no            = $_POST['bathroom_no'];
@@ -89,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $property->area = $area;
     $property->description = $propertyDescription;
     $property->division = $division;
+    $property->district = $district;
     $property->address = $address;
     $property->bedroom_no = $bedroom_no;
     $property->bathroom_no = $bathroom_no;
@@ -189,6 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
               <input type="text" class="form-control1 w-100" name="property-title" placeholder="Titile" required>
             </div>
           </div>
+
           <div class="row">
             <div class="col-md-4 form-group">
               <label for="user-type">Choose Property Category:</label>
@@ -198,19 +201,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
               </select>
             </div>
             <div class="col-md-4 form-group">
-              <label for="user-type">Choose Division:</label>
-              <select name="division" class="form-control1 w-100" required>
-                <option value="dhaka">Dhaka</option>
-                <option value="khulna">Khulna</option>
-                <option value="rajshahi">Rajshahi</option>
-                <option value="barishal">Barishal</option>
-                <option value="chittagong">Chittagong</option>
-                <option value="sylhet">Sylhet</option>
-                <option value="dinajpur">Dinajpur</option>
-                <option value="rangpur">Rangpur</option>
-                <option value="mymensingh">Mymensingh</option>
+              <label for="divisionSelect">Choose Division:</label>
+              <select name="division" id="divisionSelect" class="form-control1 w-100" required onchange="updateDistricts();">
+                <?php
+                // Loop through the divisions array and create options
+                include_once 'php-class-file/Division.php';
+                $divisions = getDivisions();
+                foreach ($divisions as $division => $districts) {
+                  echo '<option value="' . htmlspecialchars($division) . '">' . ucfirst($division) . '</option>';
+                }
+                ?>
               </select>
             </div>
+            <div class="col-md-4 form-group">
+              <label for="districtSelect">Choose District:</label>
+              <select name="district" id="districtSelect" class="form-control1 w-100" required>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
             <div class="col-md-4 form-group">
               <label for="user-type">Enter Address:</label>
               <input type="text" class="form-control1 w-100" name="address" placeholder="Address" required>
@@ -296,6 +306,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
       // Show the selected form
       document.getElementById(formId).style.display = 'block';
     }
+  </script>
+
+  <script>
+    // Pass the PHP associative array to JavaScript
+    var divisions = <?php echo json_encode($divisions); ?>;
+
+    function updateDistricts() {
+      var divisionSelect = document.getElementById('divisionSelect');
+      var districtSelect = document.getElementById('districtSelect');
+      var selectedDivision = divisionSelect.value;
+
+      // Clear current options
+      districtSelect.innerHTML = "";
+
+      // Check if there are districts for the selected division
+      if (divisions[selectedDivision]) {
+        divisions[selectedDivision].forEach(function(district) {
+          var option = document.createElement("option");
+          option.value = district;
+          option.text = district;
+          districtSelect.appendChild(option);
+        });
+      } else {
+        districtSelect.innerHTML = '<option value="">No district available</option>';
+      }
+    }
+
+    // Update districts on page load for the default division
+    window.onload = updateDistricts;
   </script>
 </body>
 

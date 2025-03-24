@@ -1,19 +1,8 @@
 <?php
 include_once 'php-class-file/SessionManager.php';
 include_once 'php-class-file/Property.php';
-
-if (isset($_POST['searchProperty'])) {
-  // Capture the form data if needed (server–side filtering, not used in this client-side example)
-  $propertyCategory = isset($_POST['property_category']) ? $_POST['property_category'] : null;
-  $division = isset($_POST['division']) ? $_POST['division'] : null;
-  $bedroom = isset($_POST['bedroom']) ? $_POST['bedroom'] : null;
-  $bathroom = isset($_POST['bathroom']) ? $_POST['bathroom'] : null;
-  $minPrice = isset($_POST['minimum_price']) ? $_POST['minimum_price'] : null;
-  $maxPrice = isset($_POST['maximum_price']) ? $_POST['maximum_price'] : null;
-  $area = isset($_POST['area']) ? $_POST['area'] : null;
-
-  $filteredProperties = $propertyDetails->getFilteredProperties($propertyCategory, $division, $bedroom, $bathroom, $minPrice, $maxPrice, $area);
-}
+include_once 'php-class-file/Division.php'; // Include the file that defines $divisions
+$divisions = getDivisions();
 
 $property = new Property();
 $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
@@ -69,6 +58,39 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
       background: linear-gradient(145deg, #4364f7, #6fb1fc);
     }
   </style>
+  
+  <!-- Dynamic District Dropdown Script -->
+  <script>
+    // Pass the PHP associative array to JavaScript
+    var divisionsData = <?php echo json_encode($divisions); ?>;
+    
+    function updateDistricts() {
+      var divisionSelect = document.getElementById('division');
+      var districtSelect = document.getElementById('district');
+      var selectedDivision = divisionSelect.value;
+      
+      // Clear current options
+      districtSelect.innerHTML = "";
+      
+      // Populate the district dropdown based on the selected division
+      if (divisionsData[selectedDivision]) {
+        divisionsData[selectedDivision].forEach(function(district) {
+          var option = document.createElement("option");
+          option.value = district;
+          option.text = district;
+          districtSelect.appendChild(option);
+        });
+      } else {
+        districtSelect.innerHTML = '<option value="">No district available</option>';
+      }
+    }
+    
+    // Update district dropdown on page load and when division changes
+    document.addEventListener("DOMContentLoaded", function() {
+      updateDistricts();
+      document.getElementById('division').addEventListener('change', updateDistricts);
+    });
+  </script>
 </head>
 <body>
   <?php include_once 'navbar-user.php'; ?>
@@ -102,7 +124,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
       <!-- Filter Line 1: Main Filters -->
       <div id="filter-line1" class="row align-items-end">
         <!-- Property Type -->
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-2">
           <label for="property-type">Property Type:</label>
           <select id="property-type" class="form-control">
             <option value="">Select Type</option>
@@ -112,14 +134,23 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
           </select>
         </div>
         <!-- Division -->
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-2">
           <label for="division">Division:</label>
           <select id="division" class="form-control">
             <option value="">Select Division</option>
-            <option value="dhaka">Dhaka</option>
-            <option value="khulna">Khulna</option>
-            <option value="rajshahi">Rajshahi</option>
-            <option value="chittagong">Chittagong</option>
+            <?php
+              // Loop through the $divisions array to output each division as an option
+              foreach($divisions as $divisionName => $districtArray) {
+                echo '<option value="' . htmlspecialchars($divisionName) . '">' . ucfirst($divisionName) . '</option>';
+              }
+            ?>
+          </select>
+        </div>
+        <!-- District -->
+        <div class="col-12 col-md-2">
+          <label for="district">District:</label>
+          <select id="district" class="form-control">
+            <option value="">Select District</option>
           </select>
         </div>
         <!-- Price Range -->
@@ -136,7 +167,6 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
         </div>
         <!-- Button Container for Line 1 -->
         <div class="col-12 col-md-3 d-flex align-items-end justify-content-end" id="button-container-line1">
-          <!-- Case 1 buttons: Search, Reset and More Filters -->
           <button id="search-btn-line1" class="btn btn-glossy me-2">Search</button>
           <button id="reset-btn-line1" class="btn btn-outline-danger me-2">Reset</button>
           <button id="toggle-btn" class="btn btn-secondary">More Filters</button>
@@ -174,8 +204,9 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
           <!-- Card Start -->
           <div class="col-md-4 property-card" 
                data-price="<?php echo $singleProperty->price; ?>" 
-               data-category="<?php echo strtolower($singleProperty->property_category); ?>" 
-               data-division="<?php echo strtolower($singleProperty->division); ?>" 
+               data-category="<?php echo $singleProperty->property_category; ?>" 
+               data-division="<?php echo $singleProperty->division; ?>" 
+               data-district="<?php echo $singleProperty->district; ?>" 
                data-bedroom="<?php echo $singleProperty->bedroom_no; ?>" 
                data-bathroom="<?php echo $singleProperty->bathroom_no; ?>" 
                data-area="<?php echo $singleProperty->area; ?>">
@@ -233,7 +264,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
   </section>
   <?php } ?>
 
-  <!-- Footer (Include your footer code here) -->
+  <!-- Footer -->
   <footer>
     <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
       <div class="container py-5">
@@ -256,21 +287,18 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
   <script src="contactform/contactform.js"></script>
   <script src="js/main.js"></script>
   <script src="js/service.js"></script>
-
+  
   <!-- Combined JavaScript: Toggle UI, Search, Reset & Pagination -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // Toggle between Case 1 and Case 2
+      // Toggle between More Filters and Less Filters
       document.getElementById('toggle-btn').addEventListener('click', function() {
         if (this.textContent.trim() === "More Filters") {
-          // Hide both search and reset buttons in Line 1
           document.getElementById('search-btn-line1').style.display = 'none';
           document.getElementById('reset-btn-line1').style.display = 'none';
           this.textContent = "Less Filters";
-          // Show extra fields (Line 2)
           document.getElementById('filter-line2').style.display = 'flex';
         } else {
-          // Revert to Case 1: hide extra fields and show search and reset buttons in Line 1
           document.getElementById('filter-line2').style.display = 'none';
           document.getElementById('search-btn-line1').style.display = 'inline-block';
           document.getElementById('reset-btn-line1').style.display = 'inline-block';
@@ -278,37 +306,33 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
         }
       });
 
-      // Reset function: clear all input fields, revert UI to Case 1 and show all cards
       function resetFilters() {
         document.getElementById("property-type").value = '';
         document.getElementById("division").value = '';
+        document.getElementById("district").value = '';
         document.getElementById("min-price").value = '';
         document.getElementById("max-price").value = '';
         document.getElementById("bedroom").value = '';
         document.getElementById("bathroom").value = '';
-        // Revert UI to Case 1
         document.getElementById('filter-line2').style.display = 'none';
         document.getElementById('search-btn-line1').style.display = 'inline-block';
         document.getElementById('reset-btn-line1').style.display = 'inline-block';
         document.getElementById('toggle-btn').textContent = "More Filters";
-        // Show all cards (initial state)
         generatePagination(allCards);
       }
 
-      // Bind reset events for both reset buttons
       document.getElementById('reset-btn-line1').addEventListener('click', resetFilters);
       document.getElementById('reset-btn-line2').addEventListener('click', resetFilters);
 
-      // Gather all property cards
       const allCards = Array.from(document.querySelectorAll('.property-card'));
       const cardsPerPage = 2; // Adjust as needed
 
-      // Function to filter property cards based on input values
       function filterProperties() {
         const minPrice = parseFloat(document.getElementById("min-price").value) || null;
         const maxPrice = parseFloat(document.getElementById("max-price").value) || null;
-        const propertyType = document.getElementById("property-type").value.toLowerCase();
-        const division = document.getElementById("division").value.toLowerCase();
+        const propertyType = document.getElementById("property-type").value;
+        const division = document.getElementById("division").value;
+        const district = document.getElementById("district").value;
         const bedroom = parseInt(document.getElementById("bedroom").value) || null;
         const bathroom = parseInt(document.getElementById("bathroom").value) || null;
       
@@ -316,6 +340,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
           const price = parseFloat(card.getAttribute("data-price"));
           const cat = card.getAttribute("data-category");
           const div = card.getAttribute("data-division");
+          const dist = card.getAttribute("data-district");
           const bed = parseInt(card.getAttribute("data-bedroom"));
           const bath = parseInt(card.getAttribute("data-bathroom"));
       
@@ -323,13 +348,13 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
           if (maxPrice !== null && price > maxPrice) return false;
           if (propertyType && propertyType !== cat) return false;
           if (division && division !== div) return false;
+          if (district && district !== dist) return false;
           if (bedroom !== null && bed < bedroom) return false;
           if (bathroom !== null && bath < bathroom) return false;
           return true;
         });
       }
       
-      // Pagination: Generate pagination for a set of (filtered) cards
       function generatePagination(filteredCards) {
         const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
         const paginationContainer = document.querySelector('.pagination-a ul.pagination');
@@ -353,7 +378,6 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
         showPage(filteredCards, 1);
       }
       
-      // Show only cards for a specific page
       function showPage(filteredCards, page) {
         allCards.forEach(card => card.style.display = 'none');
         filteredCards.forEach((card, index) => {
@@ -361,7 +385,6 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
             card.style.display = 'block';
           }
         });
-        // Update active pagination button
         const pageButtons = document.querySelectorAll('.pagination-a .page-item[data-page]');
         pageButtons.forEach(btn => {
           btn.classList.remove('active');
@@ -371,7 +394,6 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
         });
       }
       
-      // Attach click events for pagination links
       function attachPaginationEvents(filteredCards, totalPages) {
         const paginationLinks = document.querySelectorAll('.pagination-a .page-item[data-page]');
         paginationLinks.forEach(link => {
@@ -404,17 +426,14 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
         });
       }
       
-      // Search function: filter cards and update pagination
       function performSearch() {
         const filteredCards = filterProperties();
         generatePagination(filteredCards);
       }
       
-      // Bind search events to both search buttons
       document.getElementById('search-btn-line1').addEventListener('click', performSearch);
       document.getElementById('search-btn-line2').addEventListener('click', performSearch);
       
-      // On initial page load, show all cards with pagination
       generatePagination(allCards);
     });
   </script>

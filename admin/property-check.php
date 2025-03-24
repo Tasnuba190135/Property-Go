@@ -125,6 +125,19 @@ if (isset($_GET['propertyId'])) {
                 <div class="summary-list">
                   <ul class="list">
                     <li class="d-flex justify-content-between">
+                      <strong>Address:</strong>
+                      <span><?php echo $property->address; ?></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>District</strong>
+                      <span><?php echo $property->district; ?></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>Division</strong>
+                      <span><?php echo $property->division; ?></span>
+                    </li>
+                    <hr>
+                    <li class="d-flex justify-content-between">
                       <strong>Property ID:</strong>
                       <span><?php echo $property->property_id; ?></span>
                     </li>
@@ -132,10 +145,7 @@ if (isset($_GET['propertyId'])) {
                       <strong>Property Type:</strong>
                       <span><?php echo $property->property_category; ?></span>
                     </li>
-                    <li class="d-flex justify-content-between">
-                      <strong>Location:</strong>
-                      <span><?php echo $property->address; ?></span>
-                    </li>
+
                     <li class="d-flex justify-content-between">
                       <strong>BedRooms:</strong>
                       <span><?php echo $property->bedroom_no; ?></span>
@@ -146,11 +156,11 @@ if (isset($_GET['propertyId'])) {
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>Price:</strong>
-                      <span><?php echo $property->price; ?> Lakh</span>
+                      <span><?php echo $property->price; ?> BDT</span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>Area:</strong>
-                      <span><?php echo $property->area; ?> m²</span>
+                      <span><?php echo $property->area; ?> Square Ft</span>
                     </li>
                   </ul>
                 </div>
