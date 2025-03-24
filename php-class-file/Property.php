@@ -215,11 +215,14 @@ class Property
                     property_image_file_ids = '$this->property_image_file_ids',
                     property_video_file_ids = '$this->property_video_file_ids'
                 WHERE property_id = $this->property_id";
+
+                
+
         $result = mysqli_query($this->conn, $sql);
         if ($result) {
-            // echo "Property details record updated successfully.<br>";
+            echo "Property details record updated successfully.<br>";
         } else {
-            // "Error updating record: " . mysqli_error($this->conn);
+            echo "Error updating record: " . mysqli_error($this->conn);
         }
         return $result;
     }
@@ -233,7 +236,7 @@ class Property
     }
 
     /**
-     * Get values of property details based on property_id and status and order by modified date.
+     * Get values of property details based on property_id and status and order by updated date.
      * If exactly one row is found, sets the class properties accordingly.
      *
      * @param int|null $property_id Specific property_id to load (optional).
