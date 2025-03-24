@@ -13,7 +13,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PG v3</title>
+  <title>All Properties Page</title>
   <!-- Favicon -->
   <link href="img/favicon.ico" rel="icon">
   <!-- Fonts & CSS -->

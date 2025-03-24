@@ -47,7 +47,7 @@ if($session->getObject('user') !==null){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>User Login Page</title>
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
