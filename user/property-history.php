@@ -58,48 +58,49 @@ $properties = $property->getByUserIdAndStatus($user->user_id);
       <section class="mb-5">
         <div class="container mt-4">
           <div class="card__wrapper">
-            <div class="card__title-wrap mb-20">
+            <div class="card__title-wrap mb-">
               <h2 class="mb-4 text-center">Type: For Sale by me</h2>
-              <hr class="mb-4">
             </div>
-            <div class="row">
-              <?php
-              if (!empty($properties)) {
-                foreach ($properties as $prop) {
-                  // Load property details for the current property_id
-                  $singleProperty = new Property();
-                  $singleProperty->setProperties($prop);
-
-                  // Determine status text: 0 = Pending, 1 = Live on Site.
-                  $statusText = ($prop['status'] == 0) ? "Pending" : (($prop['status'] == 1) ? "Live on Site" : "Unknown");
-              ?>
-                  <div class="col-md-4 mb-4">
-                    <div class="card card-sale">
-                      <div class="card-body">
-                        <h5 class="card-title"><?php echo $singleProperty->property_title; ?></h5>
-                        <p><strong>ID:</strong> <?php echo $singleProperty->property_id; ?></p>
-                        <p><strong>Status:</strong> <?php echo $statusText; ?></p>
-                        <p><strong>Category:</strong> <?php echo $singleProperty->property_category ?></p>
-                        <div class="d-flex justify-content-between mt-3">
-                          <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-info btn-sm">View</a>
-                          <a href="edit-property.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-warning btn-sm">Edit</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              <?php
-                }
-              } else {
-                echo "<p>No properties found.</p>";
-              }
-              ?>
-            </div>
-
-
           </div>
-        </div>
-      </section>
+    <div class="row">
+      <?php
+      if (!empty($properties)) {
+        foreach ($properties as $prop) {
+          // Load property details for the current property_id
+          $singleProperty = new Property();
+          $singleProperty->setProperties($prop);
+          // Determine status text: 0 = Pending, 1 = Live on Site.
+          $statusText = ($prop['status'] == 0) ? "Pending" : (($prop['status'] == 1) ? "Live on Site" : "Unknown");
+      ?>
+          <div class="col-md-4 mb-4">
+            <div class="card__wrapper">
+              <div class=" card-sale" style="height: 300px;">
+                <div class="card-body">
+                 
+                  <h5 class="card-title" style="text-align:justify"><strong>Property Title :</strong> <?php echo $singleProperty->property_title; ?></h5>
+                  <br>
+                  <p><strong>ID:</strong> <?php echo $singleProperty->property_id; ?></p>
+                  <p><strong>Status:</strong> <?php echo $statusText; ?></p>
+                  <p><strong>Category:</strong> <?php echo $singleProperty->property_category; ?></p>
+                  <div class="d-flex justify-content-between pt-4 mt-3">
+                    <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-success">View</a>
+                    <a href="edit-property.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-primary">Archive</a>
+                    <a href="edit-property.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-danger">Edit</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      <?php
+        }
+      } else {
+        echo "<p>No properties found.</p>";
+      }
+      ?>
     </div>
+  </div>
+</section>
+
     
   </div>
 
