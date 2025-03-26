@@ -5,11 +5,13 @@ include_once 'php-class-file/Division.php'; // Include the file that defines $di
 $divisions = getDivisions();
 
 $property = new Property();
-$propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
+$propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'posted', 'DESC');
+// echo sizeof($propertyLists) . "<br>";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,47 +33,53 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
       border-radius: 8px;
       padding: 20px;
       margin-bottom: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+
     .filter-card label {
       font-size: 0.9rem;
       color: #555;
     }
+
     .filter-card .form-control {
       border: 1px solid #ccc;
       border-radius: 4px;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     }
+
     .filter-card button {
       border-radius: 4px;
       transition: all 0.3s ease;
     }
+
     .filter-card button:hover {
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
+
     .btn-glossy {
       background: linear-gradient(145deg, #6fb1fc, #4364f7);
       border: none;
       color: #fff;
     }
+
     .btn-glossy:hover {
       background: linear-gradient(145deg, #4364f7, #6fb1fc);
     }
   </style>
-  
+
   <!-- Dynamic District Dropdown Script -->
   <script>
     // Pass the PHP associative array to JavaScript
     var divisionsData = <?php echo json_encode($divisions); ?>;
-    
+
     function updateDistricts() {
       var divisionSelect = document.getElementById('division');
       var districtSelect = document.getElementById('district');
       var selectedDivision = divisionSelect.value;
-      
+
       // Clear current options
       districtSelect.innerHTML = "";
-      
+
       // Populate the district dropdown based on the selected division
       if (divisionsData[selectedDivision]) {
         divisionsData[selectedDivision].forEach(function(district) {
@@ -84,7 +92,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
         districtSelect.innerHTML = '<option value="">No district available</option>';
       }
     }
-    
+
     // Update district dropdown on page load and when division changes
     document.addEventListener("DOMContentLoaded", function() {
       updateDistricts();
@@ -92,6 +100,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
     });
   </script>
 </head>
+
 <body>
   <?php include_once 'navbar-user.php'; ?>
 
@@ -118,150 +127,150 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
     </div>
   <?php } else { ?>
 
-  <!-- Filter UI -->
-  <div class="property-filter filter-card">
-    <div class="container">
-      <!-- Filter Line 1: Main Filters -->
-      <div id="filter-line1" class="row align-items-end">
-        <!-- Property Type -->
-        <div class="col-12 col-md-2">
-          <label for="property-type">Property Type:</label>
-          <select id="property-type" class="form-control">
-            <option value="">Select Type</option>
-            <option value="residential">Residential</option>
-            <option value="commercial">Commercial</option>
-            <option value="both">Both</option>
-          </select>
-        </div>
-        <!-- Division -->
-        <div class="col-12 col-md-2">
-          <label for="division">Division:</label>
-          <select id="division" class="form-control">
-            <option value="">Select Division</option>
-            <?php
+    <!-- Filter UI -->
+    <div class="property-filter filter-card">
+      <div class="container">
+        <!-- Filter Line 1: Main Filters -->
+        <div id="filter-line1" class="row align-items-end">
+          <!-- Property Type -->
+          <div class="col-12 col-md-2">
+            <label for="property-type">Property Type:</label>
+            <select id="property-type" class="form-control">
+              <option value="">Select Type</option>
+              <option value="">All type</option>
+              <option value="residential">Residential</option>
+              <option value="commercial">Commercial</option>
+            </select>
+          </div>
+          <!-- Division -->
+          <div class="col-12 col-md-2">
+            <label for="division">Division:</label>
+            <select id="division" class="form-control">
+              <option value="">Select Division</option>
+              <?php
               // Loop through the $divisions array to output each division as an option
-              foreach($divisions as $divisionName => $districtArray) {
+              foreach ($divisions as $divisionName => $districtArray) {
                 echo '<option value="' . htmlspecialchars($divisionName) . '">' . ucfirst($divisionName) . '</option>';
               }
-            ?>
-          </select>
-        </div>
-        <!-- District -->
-        <div class="col-12 col-md-2">
-          <label for="district">District:</label>
-          <select id="district" class="form-control">
-            <option value="">Select District</option>
-          </select>
-        </div>
-        <!-- Price Range -->
-        <div class="col-12 col-md-3">
-          <label>Price Range:</label>
-          <div class="row">
-            <div class="col-6">
-              <input type="number" id="min-price" class="form-control" placeholder="Min Price" min="0">
-            </div>
-            <div class="col-6">
-              <input type="number" id="max-price" class="form-control" placeholder="Max Price" min="0">
+              ?>
+            </select>
+          </div>
+          <!-- District -->
+          <div class="col-12 col-md-2">
+            <label for="district">District:</label>
+            <select id="district" class="form-control">
+              <option value="">Select District</option>
+            </select>
+          </div>
+          <!-- Price Range -->
+          <div class="col-12 col-md-3">
+            <label>Price Range:</label>
+            <div class="row">
+              <div class="col-6">
+                <input type="number" id="min-price" class="form-control" placeholder="Min Price" min="0">
+              </div>
+              <div class="col-6">
+                <input type="number" id="max-price" class="form-control" placeholder="Max Price" min="0">
+              </div>
             </div>
           </div>
+          <!-- Button Container for Line 1 -->
+          <div class="col-12 col-md-3 d-flex align-items-end justify-content-end" id="button-container-line1">
+            <button id="search-btn-line1" class="btn btn-glossy me-2">Search</button>
+            <button id="reset-btn-line1" class="btn btn-outline-danger me-2">Reset</button>
+            <button id="toggle-btn" class="btn btn-secondary">More Filters</button>
+          </div>
         </div>
-        <!-- Button Container for Line 1 -->
-        <div class="col-12 col-md-3 d-flex align-items-end justify-content-end" id="button-container-line1">
-          <button id="search-btn-line1" class="btn btn-glossy me-2">Search</button>
-          <button id="reset-btn-line1" class="btn btn-outline-danger me-2">Reset</button>
-          <button id="toggle-btn" class="btn btn-secondary">More Filters</button>
-        </div>
-      </div>
-      <!-- Filter Line 2: Extra Fields (Initially hidden) -->
-      <div id="filter-line2" class="row mt-3" style="display: none;">
-        <div class="col-6">
-          <label for="bedroom">Bedrooms:</label>
-          <input type="number" id="bedroom" class="form-control" placeholder="Number of Bedrooms" min="1">
-        </div>
-        <div class="col-6">
-          <label for="bathroom">Bathrooms:</label>
-          <input type="number" id="bathroom" class="form-control" placeholder="Number of Bathrooms" min="1">
-        </div>
-        <!-- Action Buttons in Line 2 -->
-        <div class="col-12 mt-3">
-          <button id="search-btn-line2" class="btn btn-glossy me-2">Search</button>
-          <button id="reset-btn-line2" class="btn btn-outline-danger">Reset</button>
+        <!-- Filter Line 2: Extra Fields (Initially hidden) -->
+        <div id="filter-line2" class="row mt-3" style="display: none;">
+          <div class="col-6">
+            <label for="bedroom">Bedrooms:</label>
+            <input type="number" id="bedroom" class="form-control" placeholder="Number of Bedrooms" min="1">
+          </div>
+          <div class="col-6">
+            <label for="bathroom">Bathrooms:</label>
+            <input type="number" id="bathroom" class="form-control" placeholder="Number of Bathrooms" min="1">
+          </div>
+          <!-- Action Buttons in Line 2 -->
+          <div class="col-12 mt-3">
+            <button id="search-btn-line2" class="btn btn-glossy me-2">Search</button>
+            <button id="reset-btn-line2" class="btn btn-outline-danger">Reset</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- End Filter UI -->
+    <!-- End Filter UI -->
 
-  <!-- Property Grid -->
-  <section class="intro-single property-grid grid">
-    <div class="container">
-      <div class="row">
-        <?php
-        foreach ($propertyLists as $prop) {
-          $singleProperty = new Property();
-          $singleProperty->setProperties($prop);
-        ?>
-          <!-- Card Start -->
-          <div class="col-md-4 property-card" 
-               data-price="<?php echo $singleProperty->price; ?>" 
-               data-category="<?php echo $singleProperty->property_category; ?>" 
-               data-division="<?php echo $singleProperty->division; ?>" 
-               data-district="<?php echo $singleProperty->district; ?>" 
-               data-bedroom="<?php echo $singleProperty->bedroom_no; ?>" 
-               data-bathroom="<?php echo $singleProperty->bathroom_no; ?>" 
-               data-area="<?php echo $singleProperty->area; ?>">
-            <div class="card-box-a card-shadow">
-              <div class="img-box-a">
-                <img src="img/property-3.jpg" alt="" class="img-a img-fluid">
-              </div>
-              <div class="card-overlay">
-                <div class="card-overlay-a-content">
-                  <div class="card-header-a">
-                    <h2 class="card-title-a">
-                      <p><?php echo $singleProperty->property_title; ?></p>
-                    </h2>
-                  </div>
-                  <div class="card-body-a">
-                    <div class="price-box d-flex">
-                      <span class="price-a">Price | <?php echo $singleProperty->price; ?> BDT </span>
+    <!-- Property Grid -->
+    <section class="intro-single property-grid grid">
+      <div class="container">
+        <div class="row">
+          <?php
+          foreach ($propertyLists as $prop) {
+            $singleProperty = new Property();
+            $singleProperty->setProperties($prop);
+          ?>
+            <!-- Card Start -->
+            <div class="col-md-4 property-card"
+              data-price="<?php echo $singleProperty->price; ?>"
+              data-category="<?php echo $singleProperty->property_category; ?>"
+              data-division="<?php echo $singleProperty->division; ?>"
+              data-district="<?php echo $singleProperty->district; ?>"
+              data-bedroom="<?php echo $singleProperty->bedroom_no; ?>"
+              data-bathroom="<?php echo $singleProperty->bathroom_no; ?>"
+              data-area="<?php echo $singleProperty->area; ?>">
+              <div class="card-box-a card-shadow">
+                <div class="img-box-a">
+                  <img src="img/property-3.jpg" alt="" class="img-a img-fluid">
+                </div>
+                <div class="card-overlay">
+                  <div class="card-overlay-a-content">
+                    <div class="card-header-a">
+                      <h2 class="card-title-a">
+                        <p><?php echo $singleProperty->property_title; ?></p>
+                      </h2>
                     </div>
-                    <a href="property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="link-a" target="_blank">Click here to view
-                      <i class="fa fa-chevron-right"></i>
-                    </a>
-                  </div>
-                  <div class="card-footer-a">
-                    <ul class="card-info d-flex justify-content-around">
-                      <li>
-                        <h4 class="card-info-title">Area</h4>
-                        <span><?php echo $singleProperty->area; ?> m<sup>2</sup></span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Beds</h4>
-                        <span><?php echo $singleProperty->bedroom_no; ?></span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Baths</h4>
-                        <span><?php echo $singleProperty->bathroom_no; ?></span>
-                      </li>
-                    </ul>
+                    <div class="card-body-a">
+                      <div class="price-box d-flex">
+                        <span class="price-a">Price | <?php echo $singleProperty->price; ?> BDT </span>
+                      </div>
+                      <a href="property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="link-a" target="_blank">Click here to view
+                        <i class="fa fa-chevron-right"></i>
+                      </a>
+                    </div>
+                    <div class="card-footer-a">
+                      <ul class="card-info d-flex justify-content-around">
+                        <li>
+                          <h4 class="card-info-title">Area</h4>
+                          <span><?php echo $singleProperty->area; ?> m<sup>2</sup></span>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title">Beds</h4>
+                          <span><?php echo $singleProperty->bedroom_no; ?></span>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title">Baths</h4>
+                          <span><?php echo $singleProperty->bathroom_no; ?></span>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            <!-- Card End -->
+          <?php } ?>
+        </div>
+        <!-- Pagination -->
+        <div class="row">
+          <div class="col-sm-12">
+            <nav class="pagination-a">
+              <ul class="pagination justify-content-end"></ul>
+            </nav>
           </div>
-          <!-- Card End -->
-        <?php } ?>
-      </div>
-      <!-- Pagination -->
-      <div class="row">
-        <div class="col-sm-12">
-          <nav class="pagination-a">
-            <ul class="pagination justify-content-end"></ul>
-          </nav>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
   <?php } ?>
 
   <!-- Footer -->
@@ -275,7 +284,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
-  
+
   <!-- JavaScript Libraries -->
   <script src="lib/jquery/jquery.min.js"></script>
   <script src="lib/jquery/jquery-migrate.min.js"></script>
@@ -287,7 +296,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
   <script src="contactform/contactform.js"></script>
   <script src="js/main.js"></script>
   <script src="js/service.js"></script>
-  
+
   <!-- Combined JavaScript: Toggle UI, Search, Reset & Pagination -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -335,7 +344,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
         const district = document.getElementById("district").value;
         const bedroom = parseInt(document.getElementById("bedroom").value) || null;
         const bathroom = parseInt(document.getElementById("bathroom").value) || null;
-      
+
         return allCards.filter(card => {
           const price = parseFloat(card.getAttribute("data-price"));
           const cat = card.getAttribute("data-category");
@@ -343,7 +352,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
           const dist = card.getAttribute("data-district");
           const bed = parseInt(card.getAttribute("data-bedroom"));
           const bath = parseInt(card.getAttribute("data-bathroom"));
-      
+
           if (minPrice !== null && price < minPrice) return false;
           if (maxPrice !== null && price > maxPrice) return false;
           if (propertyType && propertyType !== cat) return false;
@@ -354,7 +363,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
           return true;
         });
       }
-      
+
       function generatePagination(filteredCards) {
         const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
         const paginationContainer = document.querySelector('.pagination-a ul.pagination');
@@ -377,7 +386,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
         attachPaginationEvents(filteredCards, totalPages);
         showPage(filteredCards, 1);
       }
-      
+
       function showPage(filteredCards, page) {
         allCards.forEach(card => card.style.display = 'none');
         filteredCards.forEach((card, index) => {
@@ -393,7 +402,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
           }
         });
       }
-      
+
       function attachPaginationEvents(filteredCards, totalPages) {
         const paginationLinks = document.querySelectorAll('.pagination-a .page-item[data-page]');
         paginationLinks.forEach(link => {
@@ -403,10 +412,10 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
             showPage(filteredCards, page);
           });
         });
-      
+
         const previousBtn = document.querySelector('.pagination-a .page-item.previous');
         const nextBtn = document.querySelector('.pagination-a .page-item.next');
-      
+
         previousBtn.addEventListener('click', function(e) {
           e.preventDefault();
           const current = document.querySelector('.pagination-a .page-item.active');
@@ -415,7 +424,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
             showPage(filteredCards, currentPage - 1);
           }
         });
-      
+
         nextBtn.addEventListener('click', function(e) {
           e.preventDefault();
           const current = document.querySelector('.pagination-a .page-item.active');
@@ -425,17 +434,18 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'DESC');
           }
         });
       }
-      
+
       function performSearch() {
         const filteredCards = filterProperties();
         generatePagination(filteredCards);
       }
-      
+
       document.getElementById('search-btn-line1').addEventListener('click', performSearch);
       document.getElementById('search-btn-line2').addEventListener('click', performSearch);
-      
+
       generatePagination(allCards);
     });
   </script>
 </body>
+
 </html>

@@ -16,25 +16,28 @@ if (isset($_POST['approve']) || isset($_POST['reject'])) {
     if (isset($_POST['approve'])) {
         $property->setValue();
         $property->status = 1;
+
+        $timezone = 'Asia/Dhaka';
+        $date = new DateTime('now', new DateTimeZone($timezone));
+        $property->posted = $date->format('Y-m-d H:i:s');
         $property->update();
 
         include_once '../pop-up.php';
-        showPopup("Accepted");
+        showPopup("Accepted. Property ID: " . $property_id);
     }
     // Check if 'reject' button was clicked and set status to 0 (rejected)
     elseif (isset($_POST['reject'])) {
-        $property->setValue();
         $property->status = -1;
-        $property->update();
+        $property->updateStatus();
 
         include_once '../pop-up.php';
-        showPopup("Rejected");
+        showPopup("Rejected. Property ID: " . $property_id);
     }
 }
 
 // Retrieve properties for this user
 $property = new Property();
-$properties = $property->getByPropertyIdAndStatus(null, 0, 'ASC');
+$properties = $property->getByPropertyIdAndStatus(null, 0, 'created', 'ASC');
 ?>
 
 
@@ -42,19 +45,20 @@ $properties = $property->getByPropertyIdAndStatus(null, 0, 'ASC');
 <html lang="en">
 
 <head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Dashboard - Property Review</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Dashboard - Property Review</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <!-- FontAwesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="../css/dashboard.css">
 
 
-</head>
+    </head>
     <style>
         .modal-dialog {
             max-width: 1050px !important;
@@ -198,7 +202,11 @@ $properties = $property->getByPropertyIdAndStatus(null, 0, 'ASC');
 
     <script>
         $(document).ready(function() {
-            $('#userTable').DataTable(); // Initialize DataTables on #userTable
+            $('#userTable').DataTable({
+                order: [
+                    [2, "asc"]
+                ]
+            });
         });
 
         const toggleBtn = document.getElementById("toggle-btn");

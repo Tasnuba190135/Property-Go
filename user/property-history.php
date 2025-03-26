@@ -83,8 +83,8 @@ $properties = $property->getByUserIdAndStatus($user->user_id);
                   <p><strong>Status:</strong> <?php echo $statusText; ?></p>
                   <p><strong>Category:</strong> <?php echo $singleProperty->property_category; ?></p>
                   <div class="d-flex justify-content-between pt-4 mt-3">
-                    <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-success">View</a>
-                    <a href="edit-property.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-primary">Archive</a>
+                    <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-success">Click To View</a>
+                    <a href="edit-property.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-primary">Delete</a>
                     <a href="edit-property.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-danger">Edit</a>
                   </div>
                 </div>

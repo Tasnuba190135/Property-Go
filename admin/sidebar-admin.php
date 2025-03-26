@@ -30,7 +30,7 @@ if (isset($_GET['logout']) == 1) {
     <a href="<?= $navbarDir ?>user-review.php"><i class="fas fa-tachometer-alt me-2"></i> User Review</a>
     <a href="<?= $navbarDir ?>user-management.php"><i class="fas fa-tachometer-alt me-2"></i> User Management</a>
     <a href="<?= $navbarDir ?>deleted-user-account.php"><i class="fas fa-tachometer-alt me-2"></i>Delete or retrieve account</a>
-    <a href="<?= $navbarDir ?>edit-user-information.php"><i class="fa-solid fa-pen-to-square me-2"></i> Edit Client's Information</a>
+    <a href="<?= $navbarDir ?>edit-user-info.php"><i class="fa-solid fa-pen-to-square me-2"></i> Edit Client's Information</a>
     <a href="<?= $navbarDir ?>property-review.php"><i class="fas fa-layer-group me-2"></i>Property Review</a>
     <a href="<?= $navbarDir ?>property-management.php"><i class="fas fa-lock me-2"></i> Property Management</a>
     <a href="?logout=1" class="mt-auto text-center logout-btn">

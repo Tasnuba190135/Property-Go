@@ -70,7 +70,7 @@ if (isset($_GET['propertyId'])) {
 </head>
 
 <body>
-  <h1 style="text-align: center; padding: 30px 0;">Property Review in detail</h1>
+  <h1 style="text-align: center; padding: 30px 0;">Property Details</h1>
 
   <!--/ Intro Single star /-->
   <section class="intro-single1">
