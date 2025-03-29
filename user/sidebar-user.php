@@ -1,6 +1,6 @@
 <?php
 include_once '../php-class-file/SessionManager.php';
-$session = new SessionManager();
+$session = SessionStatic::class;
 
 // Dynamically determine the directory of this navbar file.
 $navbarDir = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(__FILE__)) . '/';
@@ -13,7 +13,7 @@ $rootDir = str_repeat("../", $depth);
 
 // Check if the logout form has been submitted.
 if (isset($_POST['logout'])) {
-    $session->destroy();  // Destroy the session.
+    $session::destroy();  // Destroy the session.
     echo "<script>window.location.href = '{$rootDir}login.php';</script>";
     exit;
 }

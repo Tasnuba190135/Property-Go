@@ -1,17 +1,27 @@
 <?php
 include_once '../php-class-file/SessionManager.php';
-
-$session = new SessionManager();
+$session = SessionStatic::class;
+include_once '../php-class-file/User.php';
 include_once '../pop-up.php';
-$session->get('msg1') ? showPopup($session->get('msg1')) : '';
-$session->delete('msg1');
-// $session->destroy();
+
+// include_once '../php-class-file/Auth.php';
+// auth('admin');
+
+if($session::get('msg1') !== null) {
+    showPopup($session::get('msg1'));
+    $session::delete('msg1');
+}
+
+$alreadyLoggedIn = false;
+
+if ($session::get('admin') !== null) {
+    $alreadyLoggedIn = true;
+}
 
 if (isset($_POST['log_in'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    include_once '../class-file/User.php';
     $user = new User();
     $user->email = $email;
     $user->password = $password;
@@ -19,22 +29,15 @@ if (isset($_POST['log_in'])) {
 
     if ($userCheck[0] == "1") {
         // echo 'all ok <br>';
-        include_once '../popup.php';
         showPopup($userCheck[1]);
-        $session->storeObject('admin_user', $user);
+        $session::storeObject('admin', $user);
+        $session::set('admin', 1);
         echo '<script>window.location.href = "admin-dashboard.php";</script>';
     } elseif ($userCheck[0] == "10") {
-        include_once '../popup.php';
         showPopup($userCheck[1]);
     } else {
-        include_once '../popup.php';
         showPopup($userCheck[1]);
     }
-}
-
-$alreadyLoggedIn = false;
-if ($session->getObject('admin_user') !== null) {
-    $alreadyLoggedIn = true;
 }
 
 ?>
@@ -111,62 +114,65 @@ if ($session->getObject('admin_user') !== null) {
                         </li>
                     </ul>
                 </div> -->
-                <!-- LOG IN button inside the navbar collapse -->
-                <!-- <div class="navbar-collapse collapse justify-content-xl-end" id="navbarDefault">
+    <!-- LOG IN button inside the navbar collapse -->
+    <!-- <div class="navbar-collapse collapse justify-content-xl-end" id="navbarDefault">
                     <button class="button-85 ml-auto" role="button">LOG IN</button>
                 </div>
             </div>
         </nav> -->
-        <!--/ Nav End /-->
+    <!--/ Nav End /-->
     <!-- </header> -->
 
     <section class="section1">
         <!-- HTML !-->
-            <div class="container1">
-                <!-- HTML !-->
-                <div class="login-box">
-                    <!-- <div class="button-container-home">
+        <div class="container1">
+            <!-- HTML !-->
+            <div class="login-box">
+                <!-- <div class="button-container-home">
                     <button class="button-home" onclick="location.href='index.html'">Homepage</button>
                 </div> -->
-                    <!-- HTML !-->
-                    <!-- HTML !-->
-                    <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO
+                <!-- HTML !-->
+                <!-- HTML !-->
+                <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO
                             HOMEPAGE</span></button> -->
-                    <!-- <hr> -->
-                    <?php if ($alreadyLoggedIn === false) { ?>
-                    <form method="post" action="admin-dashboard.php" enctype="multipart/form-data">
-                    <h2>Login Here</h2>
-                    <!-- <p class="signup-text1">Please Login using User ID and Password</p> -->
-                    <hr>
-                    <div class="input-field">
-                        <label for="user-type">User Type:</label>
-                        <select id="user-type" name="user-type" required>
-                            <!-- <option value="client" id="option1">Client</option> -->
-                            <option value="admin" id="option1">Admin</option>
-                        </select>
-                    </div>
-                    <div class="input-field">
-                        <label for="=email">Email Address:</label>
-                        <input type="email" id="email" placeholder="Enter your Email Address" name="email" required>
-                    </div>
-                    <div class="input-field">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" placeholder="Enter your password" name="password" required>
-                    </div>
-                    <!-- <div class="checkbox-field">
+                <!-- <hr> -->
+                <?php if ($alreadyLoggedIn === false) { ?>
+                    <form method="post" action="" enctype="multipart/form-data">
+                        <h2>Admin | Login</h2>
+                        <!-- <p class="signup-text1">Please Login using User ID and Password</p> -->
+                        <hr>
+                        <div class="input-field">
+                            <label for="user-type">User Type:</label>
+                            <select id="user-type" name="user-type" required>
+                                <!-- <option value="client" id="option1">Client</option> -->
+                                <option value="admin" id="option1">Admin</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label for="=email">Email Address:</label>
+                            <input type="email" id="email" placeholder="Enter your Email Address" name="email" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" placeholder="Enter your password" name="password" required>
+                        </div>
+                        <!-- <div class="checkbox-field">
                         <input type="checkbox" id="remember-me">
                         <label for="remember-me">Remember Me</label>
                         <a href="#" class="forgot-password">Forget Password?</a>
                     </div> -->
-                    <!-- <button class="login-btn">Login</button> -->
-                    <div class="button-container">
-                        <button class="button-56" name="log_in" type="submit" role="button">LOG IN</button>
-                    </div>
-                    <!-- <hr> -->
-                </form>
+                        <!-- <button class="login-btn">Login</button> -->
+                        <div class="button-container">
+                            <button class="button-56" name="log_in" type="submit" role="button">LOG IN</button>
+                        </div>
+                        <!-- <hr> -->
+                    </form>
                 <?php } else { ?>
-                                        <h3 class="h4 form-box text-black mb-4">Welcome to Munshi Mohammad Meherulla Hall</h3>
-                                    <?php } ?>
+                    <h3 class="h4 form-box text-black mb-4">Welcome to Property Go Admin Panel</h3>
+                    <div class="button-container">
+                        <button class="button-56" onclick="location.href='admin-dashboard.php'" role="button">Go to Dashboard</button>
+                    </div>
+                <?php } ?>
                 <!-- <form method="post" action="signup.html">
 
                     <p class="signup-text">Don't have an account? <a href="signup.html">Sign Up</a></p>
@@ -175,18 +181,18 @@ if ($session->getObject('admin_user') !== null) {
                     </div>
                 </div>
             </div> -->
-            <!-- Popup Container -->
-            <div id="popup" class="popup">
-                <div class="popup-content">
-                    <span class="close-btn" onclick="closePopup()">&times;</span>
-                    <h2>Login Successful</h2>
-                    <p>Welcome! You have successfully logged in.</p>
+                <!-- Popup Container -->
+                <div id="popup" class="popup">
+                    <div class="popup-content">
+                        <span class="close-btn" onclick="closePopup()">&times;</span>
+                        <h2>Login Successful</h2>
+                        <p>Welcome! You have successfully logged in.</p>
+                    </div>
                 </div>
-            </div>
-        </form>
-            <!-- Login Button -->
-            <!-- <button class="button-56" onclick="showPopup()">Login</button> -->
-        
+                <!-- </form> -->
+                <!-- Login Button -->
+                <!-- <button class="button-56" onclick="showPopup()">Login</button> -->
+
     </section>
 
     <footer>

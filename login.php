@@ -1,7 +1,7 @@
 <?php
 include_once 'php-class-file/SessionManager.php';
 
-$session = new SessionManager();
+$session = new Session();
 // session->destroy();
 include_once 'pop-up.php';
 $session->get('msg1') ? showPopup($session->get('msg1')) : '';

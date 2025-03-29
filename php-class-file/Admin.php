@@ -6,7 +6,7 @@ class Admin
     public $user_id = 0;
     public $status = 1; // You can adjust this if needed (e.g., 1 for active)
     public $email = "admin@admin";
-    public $password = "password";
+    public $password = 'pa$$w0rd';
     public $user_type = "admin";
     public $created;
     public $modified;

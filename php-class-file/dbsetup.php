@@ -66,16 +66,22 @@ include_once 'Admin.php';
 // $property = new Property();
 // $property->alterTableAddColumns([20]);
 
-function get_time($timezone = 'Asia/Dhaka') {
-    $date = new DateTime('now', new DateTimeZone($timezone));
-    return $date->format('Y-m-d H:i:s');
-}
+// function get_time($timezone = 'Asia/Dhaka') {
+//     $date = new DateTime('now', new DateTimeZone($timezone));
+//     return $date->format('Y-m-d H:i:s');
+// }
 
-echo date_default_timezone_get();
-echo "<br>";
-echo get_time('Asia/Dhaka');
-echo "<br>";
-echo date('Y-m-d H:i:s');
+// echo date_default_timezone_get();
+// echo "<br>";
+// echo get_time('Asia/Dhaka');
+// echo "<br>";
+// echo date('Y-m-d H:i:s');
+
+// add default admin
+// $admin = new Admin();
+// $admin->insertAdmin();
+// echo "Admin record inserted successfully";
+// echo "<br><br><br>";
 
 
 

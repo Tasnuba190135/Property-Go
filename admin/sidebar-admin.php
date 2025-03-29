@@ -1,24 +1,15 @@
 <?php
+include_once '../php-class-file/SessionManager.php';
+$session = SessionStatic::class;
 // Dynamically determine the directory of this navbar file.
 $navbarDir = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(__FILE__)) . '/';
 
-
 // if the logout button pressed
 if (isset($_GET['logout']) == 1) {
-    // Include the SessionManager class from the correct directory
-    // Include the SessionManager class from the correct directory
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/php-class-file/SessionManager.php';
-    
-    // Create an instance of SessionManager and destroy the session.
-    $session = new SessionManager();
-    $session->destroy();
-
+    $session::destroy();
     unset($_GET['logout']);
-
     // Redirect to the homepage using JavaScript.
-    echo '<script type="text/javascript">
-            window.location.href = "login.php?logoutMsg=2";
-          </script>';
+    echo '<script type="text/javascript"> window.location.href = "login.php"; </script>';
     exit;
 }
 ?>

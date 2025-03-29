@@ -1,13 +1,16 @@
 <?php
+include_once '../php-class-file/Auth.php';
+auth('user');
+
 include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/UserDetails.php';
 include_once '../php-class-file/FileManager.php';
 
-$session = new SessionManager();
+$session = SessionStatic::class;
 
 $user = new User();
-$sUser = $session->getObject("user");
+$sUser = $session::getObject("user");
 $user->user_id = $sUser->user_id;
 $user->setValue();
 

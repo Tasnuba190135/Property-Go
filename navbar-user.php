@@ -1,9 +1,9 @@
 <?php
 include_once 'php-class-file/SessionManager.php';
-$session = new SessionManager();
+$session = SessionStatic::class;
 
 $loggedIn = false;
-if ($session->get('user')) {
+if ($session::get('user')) {
     $loggedIn = true;
 }
 
@@ -81,7 +81,7 @@ if (isset($_GET['logout']) == 1) {
                                 </li>
                             </ul>
                         </nav>
-                        
+
                         <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right">
                             <span class="icon-menu h3"></span>
                         </a>

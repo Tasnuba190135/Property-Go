@@ -1,4 +1,7 @@
 <?php
+include_once '../php-class-file/Auth.php';
+auth('user');
+
 include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/Property.php';
@@ -7,8 +10,8 @@ include_once '../php-class-file/Division.php'; // Include file to fetch division
 
 $divisions = getDivisions(); // $divisions is an associative array: division => array(district1, district2, ...)
 
-$session = new SessionManager();
-$sUser   = $session->getObject("user");
+$session = SessionStatic::class;
+$sUser   = $session::getObject("user");
 
 $property = new Property();
 $originalImageIds = [];

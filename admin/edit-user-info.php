@@ -1,13 +1,13 @@
 <?php
-include_once '../php-class-file/SessionManager.php';
+include_once '../php-class-file/Auth.php';
+auth('admin');
+
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/UserDetails.php';
 include_once '../php-class-file/FileManager.php';
 include_once '../php-class-file/Division.php';  // Include Division class
 
 $divisions = getDivisions(); // Returns an associative array: division => [districts...]
-
-$session = new SessionManager();
 
 $user = new User();
 $userDetails = new UserDetails();

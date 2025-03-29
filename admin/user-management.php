@@ -1,4 +1,7 @@
 <?php
+include_once '../php-class-file/Auth.php';
+auth('admin');
+
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/UserDetails.php';
 include_once '../php-class-file/FileManager.php';

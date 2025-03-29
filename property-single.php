@@ -1,6 +1,5 @@
 <?php
 // Include necessary PHP class files (adjust paths as needed)
-include_once 'php-class-file/SessionManager.php';
 include_once 'php-class-file/User.php';
 include_once 'php-class-file/Property.php';
 include_once 'php-class-file/FileManager.php';

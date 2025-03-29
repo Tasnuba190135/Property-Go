@@ -1,12 +1,13 @@
 <?php
+include_once '../php-class-file/Auth.php';
+auth('admin');
+
 // hellow world
 // Include necessary PHP class files (adjust paths as needed)
-include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/Property.php';
 include_once '../pop-up.php';
 
-// $session = new SessionManager();
 
 if (isset($_POST['approve']) || isset($_POST['reject'])) {
     $property = new Property();

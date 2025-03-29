@@ -1,5 +1,4 @@
 <?php
-include_once 'php-class-file/SessionManager.php';
 include_once 'php-class-file/Property.php';
 include_once 'php-class-file/Division.php'; // Include the file that defines $divisions
 $divisions = getDivisions();

@@ -4,8 +4,9 @@ include_once 'php-class-file/SessionManager.php';
 $session = new SessionManager();
 $session->delete('step');
 
-$districtList = new UserDetails();
-$districtList = $districtList->district_array;
+include_once 'php-class-file/Division.php';  // Include Division class to load divisions dynamically
+$divisions = getDivisions(); // Expected to return an associative array: division => [districts...]
+
 
 
 if (isset($_POST['sign_up'])) {
@@ -70,6 +71,7 @@ if (isset($_POST['sign_up'])) {
   exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -215,18 +217,24 @@ if (isset($_POST['sign_up'])) {
             <input type="tel" name="contact_no" id="contact" placeholder="Enter your Contact No(+8801XXXXXXXXX):" pattern="^\+8801[3-9]\d{8}$" required>
           </div>
 
+          <!-- Dynamic Division Selection -->
           <div class="input-field">
-            <label for="user-type">Division:</label>
-            <select name="division" id="user-type" required>
-              <option value="dhaka" id="option1">Dhaka</option>
-              <option value="khulna" id="option1">Khulna</option>
-              <option value="sylhet" id="option1">Sylhet</option>
-              <option value="barisal" id="option1">Barisal</option>
-              <option value="chittagong" id="option1">Chittagong</option>
-              <option value="dinajpur" id="option1">Dinajpur</option>
-              <option value="rajshahi" id="option1">Rajshahi</option>
-              <option value="rangpur" id="option1">Rangpur</option>
-              <option value="mymensingh" id="option1">Mymensingh</option>
+            <label for="division">Division:</label>
+            <select name="division" id="division" required>
+              <option value="">Select Division</option>
+              <?php 
+              foreach($divisions as $divName => $districts) {
+                echo "<option value=\"$divName\">$divName</option>";
+              }
+              ?>
+            </select>
+          </div>
+
+          <!-- Dynamic District Selection -->
+          <div class="input-field">
+            <label for="district">District:</label>
+            <select name="district" id="district" required>
+              <option value="">Select District</option>
             </select>
           </div>
           
@@ -238,11 +246,11 @@ if (isset($_POST['sign_up'])) {
             <label for="gender">Gender:</label>
             <div class="radio-group" required>
               <!-- <select name="gender" id="gender" class="radio-group" required> -->
-              <input type="radio" id="male" name="gender" value="male" required>
+              <input type="radio" id="male" name="gender" value="male" checked>
               <label for="male">Male</label>
-              <input type="radio" id="female" name="gender" value="female" required>
+              <input type="radio" id="female" name="gender" value="female">
               <label for="female">Female</label>
-              <input type="radio" id="other" name="gender" value="other" required>
+              <input type="radio" id="other" name="gender" value="other">
               <label for="other">Other</label>
             </div>
           </div>
@@ -375,6 +383,26 @@ if (isset($_POST['sign_up'])) {
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
   <script src="js/service.js"></script>
+
+  <!-- Dynamic District Population Script -->
+  <script>
+    const divisionsData = <?php echo json_encode($divisions); ?>;
+    const divisionSelect = document.getElementById("division");
+    const districtSelect = document.getElementById("district");
+
+    divisionSelect.addEventListener("change", function() {
+      const selectedDivision = this.value;
+      districtSelect.innerHTML = '<option value="">Select District</option>';
+      if (divisionsData[selectedDivision]) {
+        divisionsData[selectedDivision].forEach(function(district) {
+          let option = document.createElement("option");
+          option.value = district;
+          option.text = district;
+          districtSelect.appendChild(option);
+        });
+      }
+    });
+  </script>
 
 </body>
 

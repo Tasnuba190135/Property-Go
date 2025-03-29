@@ -1,12 +1,14 @@
 <?php
+include_once '../php-class-file/Auth.php';
+auth('user');
 // Include necessary PHP class files from the root/php-class-file/ directory
 include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/Property.php';
 
 // Start session and get session user object
-$session = new SessionManager();
-$sUser = $session->getObject("user");
+$session = SessionStatic::class;
+$sUser = $session::getObject("user");
 
 // If the user is not logged in, display a message and exit.
 if (!$sUser) {

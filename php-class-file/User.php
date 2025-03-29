@@ -287,17 +287,11 @@ class User
                     $hasBlocked = true;
                     return ["2", "Your account is blocked by admin."];
                 }
-                if ($status == -2) {
-                    $hasBlocked = true;
-                    return ["2", "Your account is blocked by admin."];
-                }
 
                 // Check for declined status (-1)
                 if ($status == -1) {
                     $hasDeclined = true;
                     $this->user_id = $row['user_id'];
-                    $this->status = -2;
-                    $this->update();
                     return ["-1", "Your account registration was declined by the admin. Please register again using <b>this email<b> or other email account."];
                 }
             }

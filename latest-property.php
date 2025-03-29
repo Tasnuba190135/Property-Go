@@ -1,5 +1,4 @@
 <?php
-include_once 'php-class-file/SessionManager.php';
 include_once 'php-class-file/Property.php';
 
 // 1. Get all properties by division (status=1)
