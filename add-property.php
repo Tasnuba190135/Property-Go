@@ -5,10 +5,10 @@ include_once 'php-class-file/User.php';
 include_once 'php-class-file/Property.php';
 include_once 'php-class-file/FileManager.php';
 
-$session = new SessionManager();
+$session = SessionStatic::class;
 
 // Retrieve user session object
-$sUser = $session->getObject("user");
+$sUser = $session::getObject("user");
 
 // Create a new User object and set its user_id from the session
 $user = new User();
@@ -18,7 +18,7 @@ if ($sUser) {
   $user->setValue();
 } else {
   // If not logged in, set a session message
-  $session->set('msg1', 'You need to login to add a property.');
+  $session::set('msg1', 'You need to login to add a property.');
 }
 
 // Helper function to re-array the $_FILES array for multiple uploads
@@ -101,13 +101,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $property->property_video_file_ids = $videoFileId;
     $property->insert();
 
-    // $session->set('msg1', 'Property added successfully.');
+    // $session::set('msg1', 'Property added successfully.');
     // echo "<script>window.location.href.reload();</script>";
     include_once 'pop-up.php';
     showPopup('Property added Successfully');
     // exit();
   } else {
-    $session->set('msg1', 'Failed to add property.');
+    $session::set('msg1', 'Failed to add property.');
   }
 }
 
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Property Page</title>
+  <title>PG v3</title>
   <!-- Favicon -->
   <link href="img/favicon.ico" rel="icon">
   <link rel="stylesheet" href="fonts/icomoon/style.css">
@@ -142,6 +142,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   <!-- Include Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+  
+  
+ 
 
 <body>
   <?php include_once 'navbar-user.php'; ?>
@@ -163,12 +166,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
   <!-- Display session message if it exists -->
   <?php
-  $msg = $session->get('msg1');
+  $msg = $session::get('msg1');
   // echo $msg."<br>";
   if ($msg) {
     include_once 'pop-up.php';
     showPopup($msg);
-    $session->delete('msg1');
+    $session::delete('msg1');
   }
   ?>
 
@@ -298,7 +301,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   <script src="js/service.js"></script>
   <script src="lib/jquery/jquery.min.js"></script>
   <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>
+  
   <script>
     function showForm(formId) {
       // Hide all forms (in this example, only "for-sale" exists)

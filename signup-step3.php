@@ -1,8 +1,8 @@
 <?php
 include_once 'php-class-file/UserDetails.php';
 include_once 'php-class-file/SessionManager.php';
-$session = new SessionManager();
-$session->delete('step');
+$session = SessionStatic::class;
+$session::delete('step');
 
 include_once 'php-class-file/Division.php';  // Include Division class to load divisions dynamically
 $divisions = getDivisions(); // Expected to return an associative array: division => [districts...]
@@ -15,9 +15,9 @@ if (isset($_POST['sign_up'])) {
   include_once 'php-class-file/NoteManager.php';
 
   $user = new User();
-  $temp_user = $session->getObject('user');
+  $temp_user = $session::getObject('temp_user');
   $user->user_type = "client";
-  $session->copyProperties($temp_user, $user);
+  $session::copyProperties($temp_user, $user);
   $user->insert();
 
   $userDetails = new UserDetails();
@@ -64,9 +64,9 @@ if (isset($_POST['sign_up'])) {
   $userDetails->update();
 
   // echo 'All Completed'<br>
-  $session->delete('user');
-  $session->set('msg1', 'Please wait for Admin approval');
-  // $session->set('msg1_ttl',1);
+  $session::delete('temp_user');
+  $session::set('msg1', 'Please wait for Admin approval');
+  // $session::set('msg1_ttl',1);
   echo "<script>window.location = 'login.php';</script>";
   exit();
 }

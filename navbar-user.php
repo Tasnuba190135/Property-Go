@@ -16,8 +16,8 @@ if (isset($_GET['logout']) == 1) {
     include_once $_SERVER['DOCUMENT_ROOT'] . '/php-class-file/SessionManager.php';
 
     // Create an instance of SessionManager and destroy the session.
-    $session = new SessionManager();
-    $session->destroy();
+    $session = SessionStatic::class;
+    $session::destroy();
 
     unset($_GET['logout']);
 

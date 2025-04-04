@@ -1,11 +1,11 @@
 <?php 
 include_once 'php-class-file/SessionManager.php';
-$session = new SessionManager();
+$session = SessionStatic::class;
 
 include_once 'pop-up.php';
-if ($session->get('msg1') != null){
-    showPopup($session->get('msg1'));
-    $session->delete('msg1');
+if ($session::get('msg1') != null){
+    showPopup($session::get('msg1'));
+    $session::delete('msg1');
 }
 if(isset($_POST['verify_email'])){
     include_once 'php-class-file/User.php';
@@ -24,10 +24,10 @@ if ($user->isEmailAvailable($user->email)){
     include_once 'pop-up.php';
     showPopup("The Email Address you provide is already used. Please try with another Email Address.");
 } else{
-    $session->storeObject('user', $user);
-    $session->set('step', 2);
+    $session::storeObject('temp_user', $user);
+    $session::set('step', 2);
     $otp = rand(1000, 9999);
-    $session->set('otp', $otp);
+    $session::set('otp', $otp);
     echo "<script>window.location.href='signup-step2.php';</script>";
 }
 
@@ -84,18 +84,18 @@ if ($user->isEmailAvailable($user->email)){
                     <span></span>
                 </button>
 
-                <a class="navbar-brand text-brand" href="index.html">PROPERTY<span class="color-b"> GO</span></a>
+                <a class="navbar-brand text-brand" href="index.php">PROPERTY<span class="color-b"> GO</span></a>
 
                 <div class="navbar-collapse collapse justify-content-lg-end" id="navbarDefault">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="index.html">Home</a>
+                            <a class="nav-link active" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="add_property.html">Add Property</a>
+                            <a class="nav-link" href="add-property.php">Add Property</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="explore_property.html">Explore Property</a>
+                            <a class="nav-link" href="explore_property.php">Explore Property</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="about.html">About Us</a>

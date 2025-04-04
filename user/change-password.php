@@ -5,8 +5,8 @@ auth('user');
 include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
 
-$session = new SessionManager();
-$sUser = $session->getObject("user");
+$session = SessionStatic::class;
+$sUser = $session::getObject("user");
 
 $user = new User();
 $user->user_id = $sUser->user_id;
