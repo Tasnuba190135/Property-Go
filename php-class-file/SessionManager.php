@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SessionStatic class (pure static version)
  * 
@@ -309,4 +310,3 @@ class Session
         return $tempObj;
     }
 }
-?>
