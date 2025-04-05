@@ -1,44 +1,45 @@
 <?php
 include_once 'php-class-file/SessionManager.php';
-$session = new SessionManager();
+$session = SessionStatic::class;
 
-if($session->get('step') !== 2){
-    $session->set('msg1', 'Please complete the <b>Step 1</b> first');
-    echo $session->get('msg1');
+
+if($session::get('step') !== 2){
+    $session::set('msg1', 'Please complete the <b>Step 1</b> first');
+    echo $session::get('msg1');
     // echo '<script> window.location.href = "signup-step2.php";</script>';
     exit();
 }
 
-if ($session->get('step') == 2){
+if ($session::get('step') == 2){
 
 }
 
 if (isset($_POST['submit_otp'])) {
-    include_once 'php-class-file/User.php';
+    // include_once 'php-class-file/User.php';
 
-    $user = $session->getObject('user');
-    $otp = $session->get('otp');
+    // $user = $session::getObject('user');
+    $otp = $session::get('otp');
 
     if ($_POST['otp'] != $otp){
         include_once 'pop-up.php';
         showPopup('OTP that you provide is not matching. Please try again');
     } else {
         echo "OTP has matched";
-        $session->delete('otp');
-        $session->set('msg1', 'OTP is matched');
+        $session::delete('otp');
+        $session::set('msg1', 'OTP is matched');
         echo '<script> window.location.href = "signup-step3.php";</script>';
         exit();
     }
 }
-if(isset($_POST['resend_otp']) && $session->get('step') == 2){
-    include_once 'php-class-file/User.php';
+if(isset($_POST['resend_otp']) && $session::get('step') == 2){
+    // include_once 'php-class-file/User.php';
 
   // Retrieve the user object from session.
-  $user = $session->getObject('user');
+//   $user = $session::getObject('user');
 
 //   Generate a new OTP.
 $otp = rand(1000, 9999);
-$session->set('otp', $otp);
+$session::set('otp', $otp);
 }
 ?>
 
@@ -81,47 +82,7 @@ $session->set('otp', $otp);
 </head>
 
 <body>
-    <header>
-        <!-- nav start -->
-        <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
-            <div class="container">
-                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
-                    data-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-
-                <a class="navbar-brand text-brand" href="index.html">PROPERTY<span class="color-b"> GO</span></a>
-
-                <div class="navbar-collapse collapse justify-content-lg-end" id="navbarDefault">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="add_property.html">Add Property</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="explore_property.html">Explore Property</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact Us</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- LOG IN button inside the navbar collapse -->
-                <div class="navbar-collapse collapse justify-content-xl-end" id="navbarDefault">
-                    <button class="button-85 ml-auto" onclick="location.href='login.html'" role="button">LOG IN</button>
-                </div>
-            </div>
-        </nav>
-        <!--/ Nav End /-->
-    </header>
+<?php include_once 'navbar-user.php'; ?>
 
     <section class="section1">
         <!-- HTML !-->
@@ -149,7 +110,7 @@ $session->set('otp', $otp);
 
 
                     <div class="input-field">
-                        <label for="email">OTP:<?php echo $session->get('otp'); ?></label>
+                        <label for="email">OTP:<?php echo $session::get('otp'); ?></label>
                         <input type="otp" name="otp" id="email" placeholder="Enter OTP" required>
                     </div>
                     <!-- <div class="input-field">
@@ -165,7 +126,7 @@ $session->set('otp', $otp);
                 <form method="post" action="" enctype="multipart/form-data">
                     <p class="signup-text" style="padding-top: 10px;">Don't get the OTP? <a href="">Resend OTP</a></p>
                     <div class="button-container">
-                        <button class="button-56" name="resend_otp" type="submit" role="button">Resend OTP(30)</button>
+                        <button class="button-56" name="resend_otp" id="resend_otp" type="submit" role="button" disabled>Resend OTP</button>
                     </div>
                 </form>
 
@@ -276,5 +237,21 @@ $session->set('otp', $otp);
     <script src="js/service.js"></script>
 
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var resendBtn = document.getElementById('resend_otp');
+        var countdown = 30; // seconds
 
+        var interval = setInterval(function() {
+            countdown--;
+            if (countdown > 0) {
+                resendBtn.textContent = 'Resend OTP (' + countdown + ')';
+            } else {
+                resendBtn.textContent = 'Resend OTP';
+                resendBtn.disabled = false;
+                clearInterval(interval);
+            }
+        }, 1000);
+    });
+</script>
 </html>

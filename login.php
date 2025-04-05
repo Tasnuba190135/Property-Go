@@ -115,11 +115,11 @@ if($session->getObject('user') !==null){
                         <label for="password">Password:</label>
                         <input type="password" name="password" id="password" placeholder="Enter your password" required>
                     </div>
-                    <!-- <div class="checkbox-field">
-                        <input type="checkbox" id="remember-me">
-                        <label for="remember-me">Remember Me</label>
-                        <a href="#" class="forgot-password">Forget Password?</a>
-                    </div> -->
+                    <div class="checkbox-field">
+                        <!-- <input type="checkbox" id="remember-me">
+                        <label for="remember-me">Remember Me</label> -->
+                        <a href="reset-password-step1.php" class="forgot-password"><b><i>Forget Password?</i></b></a>
+                    </div>
                     <!-- <button class="login-btn">Login</button> -->
                     <div class="button-container">
                         <button class="button-56" name="log_in" type="submit" role="button">LOG IN</button>

@@ -1,6 +1,6 @@
 <?php
 include_once 'php-class-file/SessionManager.php';
-$session = new SessionManager();
+$session =  SessionStatic::class;
 
 if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
   include_once 'pop-up.php';
@@ -20,7 +20,8 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
   <title>Home Page</title>
   <!-- Favicon -->
   <link href="img/favicon.ico" rel="icon">
-
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+  <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700&display=swap" rel="stylesheet">
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

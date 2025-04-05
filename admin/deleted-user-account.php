@@ -123,7 +123,7 @@ $userList = array_merge($userListActive ?: [], $userListDisable ?: []);
                                         <td><?php echo $userObj1->email; ?></td>
                                         <td><?php echo $userObj1->user_type; ?></td>
                                         <td><?php if ($userObj1->status == -2) { ?>Account Deleted
-                                        <?php } else { ?> Account Retrieved <?php } ?>
+                                        <?php } else { ?> Account Activated <?php } ?>
                                         </td>
                                         <td>
                                             <div class="attendant__action">

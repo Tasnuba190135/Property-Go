@@ -3,6 +3,13 @@
     font-family: 'Poppins', sans-serif;
     color: #555555;
   }
+  .navbar-brand{
+    padding-top: .3125rem !important;
+    padding-bottom: .3125rem !important;
+    margin-right: 1rem !important;
+    /* font-size: 1.5rem !important; */
+    white-space: nowrap !important;
+  }
   
   h1,
   h2,
@@ -72,7 +79,7 @@
   
   .text-brand {
     color: #000000;
-    font-size: 2rem;
+    font-size: 2rem !important;
     font-weight: 600;
   }
   
@@ -1745,7 +1752,15 @@
     .link-a span {
       font-size: 1.5rem;
     }
-  
+    /* For sticky navbar */
+    .navbar {
+      transition: none !important; /* Disable height transition */
+      height: 70px; /* Or whatever your intended height is */
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      margin-bottom: 0 !important;
+      box-shadow: none;
+    }
     .navbar-default.navbar-trans .nav-item,
     .navbar-default.navbar-reduce .nav-item, .button-85 {
       margin-left: 15px;

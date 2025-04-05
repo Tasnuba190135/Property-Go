@@ -30,7 +30,6 @@ if (empty($divisionWisePropertyLists)) {
   <link rel="stylesheet" href="css/property.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
-    /* Simple Transparent Button Style for Sub Navigation */
     .btn-glossy {
       background: transparent;
       border: 2px solid transparent;
@@ -45,12 +44,10 @@ if (empty($divisionWisePropertyLists)) {
     .btn-glossy:hover {
       border-color: #6fb1fc;
     }
-    /* Active button with glowing border */
     .btn-active {
       border-color: #6fb1fc;
       box-shadow: 0 0 8px 2px rgba(107, 177, 252, 0.6);
     }
-    /* Style for no property message */
     .no-property {
       text-align: center;
       margin-top: 40px;
@@ -75,74 +72,167 @@ if (empty($divisionWisePropertyLists)) {
     </div>
   </section>
 
-  <!-- Division Buttons as Sub Navigation -->
+  <!-- Division Buttons -->
   <?php if ($divisionWisePropertyLists) { ?>
   <div class="container mt-4">
     <div class="d-flex justify-content-center flex-wrap">
-      <?php
-      foreach (array_keys($divisionWisePropertyLists) as $divisionName) {
-          echo '<button type="button" class="btn-glossy division-btn" data-division="' . htmlspecialchars($divisionName) . '">'
-               . htmlspecialchars($divisionName) . '</button>';
-      }
-      ?>
+      <?php foreach (array_keys($divisionWisePropertyLists) as $divisionName): ?>
+        <button type="button" class="btn-glossy division-btn" data-division="<?= htmlspecialchars($divisionName) ?>">
+          <?= htmlspecialchars($divisionName) ?>
+        </button>
+      <?php endforeach; ?>
     </div>
   </div>
   <?php } ?>
 
-  <!-- Properties Section: Group properties by division -->
+  <!-- Properties Section -->
   <div class="container mt-4" id="properties-container">
     <?php
-    // If no properties found in any division, show a nice message and trigger a popup
     if (!$divisionWisePropertyLists) {
       include_once 'pop-up.php';
       showPopup('No property found.');
       echo '<div class="no-property">No property found.</div>';
     } else {
-      foreach ($divisionWisePropertyLists as $divisionName => $properties) {
-      ?>
-          <div class="division-cards" data-division="<?php echo htmlspecialchars($divisionName); ?>">
-            <h2><?php echo htmlspecialchars($divisionName); ?></h2>
-            <div class="row">
-              <?php foreach ($properties as $propArray) {
-                      $singleProperty = new Property();
-                      $singleProperty->setProperties($propArray);
-              ?>
-                <div class="col-md-4 mb-4">
-                  <div class="card card-shadow">
-                    <!-- Example image -->
-                    <img class="card-img-top" src="img/property-3.jpg" alt="Property">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <?php echo htmlspecialchars($singleProperty->property_title); ?>
-                      </h5>
-                      <p class="card-text">
-                        Price: <?php echo $singleProperty->price; ?> BDT<br>
-                        Area: <?php echo $singleProperty->area; ?> m<sup>2</sup><br>
-                        Beds: <?php echo $singleProperty->bedroom_no; ?><br>
-                        Baths: <?php echo $singleProperty->bathroom_no; ?>
-                      </p>
-                      <a href="property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>"
-                         class="btn btn-primary" target="_blank">
-                         View Details
-                      </a>
+      foreach ($divisionWisePropertyLists as $divisionName => $properties): ?>
+        <div class="division-cards" data-division="<?= htmlspecialchars($divisionName); ?>">
+          <h2 style="margin-bottom: 40px;"><?= htmlspecialchars($divisionName); ?></h2>
+          <div class="row">
+            <?php foreach ($properties as $propArray):
+              $singleProperty = new Property();
+              $singleProperty->setProperties($propArray);
+            ?>
+              <div class="col-md-4 mb-4">
+                <div class="card-box-a card-shadow">
+                  <div class="img-box-a">
+                    <img src="img/property-3.jpg" alt="" class="img-a img-fluid">
+                  </div>
+                  <div class="card-overlay">
+                    <div class="card-overlay-a-content">
+                      <div class="card-header-a">
+                        <h2 class="card-title-a">
+                          <p><?= $singleProperty->property_title; ?></p>
+                        </h2>
+                      </div>
+                      <div class="card-body-a">
+                        <div class="price-box d-flex">
+                          <span class="price-a">Price | <?= $singleProperty->price; ?> BDT </span>
+                        </div>
+                        <a href="property-single.php?propertyId=<?= $singleProperty->property_id; ?>" class="link-a" target="_blank">
+                          Click here to view <i class="fa fa-chevron-right"></i>
+                        </a>
+                      </div>
+                      <div class="card-footer-a">
+                        <ul class="card-info d-flex justify-content-around">
+                          <li>
+                            <h4 class="card-info-title">Area</h4>
+                            <span><?= $singleProperty->area; ?> m<sup>2</sup></span>
+                          </li>
+                          <li>
+                            <h4 class="card-info-title">Beds</h4>
+                            <span><?= $singleProperty->bedroom_no; ?></span>
+                          </li>
+                          <li>
+                            <h4 class="card-info-title">Baths</h4>
+                            <span><?= $singleProperty->bathroom_no; ?></span>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
-              <?php } // End property loop ?>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        </div>
+    <?php endforeach; } ?>
+  </div>
+  <footer>
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-white mb-4">Get In Touch</h5>
+            <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
+            <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+            <div class="d-flex pt-2">
+              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
             </div>
           </div>
-    <?php } // End division loop
-    } ?>
-  </div>
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-white mb-4">Quick Links</h5>
+            <a class="btn btn-link text-white-50" href="">About Us</a>
+            <a class="btn btn-link text-white-50" href="">Contact Us</a>
+            <a class="btn btn-link text-white-50" href="">Our Services</a>
+            <a class="btn btn-link text-white-50" href="">Privacy Policy</a>
+            <a class="btn btn-link text-white-50" href="">Terms & Condition</a>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-white mb-4">Photo Gallery</h5>
+            <div class="row g-2 pt-2">
+              <div class="col-4">
+                <img class="img-fluid rounded bg-light p-1" src="img/property-1.jpg" alt="">
+              </div>
+              <div class="col-4">
+                <img class="img-fluid rounded bg-light p-1" src="img/property-2.jpg" alt="">
+              </div>
+              <div class="col-4">
+                <img class="img-fluid rounded bg-light p-1" src="img/property-3.jpg" alt="">
+              </div>
+              <div class="col-4">
+                <img class="img-fluid rounded bg-light p-1" src="img/property-4.jpg" alt="">
+              </div>
+              <div class="col-4">
+                <img class="img-fluid rounded bg-light p-1" src="img/property-5.jpg" alt="">
+              </div>
+              <div class="col-4">
+                <img class="img-fluid rounded bg-light p-1" src="img/property-6.jpg" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-white mb-4">Newsletter</h5>
+            <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+            <div class="position-relative mx-auto" style="max-width: 400px;">
+              <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+              <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="copyright">
+          <div class="row">
+            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+              &copy; <a class="border-bottom" href="#">Property Go</a>, All Right Reserved.
 
-  <footer class="footer mt-5">
-    <div class="container">
-      <p>Footer content here</p>
+              Designed By <a class="border-bottom" href="https://htmlcodex.com">Tasnuba Tasnim</a>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+              <div class="footer-menu">
+                <a href="">Home</a>
+                <a href="">Cookies</a>
+                <a href="">Help</a>
+                <a href="">FQAs</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- Footer End -->
+
   </footer>
 
-  <!-- JS Libraries -->
-  <script src="js/bootstrap.bundle.min.js"></script>
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <div id="preloader"></div>
+
+  <!-- JS -->
   <script src="lib/jquery/jquery.min.js"></script>
   <script src="lib/jquery/jquery-migrate.min.js"></script>
   <script src="lib/popper/popper.min.js"></script>
@@ -154,37 +244,26 @@ if (empty($divisionWisePropertyLists)) {
   <script src="js/main.js"></script>
   <script src="js/service.js"></script>
 
-  <!-- JavaScript to Filter Division Cards -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var buttons = document.querySelectorAll('.division-btn');
       var divisionCards = document.querySelectorAll('.division-cards');
 
-      // Initially, show only the first division's cards and mark its button as active
       if (divisionCards.length > 0) {
-        divisionCards.forEach(function(card, index) {
-          card.style.display = (index === 0) ? 'block' : 'none';
+        divisionCards.forEach((card, index) => {
+          card.style.display = index === 0 ? 'block' : 'none';
         });
-        buttons.forEach(function(btn, index) {
-          if(index === 0) {
-            btn.classList.add('btn-active');
-          }
+        buttons.forEach((btn, index) => {
+          if (index === 0) btn.classList.add('btn-active');
         });
       }
 
-      // Add click event listeners to each division button
-      buttons.forEach(function(button) {
+      buttons.forEach(button => {
         button.addEventListener('click', function() {
-          var selectedDivision = button.getAttribute('data-division');
-
-          // Update active button styling
-          buttons.forEach(function(btn) {
-            btn.classList.remove('btn-active');
-          });
-          button.classList.add('btn-active');
-
-          // Hide all division cards and then show the selected one
-          divisionCards.forEach(function(card) {
+          var selectedDivision = this.getAttribute('data-division');
+          buttons.forEach(btn => btn.classList.remove('btn-active'));
+          this.classList.add('btn-active');
+          divisionCards.forEach(card => {
             card.style.display = (card.getAttribute('data-division') === selectedDivision) ? 'block' : 'none';
           });
         });

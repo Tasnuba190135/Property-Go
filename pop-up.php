@@ -33,7 +33,7 @@ function showPopup($message = "Notification", $title = "Information", $icon = "f
     <style>
         body {
             /* padding: 20px; */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
         }
         
         /* Notification container */

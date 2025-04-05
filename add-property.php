@@ -5,10 +5,10 @@ include_once 'php-class-file/User.php';
 include_once 'php-class-file/Property.php';
 include_once 'php-class-file/FileManager.php';
 
-$session = new SessionManager();
+$session = SessionStatic::class;
 
 // Retrieve user session object
-$sUser = $session->getObject("user");
+$sUser = $session::getObject("user");
 
 // Create a new User object and set its user_id from the session
 $user = new User();
@@ -18,7 +18,7 @@ if ($sUser) {
   $user->setValue();
 } else {
   // If not logged in, set a session message
-  $session->set('msg1', 'You need to login to add a property.');
+  $session::set('msg1', 'You need to login to add a property.');
 }
 
 // Helper function to re-array the $_FILES array for multiple uploads
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   if ($sUser) {
     // Retrieve form inputs
     $propertyTitle       = $_POST['property-title'];
-    $propertyCategory    = $_POST['property_category'];
+    $propertyAreaCategory    = $_POST['property_area_category'];
     $division            = $_POST['division'];
     $district            = $_POST['district'];
     $address             = $_POST['address'];
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $property = new Property();
     $property->user_id = $user->user_id;
     $property->property_title = $propertyTitle;
-    $property->property_category = $propertyCategory;
+    $property->property_category = $propertyAreaCategory;
     $property->area = $area;
     $property->description = $propertyDescription;
     $property->division = $division;
@@ -101,13 +101,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $property->property_video_file_ids = $videoFileId;
     $property->insert();
 
-    // $session->set('msg1', 'Property added successfully.');
+    // $session::set('msg1', 'Property added successfully.');
     // echo "<script>window.location.href.reload();</script>";
     include_once 'pop-up.php';
-    showPopup('Property added Successfully');
+    showPopup('Property added Successfully. Please Wait For Admin Approval.');
     // exit();
   } else {
-    $session->set('msg1', 'Failed to add property.');
+    $session::set('msg1', 'Failed to add property.');
   }
 }
 
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Property Page</title>
+  <title>PG v3</title>
   <!-- Favicon -->
   <link href="img/favicon.ico" rel="icon">
   <link rel="stylesheet" href="fonts/icomoon/style.css">
@@ -141,7 +141,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   <link rel="stylesheet" href="css/property.css">
   <!-- Include Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+  body {
+    font-family: 'Poppins', sans-serif !important;
+    color: #555555 !important;
+  }
+ 
+</style>
 </head>
+  
+  
+ 
 
 <body>
   <?php include_once 'navbar-user.php'; ?>
@@ -163,12 +173,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
   <!-- Display session message if it exists -->
   <?php
-  $msg = $session->get('msg1');
+  $msg = $session::get('msg1');
   // echo $msg."<br>";
   if ($msg) {
     include_once 'pop-up.php';
     showPopup($msg);
-    $session->delete('msg1');
+    $session::delete('msg1');
   }
   ?>
 
@@ -188,16 +198,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
           <div class="row">
             <div class="col-md-12 form-group">
               <label for="user-type">Property title:</label>
-              <input type="text" class="form-control1 w-100" name="property-title" placeholder="Titile" required>
+              <input type="text" class="form-control1 w-100" name="property-title" placeholder="Title" required>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-4 form-group">
-              <label for="user-type">Choose Property Category:</label>
-              <select name="property_category" class="form-control1 w-100" required>
-                <option value="residential">Residential</option>
-                <option value="commercial">Commercial</option>
+              <label for="user-type">Choose Property Area Category:</label>
+              <select name="property_area_category" class="form-control1 w-100" required>
+                <option value="residential_area">Residential Area</option>
+                <option value="commercial_area">Commercial Area</option>
               </select>
             </div>
             <div class="col-md-4 form-group">
@@ -221,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
           </div>
 
           <div class="row">
-            <div class="col-md-4 form-group">
+            <div class="col-md-12 form-group">
               <label for="user-type">Enter Address:</label>
               <input type="text" class="form-control1 w-100" name="address" placeholder="Address" required>
             </div>
@@ -276,7 +286,85 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   <?php endif; ?>
 
   <footer>
-    <!-- Footer Content -->
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-white mb-4">Get In Touch</h5>
+            <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
+            <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+            <div class="d-flex pt-2">
+              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-white mb-4">Quick Links</h5>
+            <a class="btn btn-link text-white-50" href="">About Us</a>
+            <a class="btn btn-link text-white-50" href="">Contact Us</a>
+            <a class="btn btn-link text-white-50" href="">Our Services</a>
+            <a class="btn btn-link text-white-50" href="">Privacy Policy</a>
+            <a class="btn btn-link text-white-50" href="">Terms & Condition</a>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-white mb-4">Photo Gallery</h5>
+            <div class="row g-2 pt-2">
+              <div class="col-4">
+                <img class="img-fluid rounded bg-light p-1" src="img/property-1.jpg" alt="">
+              </div>
+              <div class="col-4">
+                <img class="img-fluid rounded bg-light p-1" src="img/property-2.jpg" alt="">
+              </div>
+              <div class="col-4">
+                <img class="img-fluid rounded bg-light p-1" src="img/property-3.jpg" alt="">
+              </div>
+              <div class="col-4">
+                <img class="img-fluid rounded bg-light p-1" src="img/property-4.jpg" alt="">
+              </div>
+              <div class="col-4">
+                <img class="img-fluid rounded bg-light p-1" src="img/property-5.jpg" alt="">
+              </div>
+              <div class="col-4">
+                <img class="img-fluid rounded bg-light p-1" src="img/property-6.jpg" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-white mb-4">Newsletter</h5>
+            <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+            <div class="position-relative mx-auto" style="max-width: 400px;">
+              <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+              <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="copyright">
+          <div class="row">
+            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+              &copy; <a class="border-bottom" href="#">Property Go</a>, All Right Reserved.
+
+              Designed By <a class="border-bottom" href="https://htmlcodex.com">Tasnuba Tasnim</a>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+              <div class="footer-menu">
+                <a href="">Home</a>
+                <a href="">Cookies</a>
+                <a href="">Help</a>
+                <a href="">FQAs</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer End -->
+
   </footer>
 
   <!-- JavaScript Libraries -->
@@ -298,7 +386,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   <script src="js/service.js"></script>
   <script src="lib/jquery/jquery.min.js"></script>
   <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>
+  
   <script>
     function showForm(formId) {
       // Hide all forms (in this example, only "for-sale" exists)

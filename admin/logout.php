@@ -1,7 +1,7 @@
 <?php
 include_once '../php-class-file/SessionManager.php';
-$session = new Session();
-$session->destroy();
+$session =  SessionStatic::class;
+$session::destroy();
 echo "<script>location.href = 'login.php';</script>";
 
 ?>
