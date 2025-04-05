@@ -79,11 +79,11 @@
       <form method="post" action="property-list.php" id="for-buy">
         <div class="row">
           <div class="col-md-4 form-group">
-            <label for="user-type">Choose Property Category:</label>
+            <label for="user-type">Choose Property Area type:</label>
             <select name="property_category" id="" class="form-control1 w-100" required>
-              <option value="">All type</option>
-              <option value="residential">Residential</option>
-              <option value="commercial">Commercial</option>
+              <option value="">All Area</option>
+              <option value="residential">Residential Area</option>
+              <option value="commercial">Commercial Area</option>
             </select>
           </div>
           <div class="col-md-4 form-group">

@@ -406,6 +406,8 @@ hr {
     flex-direction: column;
     align-items: flex-start;
     padding-left: 0;
+    font-size: 2rem;
+
   }
 }
 
@@ -471,9 +473,9 @@ hr {
   }
 }
   
-  .forgot-password {
+  /* .forgot-password {
     font-size: 0.9rem;
-  }
+  } */
 
 .gender-field {
   margin-bottom: 1rem;

@@ -32,7 +32,7 @@ if (isset($_POST['propertyUpdate'])) {
   // Update property details from form
   $property->property_id        = $_POST['propertyUpdate'];
   $property->property_title     = $_POST['property-title'];
-  $property->property_category  = $_POST['property_category'];
+  $property->property_category  = $_POST['property_area_category'];
   $property->division           = $_POST['division'];
   $property->district           = $_POST['district'];  // Added district update
   $property->address            = $_POST['address'];
@@ -248,10 +248,11 @@ if (isset($_POST['propertyUpdate'])) {
           <!-- Category, Division, District, Address -->
           <div class="row mb-4">
             <div class="col-md-3">
-              <label for="property_category" class="form-label">Property Category:</label>
-              <select class="form-control" id="property_category" name="property_category" required>
-                <option value="residential" <?php if ($property->property_category === 'residential') echo 'selected'; ?>>Residential</option>
-                <option value="commercial" <?php if ($property->property_category === 'commercial') echo 'selected'; ?>>Commercial</option>
+              <label for="property_area_category" class="form-label">Property Area Category:</label>
+              <select class="form-control" id="property_area_category" name="property_area_category" required>
+              <!-- <option value="all_type" <?php if ($property->property_category === 'All Type') echo 'selected'; ?>>All Type</option> -->
+                <option value="residential_area" <?php if ($property->property_category === 'Residential Area') echo 'selected'; ?>>Residential Area</option>
+                <option value="commercial_area" <?php if ($property->property_category === 'Commercial Area') echo 'selected'; ?>>Commercial Area</option>
               </select>
             </div>
             <div class="col-md-3">

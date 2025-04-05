@@ -1,37 +1,4 @@
-<?php 
-include_once 'php-class-file/SessionManager.php';
-$session = SessionStatic::class;
-
-include_once 'pop-up.php';
-if ($session::get('msg1') != null){
-    showPopup($session::get('msg1'));
-    $session::delete('msg1');
-}
-if(isset($_POST['verify_email'])){
-    include_once 'php-class-file/User.php';
-
-    $user = new User();
-    $user->email = $_POST['email'];
-    $user->password = $_POST['password'];
-
-    // checking for status 0, 1, 2, -1
-    // 0 unapproved
-    // 1 approved
-    // -1 declined
-    // 2 Blocked
-
-if ($user->isEmailAvailable($user->email)){
-    include_once 'pop-up.php';
-    showPopup("The Email Address you provide is already used. Please try with another Email Address.");
-} else{
-    $session::storeObject('temp_user', $user);
-    $session::set('step', 2);
-    $otp = rand(1000, 9999);
-    $session::set('otp', $otp);
-    echo "<script>window.location.href='signup-step2.php';</script>";
-}
-
-}
+<?php
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +6,7 @@ if ($user->isEmailAvailable($user->email)){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Step-1</title>
+    <title>Reset Password Step-1</title>
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -90,12 +57,12 @@ if ($user->isEmailAvailable($user->email)){
                     <!-- HTML !-->
                     <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO HOMEPAGE</span></button>
 <hr> -->
-                <form method="post" action="" enctype="multipart/form-data">
+                <form method="post" action="reset-password-step2.php" enctype="multipart/form-data">
 
-                    <h2 style="color: white;">Sign Up Here</h2>
+                    <h2 style="color: white;">Reset Password</h2>
                     <hr>
                     <h2>Step 1</h2>
-                    <p>Please provide all valid information</p>
+                    <p>Provide the Verified Email Address to get OTP</p>
                     <hr>
 
 
@@ -103,12 +70,9 @@ if ($user->isEmailAvailable($user->email)){
                         <label for="email">Email Address:</label>
                         <input type="email" name="email" id="email" placeholder="Enter your email" required>
                     </div>
-                    <div class="input-field">
-                        <label for="password">Password:</label>
-                        <input type="password" name="password" id="password" placeholder="Enter your password" required>
-                    </div>
+                    
                     <div class="button-container2">
-                        <button class="btn-signup" name="verify_email" type="submit" role="button">Verify Email</button>
+                        <button class="btn-signup" name="submit_email" type="submit" role="button">Submit Email</button>
                     </div>
 
 

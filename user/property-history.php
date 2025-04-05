@@ -81,9 +81,9 @@ $properties = $property->getByUserIdAndStatus($user->user_id);
                  
                   <h5 class="card-title" style="text-align:justify"><strong>Property Title :</strong> <?php echo $singleProperty->property_title; ?></h5>
                   <br>
-                  <p><strong>ID:</strong> <?php echo $singleProperty->property_id; ?></p>
+                  <p><strong>Property ID:</strong> <?php echo $singleProperty->property_id; ?></p>
                   <p><strong>Status:</strong> <?php echo $statusText; ?></p>
-                  <p><strong>Category:</strong> <?php echo $singleProperty->property_category; ?></p>
+                  <p><strong>Property Category:</strong> <?php echo $singleProperty->property_category; ?></p>
                   <div class="d-flex justify-content-between pt-4 mt-3">
                     <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-success">Click To View</a>
                     <a href="edit-property.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-primary">Delete</a>
