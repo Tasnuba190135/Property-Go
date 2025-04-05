@@ -12,6 +12,7 @@ if (empty($divisionWisePropertyLists)) {
     $divisionNames = array_keys($divisionWisePropertyLists);
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
