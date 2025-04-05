@@ -1,5 +1,38 @@
 <?php
+include_once 'php-class-file/SessionManager.php';
+$session = SessionStatic::class;
+
+include_once 'pop-up.php';
+if ($session::get('msg1') != null) {
+    showPopup($session::get('msg1'));
+    $session::delete('msg1');
+}
+if (isset($_POST['submit_email'])) {
+    include_once 'php-class-file/User.php';
+
+    $user = new User();
+    $user->email = $_POST['email'];
+
+    // checking for status 0, 1, 2, -1
+    // 0 unapproved
+    // 1 approved
+    // -1 declined
+    // 2 Blocked
+
+    $emailOk = $user->isEmailAvailable($user->email);
+    if ($emailOk == 1) {
+        $session::storeObject('temp_user', $user);
+        $session::set('step', 2);
+        $otp = rand(1000, 9999);
+        $session::set('otp', $otp);
+        echo "<script>window.location.href='reset-password-step2.php';</script>";
+    } else {
+        $session::set('msg1', 'Email not found!');
+        echo "<script>window.location.href='reset-password-step1.php';</script>";
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,25 +72,25 @@
 </head>
 
 <body>
-<?php include_once 'navbar-user.php'; ?>
+    <?php include_once 'navbar-user.php'; ?>
 
     <section class="section1">
         <!-- HTML !-->
 
-            <div class="container2">
+        <div class="container2">
 
 
-                <!-- HTML !-->
+            <!-- HTML !-->
 
-                <div class="login-box">
-                    <!-- <div class="button-container-home">
+            <div class="login-box">
+                <!-- <div class="button-container-home">
                     <button class="button-home" onclick="location.href='index.html'">Homepage</button>
                 </div> -->
-                    <!-- HTML !-->
-                    <!-- HTML !-->
-                    <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO HOMEPAGE</span></button>
+                <!-- HTML !-->
+                <!-- HTML !-->
+                <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO HOMEPAGE</span></button>
 <hr> -->
-                <form method="post" action="reset-password-step2.php" enctype="multipart/form-data">
+                <form method="post" action="" enctype="multipart/form-data">
 
                     <h2 style="color: white;">Reset Password</h2>
                     <hr>
@@ -70,7 +103,7 @@
                         <label for="email">Email Address:</label>
                         <input type="email" name="email" id="email" placeholder="Enter your email" required>
                     </div>
-                    
+
                     <div class="button-container2">
                         <button class="btn-signup" name="submit_email" type="submit" role="button">Submit Email</button>
                     </div>
@@ -83,10 +116,10 @@
                         <button class="button-56" onclick="location.href='login.html'" role="button">Log In</button>
                     </div> -->
 
-                    </form>
-                </div>
+                </form>
             </div>
-      
+        </div>
+
     </section>
     <footer>
         <!-- Footer Start -->

@@ -1,13 +1,13 @@
-<?php 
+<?php
 include_once 'php-class-file/SessionManager.php';
 $session = SessionStatic::class;
 
 include_once 'pop-up.php';
-if ($session::get('msg1') != null){
+if ($session::get('msg1') != null) {
     showPopup($session::get('msg1'));
     $session::delete('msg1');
 }
-if(isset($_POST['verify_email'])){
+if (isset($_POST['verify_email'])) {
     include_once 'php-class-file/User.php';
 
     $user = new User();
@@ -20,17 +20,16 @@ if(isset($_POST['verify_email'])){
     // -1 declined
     // 2 Blocked
 
-if ($user->isEmailAvailable($user->email)){
-    include_once 'pop-up.php';
-    showPopup("The Email Address you provide is already used. Please try with another Email Address.");
-} else{
-    $session::storeObject('temp_user', $user);
-    $session::set('step', 2);
-    $otp = rand(1000, 9999);
-    $session::set('otp', $otp);
-    echo "<script>window.location.href='signup-step2.php';</script>";
-}
-
+    if ($user->isEmailAvailable($user->email)) {
+        include_once 'pop-up.php';
+        showPopup("The Email Address you provide is already used. Please try with another Email Address.");
+    } else {
+        $session::storeObject('temp_user', $user);
+        $session::set('step', 2);
+        $otp = rand(1000, 9999);
+        $session::set('otp', $otp);
+        echo "<script>window.location.href='signup-step2.php';</script>";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -72,23 +71,23 @@ if ($user->isEmailAvailable($user->email)){
 </head>
 
 <body>
-<?php include_once 'navbar-user.php'; ?>
+    <?php include_once 'navbar-user.php'; ?>
 
     <section class="section1">
         <!-- HTML !-->
 
-            <div class="container2">
+        <div class="container2">
 
 
-                <!-- HTML !-->
+            <!-- HTML !-->
 
-                <div class="login-box">
-                    <!-- <div class="button-container-home">
+            <div class="login-box">
+                <!-- <div class="button-container-home">
                     <button class="button-home" onclick="location.href='index.html'">Homepage</button>
                 </div> -->
-                    <!-- HTML !-->
-                    <!-- HTML !-->
-                    <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO HOMEPAGE</span></button>
+                <!-- HTML !-->
+                <!-- HTML !-->
+                <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO HOMEPAGE</span></button>
 <hr> -->
                 <form method="post" action="" enctype="multipart/form-data">
 
@@ -119,10 +118,10 @@ if ($user->isEmailAvailable($user->email)){
                         <button class="button-56" onclick="location.href='login.html'" role="button">Log In</button>
                     </div> -->
 
-                    </form>
-                </div>
+                </form>
             </div>
-      
+        </div>
+
     </section>
     <footer>
         <!-- Footer Start -->

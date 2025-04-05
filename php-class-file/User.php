@@ -196,6 +196,26 @@ class User
 
         return mysqli_query($this->conn, $sql) ? true : "Error updating record: " . mysqli_error($this->conn);
     }
+    
+    /**
+     * Update user password using email.
+     *
+     * @param string $email The email address to update.
+     * @param string $password The password to update.
+     * @return string||boolean||integer Returns true if update is successful, false otherwise.
+     */
+    public function updatePasswordUsingEmail($email, $password)
+    {
+        $this->ensureConnection();
+        $this->email = mysqli_real_escape_string($this->conn, $email);
+        $this->password = password_hash($password, PASSWORD_DEFAULT); // Hash the password
+
+        $sql = "UPDATE tbl_user SET
+                    password = '$this->password'
+                WHERE email = '$this->email'";
+
+        return mysqli_query($this->conn, $sql) ? true : false;
+    }
 
 
     /**

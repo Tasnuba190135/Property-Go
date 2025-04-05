@@ -27,6 +27,7 @@ class Property
     public $created = "";
     public $updated = "";
     public $posted = ""; // This column is manually updated by user
+    public $parent_property_id = 0; // This column is manually updated by user
 
     /**
      * Constructor: Initializes the database connection.
@@ -102,7 +103,8 @@ class Property
             17 => ['property_video_file_ids', "ALTER TABLE $table ADD COLUMN property_video_file_ids TEXT"],
             18 => ['created',                 "ALTER TABLE $table ADD COLUMN created TIMESTAMP DEFAULT CURRENT_TIMESTAMP"],
             19 => ['updated',                 "ALTER TABLE $table ADD COLUMN updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"],
-            20 => ['posted',                  "ALTER TABLE $table ADD COLUMN posted TIMESTAMP NULL DEFAULT NULL"]
+            20 => ['posted',                  "ALTER TABLE $table ADD COLUMN posted TIMESTAMP NULL DEFAULT NULL"],
+            21 => ['parent_property_id',      "ALTER TABLE $table ADD COLUMN parent_property_id INT DEFAULT 0"]
         ];
 
         // Optionally filter the alter queries if specific keys are provided.
@@ -140,7 +142,7 @@ class Property
         $this->ensureConnection();
         $sql = "INSERT INTO tbl_property (
             property_title, status, user_id, sold_to, note_ids, property_category, area, description, district, division, address,
-            google_location_url, bedroom_no, bathroom_no, price, property_image_file_ids, property_video_file_ids
+            google_location_url, bedroom_no, bathroom_no, price, property_image_file_ids, property_video_file_ids, parent_property_id
         ) VALUES (
             '$this->property_title',
             $this->status,
@@ -158,7 +160,8 @@ class Property
             $this->bathroom_no,
             $this->price,
             '$this->property_image_file_ids',
-            '$this->property_video_file_ids'
+            '$this->property_video_file_ids',
+            $this->parent_property_id
         )";
         if (mysqli_query($this->conn, $sql)) {
             $this->property_id = mysqli_insert_id($this->conn);
@@ -197,29 +200,28 @@ class Property
                     price = $this->price,
                     property_image_file_ids = '$this->property_image_file_ids',
                     property_video_file_ids = '$this->property_video_file_ids',
-                    posted = '$this->posted'
+                    posted = '$this->posted',
+                    parent_property_id = $this->parent_property_id
                 WHERE property_id = $this->property_id";
 
         $result = mysqli_query($this->conn, $sql);
         return $result;
     }
-    
+
     /**
      * Update the status of an existing property record based on property_id.
-     *
+     * 
+     * @param int $property_id The ID of the property to update.
+     * @param int $status The new status to set for the property.
      * @return bool|string Returns true if update is successful, or an error message on failure.
      */
-    public function updateStatus()
-    {
-        if ($this->property_id == 0) {
-            return "Property ID is not set. Cannot update.";
+    public function updateStatus($property_id, $status) {
+        if ($property_id == 0) {
+            return 0;
         }
-        $sql = "UPDATE tbl_property SET
-                    status = $this->status
-                WHERE property_id = $this->property_id";
-
+        $sql = "UPDATE tbl_property SET status = $status WHERE property_id = $property_id";
         $result = mysqli_query($this->conn, $sql);
-        return $result;
+        return $result ? true : false;
     }
 
     /**
@@ -360,6 +362,7 @@ class Property
         $this->created = $data['created'];
         $this->updated = $data['updated'];
         $this->posted = isset($data['posted']) ? $data['posted'] : "";
+        $this->parent_property_id = $data['parent_property_id'];
     }
 
     /**

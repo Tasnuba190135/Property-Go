@@ -10,62 +10,56 @@ include_once 'Admin.php';
 
 
 // // session 1
-$db = new DbConnector();
-$db->createDatabase();
-echo "Database created successfully";
-echo "<br><br><br>";
+// $db = new DbConnector();
+// $db->createDatabase();
+// echo "Database created successfully";
+// echo "<br><br><br>";
 
-$user = new User();
-$user->createTableMinimal();
-$user->alterTableAddColumns();
-echo "Table created successfully";
-echo "<br><br><br>";
-
-$userDetails = new UserDetails();
-$userDetails->createTableMinimal();
-$userDetails->alterTableAddColumns();
-echo "Table created successfully";
-echo "<br><br><br>";
-
-$property = new Property();
-$property->createTableMinimal();
-$property->alterTableAddColumns();
-echo "Table created successfully";
-echo "<br><br><br>";
-
-// $propertyDetails = new PropertyDetails();
-// $propertyDetails->createTableMinimal();
-// $propertyDetails->alterTableAddColumns();
+// $user = new User();
+// $user->createTableMinimal();
+// $user->alterTableAddColumns();
 // echo "Table created successfully";
 // echo "<br><br><br>";
 
-$fileManager = new FileManager();
-$fileManager->createTableMinimal();
-$fileManager->alterTableAddColumns();
-echo "Table created successfully";
-echo "<br><br><br>";
+// $userDetails = new UserDetails();
+// $userDetails->createTableMinimal();
+// $userDetails->alterTableAddColumns();
+// echo "Table created successfully";
+// echo "<br><br><br>";
 
-$noteManager = new NoteManager();
-$noteManager->createTableMinimal();
-$noteManager->alterTableAddColumns();
-echo "Table created successfully";
-echo "<br><br><br>";
+// $property = new Property();
+// $property->createTableMinimal();
+// $property->alterTableAddColumns();
+// echo "Table created successfully";
+// echo "<br><br><br>";
 
-$postLimit = new PostLimit();
-$postLimit->createTableMinimal();
-$postLimit->alterTableAddColumns();
-echo "Table created successfully";
-echo "<br><br><br>";
+// $fileManager = new FileManager();
+// $fileManager->createTableMinimal();
+// $fileManager->alterTableAddColumns();
+// echo "Table created successfully";
+// echo "<br><br><br>";
 
-$admin = new Admin();
-$admin->insertAdmin();
-echo "Admin record inserted successfully";
-echo "<br><br><br>";
+// $noteManager = new NoteManager();
+// $noteManager->createTableMinimal();
+// $noteManager->alterTableAddColumns();
+// echo "Table created successfully";
+// echo "<br><br><br>";
+
+// $postLimit = new PostLimit();
+// $postLimit->createTableMinimal();
+// $postLimit->alterTableAddColumns();
+// echo "Table created successfully";
+// echo "<br><br><br>";
+
+// $admin = new Admin();
+// $admin->insertAdmin();
+// echo "Admin record inserted successfully";
+// echo "<br><br><br>";
 
 // // session 2
 
 // $property = new Property();
-// $property->alterTableAddColumns([20]);
+// $property->alterTableAddColumns([21]);
 
 // function get_time($timezone = 'Asia/Dhaka') {
 //     $date = new DateTime('now', new DateTimeZone($timezone));

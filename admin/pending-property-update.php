@@ -8,28 +8,24 @@ include_once '../php-class-file/User.php';
 include_once '../php-class-file/Property.php';
 include_once '../pop-up.php';
 
+$property =  new Property();
 
 if (isset($_POST['approve']) || isset($_POST['reject'])) {
-    $property = new Property();
     $property_id = $_POST['property_id'];
     $property->property_id = $property_id;
+    $property->setValue();
 
     if (isset($_POST['approve'])) {
-        $property->setValue();
-        $property->status = 1;
-
-        $timezone = 'Asia/Dhaka';
-        $date = new DateTime('now', new DateTimeZone($timezone));
-        $property->posted = $date->format('Y-m-d H:i:s');
-        $property->update();
+        $property->updateStatus($property_id, 1);
+        $property->updateStatus($property->parent_property_id, -3);
 
         include_once '../pop-up.php';
         showPopup("Accepted. Property ID: " . $property_id);
     }
     // Check if 'reject' button was clicked and set status to 0 (rejected)
     elseif (isset($_POST['reject'])) {
-        $property->status = -1;
-        $property->update();
+        $property->updateStatus($property_id, -1);
+        $property->updateStatus($property->parent_property_id, 1);
 
         include_once '../pop-up.php';
         showPopup("Rejected. Property ID: " . $property_id);
@@ -38,7 +34,7 @@ if (isset($_POST['approve']) || isset($_POST['reject'])) {
 
 // Retrieve properties for this user
 $property = new Property();
-$properties = $property->getByPropertyIdAndStatus(null, 0, 'created', 'ASC');
+$properties = $property->getByPropertyIdAndStatus(null, [4], 'created', 'ASC');
 ?>
 
 
@@ -144,7 +140,8 @@ $properties = $property->getByPropertyIdAndStatus(null, 0, 'created', 'ASC');
                                         <td><?php echo $propertyDetails->created; ?></td>
                                         <td>
                                             <div class="attendant__action">
-                                                <a href="property-check.php?propertyId=<?php echo $propertyDetails->property_id; ?>" target="_blank" class="btn btn-primary">Details</a>
+                                                <a href="property-check.php?propertyId=<?php echo $propertyDetails->parent_property_id; ?>" target="_blank" class="btn btn-primary">Current</a>
+                                                <a href="property-check.php?propertyId=<?php echo $propertyDetails->property_id; ?>" target="_blank" class="btn btn-primary">Request to publish</a>
                                             </div>
                                         </td>
 

@@ -1,4 +1,35 @@
 <?php
+include_once 'php-class-file/SessionManager.php';
+$session = SessionStatic::class;
+
+include_once 'pop-up.php';
+if ($session::get("msg1")) {
+    showPopup($session::get("msg1"));
+    $session::delete("msg1");
+}
+
+include_once 'php-class-file/User.php';
+$user = new User();
+$temp_user = $session::getObject('temp_user');
+$session::copyProperties($temp_user, $user);
+
+if (isset($_POST['reset_password'])) {
+    $new_password = $_POST['new_password'];
+    $confirm_password = $_POST['confirm_password'];
+
+    if ($new_password === $confirm_password) {
+        $user->updatePasswordUsingEmail($user->email, $new_password);
+        $session::destroy(); // Destroy the session after password reset
+        $session::ensureSessionStarted(); // Ensure session is started again
+        $session::set("msg1", "Password reset successfully");
+
+        // echo "<script>setTimeout(function(){ window.location.href = 'login.php'; }, 2000);</script>";
+        echo "<script>window.location.href = 'login.php';</script>"; // Redirect to login page immediately
+        // Redirect to login page after 2 seconds
+    } else {
+        showPopup("Passwords do not match. Please try again.");
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,25 +70,25 @@
 </head>
 
 <body>
-<?php include_once 'navbar-user.php'; ?>
+    <?php include_once 'navbar-user.php'; ?>
 
     <section class="section1">
         <!-- HTML !-->
 
-            <div class="container2">
+        <div class="container2">
 
 
-                <!-- HTML !-->
+            <!-- HTML !-->
 
-                <div class="login-box">
-                    <!-- <div class="button-container-home">
+            <div class="login-box">
+                <!-- <div class="button-container-home">
                     <button class="button-home" onclick="location.href='index.html'">Homepage</button>
                 </div> -->
-                    <!-- HTML !-->
-                    <!-- HTML !-->
-                    <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO HOMEPAGE</span></button>
+                <!-- HTML !-->
+                <!-- HTML !-->
+                <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO HOMEPAGE</span></button>
 <hr> -->
-                <form method="post" action="login.php" enctype="multipart/form-data">
+                <form method="post" action="" enctype="multipart/form-data">
 
                     <h2 style="color: white;">Reset Password</h2>
                     <hr>
@@ -94,16 +125,16 @@
 
 
 
-                    <!--              
+                <!--              
                 <p class="signup-text">Already have an account? <a href="login.html">Login</a></p>
                     <div class="button-container">
                         <button class="button-56" onclick="location.href='login.html'" role="button">Log In</button>
                     </div> -->
 
-                    </form>
-                </div>
+                </form>
             </div>
-      
+        </div>
+
     </section>
     <footer>
         <!-- Footer Start -->

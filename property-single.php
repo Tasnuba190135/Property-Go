@@ -17,6 +17,7 @@ if (isset($_GET['propertyId'])) {
 
   $imageFiles = explode(',', $property->property_image_file_ids);
   $videoFile = $property->property_video_file_ids;
+  // echo $videoFile . "<br>";
 }
 ?>
 
@@ -194,6 +195,8 @@ if (isset($_GET['propertyId'])) {
               <video width="720" height="480" controls>
                 <source src="file/<?php echo $videoTemp->file_new_name; ?>" type="video/mp4">
                 Your browser does not support the video tag.
+            <?php } else { ?>
+              <p class="text-center">No video available for this property.</p>
             <?php } ?>
           </div>
         </div>

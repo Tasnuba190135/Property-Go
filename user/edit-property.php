@@ -12,6 +12,8 @@ $divisions = getDivisions(); // $divisions is an associative array: division => 
 
 $session = SessionStatic::class;
 $sUser   = $session::getObject("user");
+$user   = new User();
+$user->user_id = $sUser->user_id;
 
 $property = new Property();
 $originalImageIds = [];
@@ -29,8 +31,11 @@ if ($propertyId) {
 }
 
 if (isset($_POST['propertyUpdate'])) {
+  $property->status = 4; // Set status to 4 (pending) for the update
   // Update property details from form
   $property->property_id        = $_POST['propertyUpdate'];
+  $property->parent_property_id = $_POST['propertyUpdate'];
+  $property->user_id           = $user->user_id;
   $property->property_title     = $_POST['property-title'];
   $property->property_category  = $_POST['property_area_category'];
   $property->division           = $_POST['division'];
@@ -96,17 +101,20 @@ if (isset($_POST['propertyUpdate'])) {
   $finalVideoIds = $newVideoIds; // Only new videos are allowed to be uploaded
   $property->property_video_file_ids = !empty($finalVideoIds) ? implode(',', $finalVideoIds) : '';
 
-  // Update property record
-  if ($property->update()) {
+  // Update property record by insert new row for approval
+  if ($property->insert()) {
+    $property->updateStatus($propertyId, 3); // Set status to 3 (pending) for the new property record
     include_once '../pop-up.php';
-    showPopup("Property details updated successfully. Property ID: {$property->property_id}");
+    $session::set("msg1", "Property details updated successfully. Please wait for admin approval. Property ID: {$property->property_id}");
   } else {
     include_once '../pop-up.php';
-    showPopup("Error updating property details. Property ID: {$property->property_id}. <br> Please try again.");
+    $session::set("msg1", "Failed to update property details. Please try again.");
   }
   // Refresh original arrays if needed
   $originalImageIds = $finalImageIds;
   $originalVideoIds = $finalVideoIds;
+
+  echo "<script>window.location.href = 'property-history.php';</script>"; // Redirect to property history page
 }
 ?>
 

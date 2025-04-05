@@ -16,7 +16,7 @@ if(isset($_POST['log_in'])){
     $user = new User();
     $user->email = $email;
     $user->password = $password;
-    $userCheck = $user->checkUserEmailWithStatus($user->email, $user->password);
+    $userCheck = $user->checkUserEmailWithStatus($user->email, $user->password, "client");
 
     if($userCheck[0] == 1){
         include_once 'pop-up.php';

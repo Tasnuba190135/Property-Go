@@ -1,12 +1,54 @@
 <?php
+include_once 'php-class-file/SessionManager.php';
+$session = SessionStatic::class;
+
+
+if ($session::get('step') !== 2) {
+    $session::set('msg1', 'Please complete the <b>Step 1</b> first');
+    echo $session::get('msg1');
+    // echo '<script> window.location.href = "signup-step2.php";</script>';
+    exit();
+}
+
+if ($session::get('step') == 2) {
+}
+
+if (isset($_POST['submit_otp'])) {
+    // include_once 'php-class-file/User.php';
+
+    // $user = $session::getObject('user');
+    $otp = $session::get('otp');
+
+    if ($_POST['otp'] != $otp) {
+        include_once 'pop-up.php';
+        showPopup('OTP that you provide is not matching. Please try again');
+    } else {
+        // echo "OTP has matched";
+        $session::delete('otp');
+        $session::set('msg1', 'OTP is matched');
+        echo '<script> window.location.href = "reset-password-step3.php";</script>';
+        exit();
+    }
+}
+if (isset($_POST['resend_otp']) && $session::get('step') == 2) {
+    // include_once 'php-class-file/User.php';
+
+    // Retrieve the user object from session.
+    //   $user = $session::getObject('user');
+
+    //   Generate a new OTP.
+    $otp = rand(1000, 9999);
+    $session::set('otp', $otp);
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password Step-2</title>
+    <title>Signup Step-2</title>
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -39,35 +81,35 @@
 </head>
 
 <body>
-<?php include_once 'navbar-user.php'; ?>
+    <?php include_once 'navbar-user.php'; ?>
 
     <section class="section1">
         <!-- HTML !-->
 
-            <div class="container2">
+        <div class="container2">
 
 
-                <!-- HTML !-->
+            <!-- HTML !-->
 
-                <div class="login-box">
-                    <!-- <div class="button-container-home">
+            <div class="login-box">
+                <!-- <div class="button-container-home">
                     <button class="button-home" onclick="location.href='index.html'">Homepage</button>
                 </div> -->
-                    <!-- HTML !-->
-                    <!-- HTML !-->
-                    <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO HOMEPAGE</span></button>
+                <!-- HTML !-->
+                <!-- HTML !-->
+                <!-- <button class="home" onclick="location.href='index.html'" role="button"><span class="text">GO TO HOMEPAGE</span></button>
 <hr> -->
-                <form method="post" action="reset-password-step3.php" enctype="multipart/form-data">
+                <form method="post" action="" enctype="multipart/form-data">
 
-                    <h2 style="color: white;">Reset Password</h2>
+                    <h2 style="color: white;">Sign Up Here</h2>
                     <hr>
-                    <h2>Step 1</h2>
-                    <p>Provide OTP that sent through email to reset password</p>
+                    <h2>Step 2</h2>
+                    <p>Please provide the OTP to verify email</p>
                     <hr>
 
 
                     <div class="input-field">
-                        <label for="email">OTP:</label>
+                        <label for="email">OTP:<?php echo $session::get('otp'); ?></label>
                         <input type="otp" name="otp" id="email" placeholder="Enter OTP" required>
                     </div>
                     <!-- <div class="input-field">
@@ -87,19 +129,9 @@
                     </div>
                 </form>
 
-
-
-
-                    <!--              
-                <p class="signup-text">Already have an account? <a href="login.html">Login</a></p>
-                    <div class="button-container">
-                        <button class="button-56" onclick="location.href='login.html'" role="button">Log In</button>
-                    </div> -->
-
-                    </form>
-                </div>
             </div>
-      
+        </div>
+
     </section>
     <footer>
         <!-- Footer Start -->
@@ -204,5 +236,22 @@
     <script src="js/service.js"></script>
 
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var resendBtn = document.getElementById('resend_otp');
+        var countdown = 30; // seconds
+
+        var interval = setInterval(function() {
+            countdown--;
+            if (countdown > 0) {
+                resendBtn.textContent = 'Resend OTP (' + countdown + ')';
+            } else {
+                resendBtn.textContent = 'Resend OTP';
+                resendBtn.disabled = false;
+                clearInterval(interval);
+            }
+        }, 1000);
+    });
+</script>
 
 </html>
