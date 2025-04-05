@@ -94,7 +94,7 @@ if (empty($divisionWisePropertyLists)) {
     } else {
       foreach ($divisionWisePropertyLists as $divisionName => $properties): ?>
         <div class="division-cards" data-division="<?= htmlspecialchars($divisionName); ?>">
-          <h2><?= htmlspecialchars($divisionName); ?></h2>
+          <h2 style="margin-bottom: 40px;"><?= htmlspecialchars($divisionName); ?></h2>
           <div class="row">
             <?php foreach ($properties as $propArray):
               $singleProperty = new Property();
