@@ -431,8 +431,8 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'posted', 'DESC');
           if (propertyType && propertyType !== cat) return false;
           if (division && division !== div) return false;
           if (district && district !== dist) return false;
-          if (bedroom !== null && bed < bedroom) return false;
-          if (bathroom !== null && bath < bathroom) return false;
+          if (bedroom !== null && bed !== bedroom) return false;
+          if (bathroom !== null && bath !== bathroom) return false;
           return true;
         });
       }

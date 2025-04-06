@@ -55,6 +55,9 @@ if (isset($_POST['propertyUpdate'])) {
     ? array_filter(array_map('trim', explode(',', $_POST['existingVideoIds'])))
     : [];
 
+  // echo $_POST['existingVideoIds'] . "<br>";
+  // exit;
+
   // Process new image uploads
   $newImageIds = [];
   for ($i = 0; $i < count($_FILES['property-images-upload']['name']); $i++) {
@@ -79,28 +82,28 @@ if (isset($_POST['propertyUpdate'])) {
 
   // Process new video uploads
   $newVideoIds = [];
-  if (!empty($_FILES['property-videos-upload']['name'][0])) {
-    for ($i = 0; $i < count($_FILES['property-videos-upload']['name']); $i++) {
-      $fileArray = [
-        'name'     => $_FILES['property-videos-upload']['name'][$i],
-        'type'     => $_FILES['property-videos-upload']['type'][$i],
-        'tmp_name' => $_FILES['property-videos-upload']['tmp_name'][$i],
-        'error'    => $_FILES['property-videos-upload']['error'][$i],
-        'size'     => $_FILES['property-videos-upload']['size'][$i],
-      ];
-      $fileManager = new FileManager();
-      $fileManager->insert();
-      $newId = $fileManager->doOp($fileArray);
-      $fileManager->update();
-      if ($newId) {
-        $newVideoIds[] = $fileManager->file_id;
-      }
+  for ($i = 0; $i < count($_FILES['property-videos-upload']['name']); $i++) {
+    $fileArray = [
+      'name'     => $_FILES['property-videos-upload']['name'][$i],
+      'type'     => $_FILES['property-videos-upload']['type'][$i],
+      'tmp_name' => $_FILES['property-videos-upload']['tmp_name'][$i],
+      'error'    => $_FILES['property-videos-upload']['error'][$i],
+      'size'     => $_FILES['property-videos-upload']['size'][$i],
+    ];
+    $fileManager = new FileManager();
+    $fileManager->insert();
+    $newId = $fileManager->doOp($fileArray);
+    $fileManager->update();
+    if ($newId) {
+      $newVideoIds[] = $fileManager->file_id;
     }
   }
-  // $finalVideoIds = array_merge($remainingVideoIds, $newVideoIds);
-  $finalVideoIds = $newVideoIds; // Only new videos are allowed to be uploaded
-  $property->property_video_file_ids = !empty($finalVideoIds) ? implode(',', $finalVideoIds) : '';
 
+  // $finalVideoIds = array_merge($remainingVideoIds, $newVideoIds);
+  $finalVideoIds = $newVideoIds ?? $_POST['existingVideoIds'];
+  $property->property_video_file_ids = !empty($finalVideoIds) ? implode(',', $finalVideoIds) : $_POST['existingVideoIds'];
+  // echo $property->property_video_file_ids . "<br>";
+  // exit;
   // Update property record by insert new row for approval
   if ($property->insert()) {
     $property->updateStatus($propertyId, 3); // Set status to 3 (pending) for the new property record
@@ -120,6 +123,7 @@ if (isset($_POST['propertyUpdate'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -141,24 +145,27 @@ if (isset($_POST['propertyUpdate'])) {
       overflow: hidden;
       position: relative;
     }
+
     .file-container img,
     .file-container video {
       display: block;
       width: 100%;
       height: auto;
     }
+
     /* Delete overlay styles */
     .delete-overlay {
       position: absolute;
       top: 5px;
       right: 5px;
-      background-color: rgba(255,0,0,0.8);
+      background-color: rgba(255, 0, 0, 0.8);
       color: white;
       padding: 2px 5px;
       font-size: 12px;
       border-radius: 3px;
       cursor: pointer;
     }
+
     /* Gallery layout */
     .image-gallery,
     .video-gallery {
@@ -166,30 +173,35 @@ if (isset($_POST['propertyUpdate'])) {
       flex-wrap: wrap;
       gap: 15px;
     }
+
     .image-card,
     .video-card {
       position: relative;
-      width: 200px; /* adjust width as needed */
+      width: 200px;
+      /* adjust width as needed */
       border: 1px solid #ddd;
       border-radius: 5px;
       overflow: hidden;
     }
+
     .image-card img,
     .video-card video {
       width: 100%;
       display: block;
     }
+
     /* Mark a container as deleted (lower opacity) */
     .deleted {
       opacity: 0.3;
       pointer-events: none;
     }
   </style>
-  
+
   <!-- Dynamic District Dropdown Script -->
   <script>
     // Load divisions and their districts from PHP
     var divisionsData = <?php echo json_encode($divisions); ?>;
+
     function updateDistricts() {
       var divisionSelect = document.getElementById('division');
       var districtSelect = document.getElementById('district');
@@ -205,15 +217,16 @@ if (isset($_POST['propertyUpdate'])) {
       }
       // If the property already has a district, set it as selected.
       <?php if (!empty($property->district)) { ?>
-         districtSelect.value = "<?php echo $property->district; ?>";
+        districtSelect.value = "<?php echo $property->district; ?>";
       <?php } ?>
     }
-    document.addEventListener("DOMContentLoaded", function(){
+    document.addEventListener("DOMContentLoaded", function() {
       updateDistricts();
       document.getElementById('division').addEventListener('change', updateDistricts);
     });
   </script>
 </head>
+
 <body>
   <!-- Sidebar -->
   <?php include_once 'sidebar-user.php'; ?>
@@ -258,7 +271,7 @@ if (isset($_POST['propertyUpdate'])) {
             <div class="col-md-3">
               <label for="property_area_category" class="form-label">Property Area Category:</label>
               <select class="form-control" id="property_area_category" name="property_area_category" required>
-              <!-- <option value="all_type" <?php if ($property->property_category === 'All Type') echo 'selected'; ?>>All Type</option> -->
+                <!-- <option value="all_type" <?php if ($property->property_category === 'All Type') echo 'selected'; ?>>All Type</option> -->
                 <option value="residential_area" <?php if ($property->property_category === 'Residential Area') echo 'selected'; ?>>Residential Area</option>
                 <option value="commercial_area" <?php if ($property->property_category === 'Commercial Area') echo 'selected'; ?>>Commercial Area</option>
               </select>
@@ -268,10 +281,10 @@ if (isset($_POST['propertyUpdate'])) {
               <select class="form-control" id="division" name="division" required>
                 <option value="">Select Division</option>
                 <?php
-                  foreach($divisions as $divisionName => $districtArray) {
-                    $selected = ($property->division === $divisionName) ? 'selected' : '';
-                    echo '<option value="' . htmlspecialchars($divisionName) . '" ' . $selected . '>' . ucfirst($divisionName) . '</option>';
-                  }
+                foreach ($divisions as $divisionName => $districtArray) {
+                  $selected = ($property->division === $divisionName) ? 'selected' : '';
+                  echo '<option value="' . htmlspecialchars($divisionName) . '" ' . $selected . '>' . ucfirst($divisionName) . '</option>';
+                }
                 ?>
               </select>
             </div>
@@ -377,7 +390,9 @@ if (isset($_POST['propertyUpdate'])) {
           var fileId = container.getAttribute('data-file-id');
           var type = container.getAttribute('data-type'); // image or video
           // Animate to lower opacity (e.g., 0.3) to indicate removal
-          $(container).animate({opacity: 0.3}, 500, function() {
+          $(container).animate({
+            opacity: 0.3
+          }, 500, function() {
             // After animation, add a "deleted" class to disable further clicks
             $(container).addClass('deleted');
             // Update the hidden input field to mark this file as removed
@@ -401,4 +416,5 @@ if (isset($_POST['propertyUpdate'])) {
     });
   </script>
 </body>
+
 </html>

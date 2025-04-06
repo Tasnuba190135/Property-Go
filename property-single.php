@@ -3,10 +3,13 @@
 include_once 'php-class-file/User.php';
 include_once 'php-class-file/Property.php';
 include_once 'php-class-file/FileManager.php';
+include_once 'php-class-file/UserDetails.php';
 
 // $session = new SessionManager();
 
 $property = new Property();
+$user = new User();
+$userDetails = new UserDetails();
 
 $imageFiles;
 $videoFile;
@@ -14,6 +17,10 @@ $videoFile;
 if (isset($_GET['propertyId'])) {
   $property->property_id = $_GET['propertyId'];
   $property->getByPropertyIdAndStatus($property->property_id);
+
+  $user->user_id = $property->user_id;
+  $user->setValue();
+  $userDetails->setValueByUserId($user->user_id);
 
   $imageFiles = explode(',', $property->property_image_file_ids);
   $videoFile = $property->property_video_file_ids;
@@ -163,6 +170,24 @@ if (isset($_GET['propertyId'])) {
                     </li>
                   </ul>
                 </div>
+              </div>
+              <!-- Profile Card -->
+              <div class="profile-card mt-4 p-3 border rounded">
+                <h5 class="text-center">Owner Information</h5>
+                <ul class="list-unstyled mt-3">
+                  <li class="d-flex justify-content-between">
+                    <strong>Name:</strong>
+                    <span><?php echo $userDetails->full_name; ?></span>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <strong>Phone:</strong>
+                    <span><?php echo $userDetails->contact_no; ?></span>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <strong>Email:</strong>
+                    <span><?php echo $user->email; ?></span>
+                  </li>
+                </ul>
               </div>
             </div>
 
