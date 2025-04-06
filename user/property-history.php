@@ -33,6 +33,7 @@ $activeProperties = $property->getByUserIdAndStatus($user->user_id, 1);
 $pendingProperties = $property->getByUserIdAndStatus($user->user_id, 0);
 $deletedProperties = $property->getByUserIdAndStatus($user->user_id, 2);
 $pendingUpdateProperties = $property->getByUserIdAndStatus($user->user_id, 4);
+$deletedPendingUpdateProperties = $property->getByUserIdAndStatus($user->user_id, 2);
 ?>
 
 
@@ -93,7 +94,7 @@ $pendingUpdateProperties = $property->getByUserIdAndStatus($user->user_id, 4);
                   <p><strong>Property ID:</strong> <?php echo $singleProperty->property_id; ?></p>
                   <p><strong>Status:</strong> <?php echo $statusText; ?></p>
                   <p><strong>Property Category:</strong> <?php echo $singleProperty->property_category; ?></p>
-                  <div class="d-flex justify-content-between pt-4 mt-3">
+                  <div class="d-flex justify-content-between pt-4 ">
                     <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-success">Click To View</a>
                     <form action="delete-property.php" method="POST">
                       <input type="hidden" name="propertyId" value="<?php echo $singleProperty->property_id; ?>">
@@ -185,7 +186,7 @@ $pendingUpdateProperties = $property->getByUserIdAndStatus($user->user_id, 4);
       ?>
           <div class="col-md-4 mb-4">
             <div class="card__wrapper">
-              <div class=" card-sale" style="height: 300px;">
+              <div class=" card-sale" style="height: 350px;">
                 <div class="card-body">
                  
                   <h5 class="card-title" style="text-align:justify"><strong>Property Title :</strong> <?php echo $singleProperty->property_title; ?></h5>
@@ -193,10 +194,18 @@ $pendingUpdateProperties = $property->getByUserIdAndStatus($user->user_id, 4);
                   <p><strong>Property ID:</strong> <?php echo $singleProperty->property_id; ?></p>
                   <p><strong>Status:</strong> <?php echo $statusText; ?></p>
                   <p><strong>Property Category:</strong> <?php echo $singleProperty->property_category; ?></p>
-                  <div class="d-flex justify-content-between pt-4 mt-3">
-                    <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-success">Proposed Post</a>
-                    <a href="../property-single.php?propertyId=<?php echo $singleProperty->parent_property_id; ?>" class="btn btn-success">Current Post</a>
-                  </div>
+                  <div class="d-flex justify-content-between pt-4 mt-1">
+                    <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-success">Pending Edit Post</a>
+                    <a href="../property-single.php?propertyId=<?php echo $singleProperty->parent_property_id; ?>" class="btn btn-primary">Current Post</a>
+                    </div>
+                    <div class="d-flex justify-content-center pt-4 ">
+                   
+                  <form action="delete-property.php" method="POST">
+                      <input type="hidden" name="propertyId" value="<?php echo $singleProperty->property_id; ?>">
+                      <button class="btn btn-danger" type="submit" name="deletePost">Delete Post</button>
+                    </form>
+                    </div>
+                  
                 </div>
               </div>
             </div>

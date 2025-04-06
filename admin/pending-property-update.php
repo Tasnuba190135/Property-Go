@@ -136,23 +136,29 @@ $properties = $property->getByPropertyIdAndStatus(null, [4], 'created', 'ASC');
                             ?>
                                     <tr>
                                         <td><?php echo $propertyDetails->property_title; ?></td>
-                                        <td><?php echo $propertyDetails->property_id; ?></td>
+                                        <td style="padding-left: 25px;"><?php echo $propertyDetails->property_id; ?></td>
                                         <td><?php echo $propertyDetails->created; ?></td>
                                         <td>
-                                            <div class="attendant__action">
-                                                <a href="property-check.php?propertyId=<?php echo $propertyDetails->parent_property_id; ?>" target="_blank" class="btn btn-primary">Current</a>
-                                                <a href="property-check.php?propertyId=<?php echo $propertyDetails->property_id; ?>" target="_blank" class="btn btn-primary">Request to publish</a>
+                                            <div class="attendant__action d-flex flex-column align-items-start gap-2">
+                                                <a href="property-check.php?propertyId=<?php echo $propertyDetails->parent_property_id; ?>" target="_blank" class="btn btn-primary w-100">Review Current Post</a>
+                                                <a href="property-check.php?propertyId=<?php echo $propertyDetails->property_id; ?>" target="_blank" class="btn btn-success btn-block w-100"  style="white-space: nowrap;">Review Pending Edit Post</a>
                                             </div>
                                         </td>
 
                                         <td>
-                                            <div class="attendant__action">
-                                                <form method="POST" action="">
-                                                    <!-- Hidden property_id field to pass along with form submission -->
-                                                    <input type="hidden" name="property_id" value="<?php echo $propertyDetails->property_id; ?>" />
-                                                    <button type="submit" name="approve" value="1" class="btn btn-success">Approve</button>
-                                                    <button type="submit" name="reject" value="-1" class="btn btn-danger">Reject</button>
-                                                </form>
+                                            <div class="attendant__action d-flex flex-column align-items-start gap-2">
+                                            <form method="POST" action="">
+        <!-- Hidden property_id field to pass along with form submission -->
+        <input type="hidden" name="property_id" value="<?php echo $propertyDetails->property_id; ?>" />
+        
+        <div class="mb-2">
+            <button type="submit" name="approve" value="1" class="btn btn-dark btn-block w-100">Approve</button>
+        </div>
+        
+        <div>
+            <button type="submit" name="reject" value="-1" class="btn btn-danger btn-block w-100">Reject</button>
+        </div>
+    </form>
 
                                             </div>
                                         </td>

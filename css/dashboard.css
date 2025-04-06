@@ -282,6 +282,8 @@ table.dataTable.no-footer {
     background-color: #fff !important;
     border-radius: 4px;
     transition: all 0.3s ease-out 0s;
+    
+
 }
 
 .attendant__wrapper tbody tr:hover {

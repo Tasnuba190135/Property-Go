@@ -58,8 +58,8 @@ include_once 'Admin.php';
 
 // // session 2
 
-// $property = new Property();
-// $property->alterTableAddColumns([21]);
+$property = new Property();
+$property->alterTableAddColumns([21]);
 
 // function get_time($timezone = 'Asia/Dhaka') {
 //     $date = new DateTime('now', new DateTimeZone($timezone));
