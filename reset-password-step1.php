@@ -2,6 +2,9 @@
 include_once 'php-class-file/SessionManager.php';
 $session = SessionStatic::class;
 
+require_once 'php-class-file/EmailSender.php';
+$emailSender = new EmailSender();
+
 include_once 'pop-up.php';
 if ($session::get('msg1') != null) {
     showPopup($session::get('msg1'));
@@ -25,6 +28,7 @@ if (isset($_POST['submit_email'])) {
         $session::set('step', 2);
         $otp = rand(1000, 9999);
         $session::set('otp', $otp);
+        $emailSender->sendMail($user->email, 'OTP for Password Reset', "Your OTP is: <b>$otp</b>");
         echo "<script>window.location.href='reset-password-step2.php';</script>";
     } else {
         $session::set('msg1', 'Email not found!');

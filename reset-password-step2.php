@@ -2,6 +2,9 @@
 include_once 'php-class-file/SessionManager.php';
 $session = SessionStatic::class;
 
+require_once 'php-class-file/EmailSender.php';
+$emailSender = new EmailSender();
+
 
 if ($session::get('step') !== 2) {
     $session::set('msg1', 'Please complete the <b>Step 1</b> first');
@@ -39,6 +42,8 @@ if (isset($_POST['resend_otp']) && $session::get('step') == 2) {
     //   Generate a new OTP.
     $otp = rand(1000, 9999);
     $session::set('otp', $otp);
+
+    $emailSender->sendMail($session::get('email'), 'OTP for reset password', 'Your OTP is: ' . $otp);
 }
 ?>
 

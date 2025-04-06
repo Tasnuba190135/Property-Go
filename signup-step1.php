@@ -2,6 +2,9 @@
 include_once 'php-class-file/SessionManager.php';
 $session = SessionStatic::class;
 
+require_once 'php-class-file/EmailSender.php';
+$emailSender = new EmailSender();
+
 include_once 'pop-up.php';
 if ($session::get('msg1') != null) {
     showPopup($session::get('msg1'));
@@ -28,6 +31,7 @@ if (isset($_POST['verify_email'])) {
         $session::set('step', 2);
         $otp = rand(1000, 9999);
         $session::set('otp', $otp);
+        $emailSender->sendMail($user->email, 'OTP for Signup', "Your OTP is: $otp");
         echo "<script>window.location.href='signup-step2.php';</script>";
     }
 }

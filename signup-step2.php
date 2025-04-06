@@ -1,17 +1,20 @@
 <?php
 include_once 'php-class-file/SessionManager.php';
+include_once 'php-class-file/User.php';
 $session = SessionStatic::class;
 
+require_once 'php-class-file/EmailSender.php';
+$emailSender = new EmailSender();
 
-if($session::get('step') !== 2){
+
+if ($session::get('step') !== 2) {
     $session::set('msg1', 'Please complete the <b>Step 1</b> first');
     echo $session::get('msg1');
     // echo '<script> window.location.href = "signup-step2.php";</script>';
     exit();
 }
 
-if ($session::get('step') == 2){
-
+if ($session::get('step') == 2) {
 }
 
 if (isset($_POST['submit_otp'])) {
@@ -20,7 +23,7 @@ if (isset($_POST['submit_otp'])) {
     // $user = $session::getObject('user');
     $otp = $session::get('otp');
 
-    if ($_POST['otp'] != $otp){
+    if ($_POST['otp'] != $otp) {
         include_once 'pop-up.php';
         showPopup('OTP that you provide is not matching. Please try again');
     } else {
@@ -31,15 +34,19 @@ if (isset($_POST['submit_otp'])) {
         exit();
     }
 }
-if(isset($_POST['resend_otp']) && $session::get('step') == 2){
+if (isset($_POST['resend_otp']) && $session::get('step') == 2) {
     // include_once 'php-class-file/User.php';
 
-  // Retrieve the user object from session.
-//   $user = $session::getObject('user');
+    // Retrieve the user object from session.
+    $sUser = $session::getObject('temp_user');
+    $user = new User();
+    $session::copyProperties($sUser, $user);
 
-//   Generate a new OTP.
-$otp = rand(1000, 9999);
-$session::set('otp', $otp);
+    //   Generate a new OTP.
+    $otp = rand(1000, 9999);
+    $session::set('otp', $otp);
+
+    $emailSender->sendMail($user->email, 'OTP for Signup #' . $otp, 'Your OTP is: ' . $otp);
 }
 ?>
 
@@ -82,7 +89,7 @@ $session::set('otp', $otp);
 </head>
 
 <body>
-<?php include_once 'navbar-user.php'; ?>
+    <?php include_once 'navbar-user.php'; ?>
 
     <section class="section1">
         <!-- HTML !-->
@@ -124,7 +131,7 @@ $session::set('otp', $otp);
 
 
                 <form method="post" action="" enctype="multipart/form-data">
-                    <p class="signup-text" style="padding-top: 10px;">Don't get the OTP? <a href="">Resend OTP</a></p>
+                    <p class="signup-text" style="padding-top: 10px;">Don't get the OTP? </p>
                     <div class="button-container">
                         <button class="button-56" name="resend_otp" id="resend_otp" type="submit" role="button" disabled>Resend OTP</button>
                     </div>
@@ -254,4 +261,5 @@ $session::set('otp', $otp);
         }, 1000);
     });
 </script>
+
 </html>

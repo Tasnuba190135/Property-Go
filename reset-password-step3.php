@@ -19,8 +19,8 @@ if (isset($_POST['reset_password'])) {
 
     if ($new_password === $confirm_password) {
         $user->updatePasswordUsingEmail($user->email, $new_password);
-        $session::destroy(); // Destroy the session after password reset
-        $session::ensureSessionStarted(); // Ensure session is started again
+        // $session::destroy(); // Destroy the session after password reset
+        // $session::ensureSessionStarted(); // Ensure session is started again
         $session::set("msg1", "Password reset successfully");
 
         // echo "<script>setTimeout(function(){ window.location.href = 'login.php'; }, 2000);</script>";
