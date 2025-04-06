@@ -49,6 +49,10 @@ if (isset($_GET['propertyId'])) {
 
 
   <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    
     .swiper {
       width: 100%;
       height: 100%;
@@ -70,6 +74,17 @@ if (isset($_GET['propertyId'])) {
       height: 80%;
       object-fit: cover;
     }
+
+    .profile-card {
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 25px;
+    padding: 1rem;
+    color: #000; /* Adjust text color as needed for contrast */
+  }
   </style>
 
 
