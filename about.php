@@ -43,46 +43,7 @@
 </head>
 
 <body>
-  <header>
-    <!-- nav start -->
-    <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
-      <div class="container">
-        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
-          aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <a class="navbar-brand text-brand" href="index.html">PROPERTY<span class="color-b"> GO</span></a>
-
-        <div class="navbar-collapse collapse justify-content-lg-end" id="navbarDefault">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="add_property.html">Add Property</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="explore_property.html">Explore Property</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="about.html">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact Us</a>
-            </li>
-          </ul>
-        </div>
-        <!-- LOG IN button inside the navbar collapse -->
-        <div class="navbar-collapse collapse justify-content-xl-end" id="navbarDefault">
-          <button class="button-85 ml-auto" onclick="location.href='login.html'" role="button">LOG IN</button>
-        </div>
-      </div>
-    </nav>
-    <!--/ Nav End /-->
-  </header>
+<?php include_once 'navbar-user.php'; ?>
   <!--/ Intro Single star /-->
   <section class="intro-single">
     <div class="container">
@@ -147,7 +108,7 @@
       </div>
       <div class="row">
         <!-- Buy Section -->
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="card-box-c foo">
             <div class="card-header-c d-flex">
               <div class="card-box-ico">
@@ -166,14 +127,38 @@
               </p>
             </div>
             <div class="card-footer-c">
-              <span class="link-c" id="readMoreBuy" onclick="toggleContent('buyContent', 'readMoreBuy')">Read more <span
-                  class="fa fa-arrow-right"></span></span>
+              <span class="link-c" id="readMoreBuy" onclick="toggleContent('buyContent', 'readMoreBuy')">Read more <span class="fa fa-arrow-right"></span></span>
             </div>
           </div>
         </div>
 
         <!-- Sell Section -->
-        <div class="col-md-4">
+        <!-- <div class="col-md-6">
+    <div class="card-box-c foo">
+      <div class="card-header-c d-flex">
+        <div class="card-box-ico">
+          <span class="fa fa-home"></span>
+        </div>
+        <div class="card-title-c align-self-center">
+          <h2 class="title-c">Sell</h2>
+        </div>
+      </div>
+      <div class="card-body-c">
+        <p class="content-c">
+          Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta.ligula sed magna dictum porta
+        </p>
+        <p class="more-content" id="sellContent">
+          Here is the extra content for the Sell section. Add more details here!
+        </p>
+      </div>
+      <div class="card-footer-c">
+        <span class="link-c" id="readMoreSell" onclick="toggleContent('sellContent', 'readMoreSell')">Read more <span class="fa fa-arrow-right"></span></span>
+      </div>
+    </div>
+  </div> -->
+
+        <!-- Rent Section -->
+        <div class="col-md-6">
           <div class="card-box-c foo">
             <div class="card-header-c d-flex">
               <div class="card-box-ico">
@@ -187,39 +172,12 @@
               <p class="content-c">
                 Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta.ligula sed magna dictum porta
               </p>
-              <p class="more-content" id="sellContent">
+              <p class="more-content" id="rentContent">
                 Here is the extra content for the Sell section. Add more details here!
               </p>
             </div>
             <div class="card-footer-c">
-              <span class="link-c" id="readMoreSell" onclick="toggleContent('sellContent', 'readMoreSell')">Read more
-                <span class="fa fa-arrow-right"></span></span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Rent Section -->
-        <div class="col-md-4">
-          <div class="card-box-c foo">
-            <div class="card-header-c d-flex">
-              <div class="card-box-ico">
-                <span class="fa fa-home"></span>
-              </div>
-              <div class="card-title-c align-self-center">
-                <h2 class="title-c">Rent</h2>
-              </div>
-            </div>
-            <div class="card-body-c">
-              <p class="content-c">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta.ligula sed magna dictum porta
-              </p>
-              <p class="more-content" id="rentContent">
-                Here is the extra content for the Rent section. Add more details here!
-              </p>
-            </div>
-            <div class="card-footer-c">
-              <span class="link-c" id="readMoreRent" onclick="toggleContent('rentContent', 'readMoreRent')">Read more
-                <span class="fa fa-arrow-right"></span></span>
+              <span class="link-c" id="readMoreSell" onclick="toggleContent('rentContent', 'readMoreRent')">Read more <span class="fa fa-arrow-right"></span></span>
 
             </div>
           </div>

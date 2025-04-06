@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,50 +45,15 @@
 
         <!-- Include Font Awesome (or any icon library) -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
-
+<style>
+.custom-padding {
+  padding-left: 50px;
+}
+</style>
     
 </head>
 <body>
-    <header>
-      <!-- nav start -->
-       <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
-           <div class="container">
-               <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
-               aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-               <span></span>
-               <span></span>
-               <span></span> 
-               </button>
-  
-             <a class="navbar-brand text-brand" href="index.html">PROPERTY<span class="color-b"> GO</span></a>
-  
-               <div class="navbar-collapse collapse justify-content-lg-end" id="navbarDefault">
-                   <ul class="navbar-nav">
-                       <li class="nav-item">
-                           <a class="nav-link active" href="index.html">Home</a>
-                       </li>
-                       <li class="nav-item">
-                        <a class="nav-link" href="add_property.html">Add Property</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="explore_property.html">Explore Property</a>
-                    </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="about.html">About Us</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="contact.html">Contact Us</a>
-                       </li>
-                   </ul>
-                  </div>
-                   <!-- LOG IN button inside the navbar collapse -->
-                    <div class="navbar-collapse collapse justify-content-xl-end" id="navbarDefault">
-                   <button class="button-85 ml-auto" onclick="location.href='login.html'" role="button">LOG IN</button>
-                  </div>
-           </div>
-       </nav>
-       <!--/ Nav End /-->
-   </header>
+<?php include_once 'navbar-user.php'; ?>
   <!--/ Intro Single star /-->
   <section class="intro-single">
     <div class="container">
@@ -116,137 +82,66 @@
   <!--/ Intro Single End /-->
 
   <!--/ Contact Star /-->
-  <section class="contact">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="contact-map box">
-            <div id="map" class="contact-map">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.2650700885056!2d89.12284257430873!3d23.233439408428197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ff1857827d6cb7%3A0xecab69d917b1a29b!2sJashore%20University%20of%20Science%20and%20Technology!5e0!3m2!1sen!2sbd!4v1729562155096!5m2!1sen!2sbd"
-                width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-sm-12 section-t8">
-          <div class="row">
-            <div class="col-md-7">
-              <form class="form-a contactForm" action="index.html" method="post" role="form">
-                <div id="sendmessage">Your message has been sent. Thank you!</div>
-                <div id="errormessage"></div>
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <div class="form-group">
-                      <input type="text" name="name" class="form-control form-control-lg form-control-a" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
-                      <div class="validation"></div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <div class="form-group">
-                      <input name="email" type="email" class="form-control form-control-lg form-control-a" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" required>
-                      <div class="validation"></div>
-                    </div>
-                  </div>
-                  <div class="col-md-12 mb-3">
-                    <div class="form-group">
-                      <input type="text" name="subject" class="form-control form-control-lg form-control-a" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" required>
-                      <div class="validation"></div>
-                    </div>
-                  </div>
-                  <div class="col-md-12 mb-3">
-                    <div class="form-group">
-                      <textarea name="message" class="form-control" name="message" cols="45" rows="8" data-rule="required" data-msg="Please write something for us" placeholder="Message" required></textarea>
-                      <div class="validation"></div>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <button type="submit" class="btn btn-a">Send Message</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="col-md-5 section-md-t3">
-              <div class="icon-box section-b2">
-                <div class="icon-box-icon">
-                  <span class="ion-ios-paper-plane"></span>
-                </div>
-                <div class="icon-box-content table-cell">
-                  <div class="icon-box-title">
-                    <h4 class="icon-title">Say Hello</h4>
-                  </div>
-                  <div class="icon-box-content">
-                    <p class="mb-1">Email.
-                      <span class="color-a">contact@example.com</span>
-                    </p>
-                    <p class="mb-1">Phone.
-                      <span class="color-a">01676057548</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="icon-box section-b2">
-                <div class="icon-box-icon">
-                  <span class="ion-ios-pin"></span>
-                </div>
-                <div class="icon-box-content table-cell">
-                  <div class="icon-box-title">
-                    <h4 class="icon-title">Find us in</h4>
-                  </div>
-                  <div class="icon-box-content">
-                    <p class="mb-1">
-                      Jashore University of Science and Technology
-                      <br> Jashore, Khulna, Bangladesh.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="icon-box">
-                <div class="icon-box-icon">
-                  <span class="ion-ios-redo"></span>
-                </div>
-                <div class="icon-box-content table-cell">
-                  <div class="icon-box-title">
-                    <h4 class="icon-title">Social networks</h4>
-                  </div>
-                  <div class="icon-box-content">
-                    <div class="socials-footer">
-                      <ul class="list-inline">
-                        <li class="list-inline-item">
-                          <a href="#" class="link-one">
-                            <i class="fa fa-facebook" aria-hidden="true"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a href="#" class="link-one">
-                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a href="#" class="link-one">
-                            <i class="fa fa-instagram" aria-hidden="true"></i>
-                          </a>
-                        </li>
-                        <!-- <li class="list-inline-item">
-                          <a href="#" class="link-one">
-                            <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                          </a>
-                        </li> -->
-                        <li class="list-inline-item">
-                          <a href="#" class="link-one">
-                            <i class="fa fa-dribbble" aria-hidden="true"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+  <!--/ Contact Start /-->
+  <section class="contact py-5">
+  <div class="container">
+    <div class="row align-items-start">
+      <!-- Column 1: Map -->
+      <div class="col-md-6">
+        <div class="contact-map box">
+          <div id="map" class="contact-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.2650700885056!2d89.12284257430873!3d23.233439408428197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ff1857827d6cb7%3A0xecab69d917b1a29b!2sJashore%20University%20of%20Science%20and%20Technology!5e0!3m2!1sen!2sbd!4v1729562155096!5m2!1sen!2sbd"
+              width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen></iframe>
           </div>
         </div>
       </div>
+
+      <!-- Column 2: Contact Info with spacing and right shift -->
+      <div class="col-md-6 custom-padding mt-4 mt-md-0">
+        <div class="d-flex flex-column gap-4">
+          <div class="icon-box section-b2">
+            <div class="icon-box-icon">
+              <span class="ion-ios-paper-plane"></span>
+            </div>
+            <div class="icon-box-content table-cell">
+              <h4 class="icon-title">Contact Us:</h4>
+              <p class="mb-1">Email. <span class="color-a">admin@admin.com</span></p>
+              <p class="mb-1">Phone. <span class="color-a">01676057548</span></p>
+            </div>
+          </div>
+          <div class="icon-box section-b2">
+            <div class="icon-box-icon">
+              <span class="ion-ios-pin"></span>
+            </div>
+            <div class="icon-box-content table-cell">
+              <h4 class="icon-title">Find us in</h4>
+              <p class="mb-1">Jashore University of Science and Technology<br> Jashore, Khulna, Bangladesh.</p>
+            </div>
+          </div>
+          <div class="icon-box">
+            <div class="icon-box-icon">
+              <span class="ion-ios-redo"></span>
+            </div>
+            <div class="icon-box-content table-cell">
+              <h4 class="icon-title">Social networks</h4>
+              <div class="socials-footer mt-2">
+                <ul class="list-inline">
+                  <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                  <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+                  <li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Contact Info Column -->
     </div>
-  </section>
+  </div>
+</section>
+
+<!--/ Contact End /-->
+
   <!--/ Contact End /-->
 
    <footer>

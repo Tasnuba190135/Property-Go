@@ -248,7 +248,7 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
   <!--/ Services End /-->
 
   <!--/ Agents Start /-->
-  <section class="section-agents section-t8">
+  <section class="section-agents section-t8 mb-5">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -415,20 +415,21 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
     </div>
   </section>
   <!--/ Agents End /-->
+  <!-- Add more gap after Latest Properties section -->
+<div class="mb-7">
+  
+</div> <!-- Increased margin-bottom -->
 
   <!-- clients review start -->
-  <div class="testimonial-container1">
+  <!-- <div class="testimonial-container1">
     <h2 class=" font-weight-bold heading text-primary mb-4 mb-md-0 title-a">Our clients Says </h2>
   </div>
   <div class="testimonial-container" id="testimonialContainer">
-    <!-- HTML !-->
-    <!-- <button class="button-57" role="button"><span class="text">Button 57</span><span>Previous Review</span></button> -->
-
-    <!-- <button class="slider-btn prev" onclick="prevTestimonial()">Prev</button> -->
-    <button class=".slider-btn button-57" onclick="prevTestimonial()"><span class="ion-ios-arrow-back"></span><span class="ion-ios-arrow-back"></span></button>
+   
+    <button class=".slider-btn button-57" onclick="prevTestimonial()"><span class="ion-ios-arrow-back"></span><span class="ion-ios-arrow-back"></span></button> -->
 
     <!-- Testimonial Cards -->
-    <div class="testimonial-card">
+    <!-- <div class="testimonial-card">
       <img src="img/agent-1.jpg" alt="Customer 1">
       <div class="stars">★★★★★</div>
       <div class="customer-name">James Smith</div>
@@ -469,15 +470,14 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
       <div class="customer-name">Cameron Webster</div>
       <div class="designation">Designer, Co-founder</div>
       <p class="testimonial-text">"Would definitely work with them again."</p>
-    </div>
+    </div> -->
 
     <!-- Add more testimonial cards as needed -->
 
-    <!-- Next Button -->
-    <!-- <button class="slider-btn next" onclick="nextTestimonial()">Next</button> -->
-    <button class=".slider-btn button-57" onclick="nextTestimonial()"><span class="ion-ios-arrow-forward"></span> <span class="ion-ios-arrow-forward"></span></button>
+    
+    <!-- <button class=".slider-btn button-57" onclick="nextTestimonial()"><span class="ion-ios-arrow-forward"></span> <span class="ion-ios-arrow-forward"></span></button>
 
-  </div>
+  </div> -->
   <!-- us section -->
   <section class="us_section layout_padding2">
 
