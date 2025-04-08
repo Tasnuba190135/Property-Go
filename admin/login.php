@@ -21,11 +21,13 @@ if ($session::get('admin') !== null) {
 if (isset($_POST['log_in'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $userType = $_POST['user-type'];
 
     $user = new User();
     $user->email = $email;
     $user->password = $password;
-    $userCheck = $user->checkUserEmailWithStatus($user->email, $user->password, "admin");
+    $user->user_type = $userType;
+    $userCheck = $user->checkUserEmailWithStatus($user->email, $user->password, $user->user_type);
 
     if ($userCheck[0] == "1") {
         // echo 'all ok <br>';
@@ -39,12 +41,9 @@ if (isset($_POST['log_in'])) {
         showPopup($userCheck[1]);
     }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -145,7 +144,9 @@ if (isset($_POST['log_in'])) {
                             <label for="user-type">User Type:</label>
                             <select id="user-type" name="user-type" required>
                                 <!-- <option value="client" id="option1">Client</option> -->
+                                <option value="super-admin" id="option1">Super Admin</option>
                                 <option value="admin" id="option1">Admin</option>
+
                             </select>
                         </div>
                         <div class="input-field">
@@ -165,8 +166,22 @@ if (isset($_POST['log_in'])) {
                         <div class="button-container">
                             <button class="button-56" name="log_in" type="submit" role="button">LOG IN</button>
                         </div>
-                        <!-- <hr> -->
-                    </form>
+                        </form>
+                        <hr>
+                    
+                        <form method="post" action="admin-signup-step1.php" enctype="multipart/form-data">
+
+<p class="signup-text">Don't have an account? <a href="admin-signup-step1.php">Sign Up</a></p>
+<div class="button-container2">
+    <button class="btn-signup" name="sign_up" type="submit" role="button">SIGN UP</button>
+</div>
+</form>
+
+</div>
+</div>
+
+
+
                 <?php } else { ?>
                     <h3 class="h4 form-box text-black mb-4">Welcome to Property Go Admin Panel</h3>
                     <div class="button-container">

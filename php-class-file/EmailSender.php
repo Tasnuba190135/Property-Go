@@ -29,13 +29,13 @@ class EmailSender
         // SMTP server configuration.
         $this->mail->Host       = 'smtp.gmail.com';   // Specify main and backup SMTP servers.
         $this->mail->SMTPAuth   = true;               // Enable SMTP authentication.
-        $this->mail->Username   = '190122.cse@student.just.edu.bd'; // SMTP username.
-        $this->mail->Password   = 'dkge jrzq tkun zzye';            // SMTP password.
+        $this->mail->Username   = '190135.cse@student.just.edu.bd'; // SMTP username.
+        $this->mail->Password   = 'cyhc amwd qtri jexi';            // SMTP password.
         $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;    // Enable TLS encryption.
         $this->mail->Port       = 587;                // TCP port to connect to.
 
         // Optionally, set a default sender (the From address).
-        $this->mail->setFrom('190122.cse@student.just.edu.bd', 'Mailer');
+        $this->mail->setFrom('190135.cse@student.just.edu.bd', 'Property Go'); // Sender's email and name.
     }
 
     /**

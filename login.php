@@ -135,7 +135,6 @@ if($session->getObject('user') !==null){
                     </div>
                     </form>
                     <?php } else { ?>
-                                        <!-- <h3 class="h4 form-box text-black mb-4">Welcome to Munshi Mohammad Meherulla Hall</h3> -->
                                     <?php } ?>
                 </div>
             </div>

@@ -295,6 +295,7 @@ class User
                         return ["10", "Wrong password. Please try again."];
                     }
                 }
+                
 
                 // Check for pending approval status (0)
                 if ($status == 0) {

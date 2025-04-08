@@ -58,8 +58,8 @@ include_once 'Admin.php';
 
 // // session 2
 
-$property = new Property();
-$property->alterTableAddColumns([21]);
+// $property = new Property();
+// $property->alterTableAddColumns([21]);
 
 // function get_time($timezone = 'Asia/Dhaka') {
 //     $date = new DateTime('now', new DateTimeZone($timezone));
@@ -73,10 +73,13 @@ $property->alterTableAddColumns([21]);
 // echo date('Y-m-d H:i:s');
 
 // add default admin
-// $admin = new Admin();
+$admin = new Admin();
 // $admin->insertAdmin();
-// echo "Admin record inserted successfully";
-// echo "<br><br><br>";
+echo "Admin record inserted successfully";
+$admin->email="super@admin";
+$admin->user_type="super-admin";
+$admin->insertAdmin();
+echo "<br><br><br>";
 
 
 

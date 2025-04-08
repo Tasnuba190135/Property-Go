@@ -20,6 +20,9 @@ if (isset($_GET['logout']) == 1) {
     <a href="<?= $navbarDir ?>admin-dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard</a>
     <a href="<?= $navbarDir ?>user-review.php"><i class="fas fa-tachometer-alt me-2"></i> User Review</a>
     <a href="<?= $navbarDir ?>user-management.php"><i class="fas fa-tachometer-alt me-2"></i> User Management</a>
+    <a href="<?= $navbarDir ?>admin-review.php"><i class="fas fa-tachometer-alt me-2"></i> Admin Review</a>
+    <a href="<?= $navbarDir ?>admin-management.php"><i class="fas fa-tachometer-alt me-2"></i> Admin Management</a>
+    <a href="<?= $navbarDir ?>view-admin-profile.php"><i class="fas fa-tachometer-alt me-2"></i>View Profile</a>
     <a href="<?= $navbarDir ?>deleted-user-account.php"><i class="fas fa-tachometer-alt me-2"></i>Delete or retrieve account</a>
     <!-- <a href="<//?=$navbarDir ?>edit-user-info.php"><i class="fa-solid fa-pen-to-square me-2"></i> Edit Client's Information</a> -->
     <a href="<?= $navbarDir ?>property-review.php"><i class="fas fa-layer-group me-2"></i>Property Review</a>

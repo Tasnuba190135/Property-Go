@@ -5,19 +5,25 @@ auth('admin');
 // Include necessary PHP class files (adjust paths as needed)
 include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
+include_once '../php-class-file/UserDetails.php';
 include_once '../php-class-file/Property.php';
 include_once '../php-class-file/FileManager.php';
 
 // $session = new SessionManager();
 
 $property = new Property();
-
+$user = new User();
+$userDetails = new UserDetails();
 $imageFiles;
 $videoFile;
 
 if (isset($_GET['propertyId'])) {
   $property->property_id = $_GET['propertyId'];
   $property->getByPropertyIdAndStatus($property->property_id);
+
+  $user->user_id = $property->user_id;
+  $user->setValue();
+  $userDetails->setValueByUserId($user->user_id);
 
   $imageFiles = explode(',', $property->property_image_file_ids);
   $videoFile = $property->property_video_file_ids;
@@ -45,6 +51,10 @@ if (isset($_GET['propertyId'])) {
 
 
   <style>
+     body {
+      background-color: #f8f9fa;
+    }
+    
     .swiper {
       width: 100%;
       height: 100%;
@@ -66,6 +76,16 @@ if (isset($_GET['propertyId'])) {
       height: 80%;
       object-fit: cover;
     }
+    .profile-card {
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 25px;
+    padding: 1rem;
+    color: #000; /* Adjust text color as needed for contrast */
+  }
   </style>
 
 
@@ -119,11 +139,19 @@ if (isset($_GET['propertyId'])) {
             <div class="col-md-5 col-lg-4">
               <div class="property-price d-flex justify-content-center foo">
                 <div class="card-header-c d-flex">
-                  <div class="card-box-ico">
+                  <!-- <div class="card-box-ico">
                     <span class="ion-money">User ID : <?php echo $property->user_id; ?> </span>
+                  </div> -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+                    <h3 class="title-d">Property Details</h3>
                   </div>
                 </div>
               </div>
+              
               <div class="property-summary">
                 <div class="summary-list">
                   <ul class="list">
@@ -167,6 +195,23 @@ if (isset($_GET['propertyId'])) {
                     </li>
                   </ul>
                 </div>
+              </div>
+              <div class="profile-card mt-4 p-3 border rounded">
+                <h5 class="text-center">Owner Information</h5>
+                <ul class="list-unstyled mt-3">
+                  <li class="d-flex justify-content-between">
+                    <strong>Name:</strong>
+                    <span><?php echo $userDetails->full_name; ?></span>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <strong>Phone:</strong>
+                    <span><?php echo $userDetails->contact_no; ?></span>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <strong>Email:</strong>
+                    <span><?php echo $user->email; ?></span>
+                  </li>
+                </ul>
               </div>
             </div>
 
