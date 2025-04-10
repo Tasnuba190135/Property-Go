@@ -10,7 +10,7 @@ include_once '../php-class-file/FileManager.php';
 $session = SessionStatic::class;
 
 $user = new User();
-$sUser = $session::getObject("user");
+$sUser = $session::getObject("temp_admin");
 $user->user_id = $sUser->user_id;
 $user->setValue();
 

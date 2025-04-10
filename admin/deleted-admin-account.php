@@ -22,6 +22,7 @@ if (isset($_POST['delete']) || isset($_POST['retrieve'])) {
 
     $user2->setValue();
     $user2->status = $status;
+    $user2->user_type = "admin";
     $user2->update();
 
     showPopup("User ID : " . $user2->user_id . " with Email :  {$user2->email} has been successfully " . ($status == -2 ? "deleted" : "retrieved"));
@@ -39,8 +40,8 @@ if (isset($_POST['delete']) || isset($_POST['retrieve'])) {
 // }
 
 $user = new User();
-$userListActive = $user->getDistinctUsersByStatus(-2, "client");
-$userListDisable = $user->getDistinctUsersByStatus(1, "client");
+$userListActive = $user->getDistinctUsersByStatus(-2, "admin");
+$userListDisable = $user->getDistinctUsersByStatus(1, "admin");
 
 $userList = array_merge($userListActive ?: [], $userListDisable ?: []);
 ?>
@@ -69,7 +70,7 @@ $userList = array_merge($userListActive ?: [], $userListDisable ?: []);
         <!-- Header -->
         <div class="header d-flex justify-content-between align-items-center">
 
-            <h5>Delete or Retrieve User Account</h5>
+            <h5>Delete or Retrieve Admin Account</h5>
 
             <!-- Toggle Button -->
             <button class="toggle-btn d-md-none" id="toggle-btn">

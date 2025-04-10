@@ -14,7 +14,7 @@ if($session::get('msg1') !== null) {
 
 $alreadyLoggedIn = false;
 
-if ($session::get('admin') !== null) {
+if ($session::get('temp_admin') !== null) {
     $alreadyLoggedIn = true;
 }
 
@@ -32,7 +32,7 @@ if (isset($_POST['log_in'])) {
     if ($userCheck[0] == "1") {
         // echo 'all ok <br>';
         showPopup($userCheck[1]);
-        $session::storeObject('admin', $user);
+        $session::storeObject('temp_admin', $user);
         $session::set('admin', 1);
         echo '<script>window.location.href = "admin-dashboard.php";</script>';
     } elseif ($userCheck[0] == "10") {
@@ -157,12 +157,11 @@ if (isset($_POST['log_in'])) {
                             <label for="password">Password:</label>
                             <input type="password" id="password" placeholder="Enter your password" name="password" required>
                         </div>
-                        <!-- <div class="checkbox-field">
-                        <input type="checkbox" id="remember-me">
-                        <label for="remember-me">Remember Me</label>
-                        <a href="#" class="forgot-password">Forget Password?</a>
-                    </div> -->
-                        <!-- <button class="login-btn">Login</button> -->
+                        <div class="checkbox-field">
+                        <!-- <input type="checkbox" id="remember-me">
+                        <label for="remember-me">Remember Me</label> -->
+                        <a href="admin-reset-password-step1.php" class="forgot-password"><b><i>Forget Password?</i></b></a>
+                    </div>
                         <div class="button-container">
                             <button class="button-56" name="log_in" type="submit" role="button">LOG IN</button>
                         </div>

@@ -1,6 +1,6 @@
 <?php
 include_once '../php-class-file/Auth.php';
-auth('admin'); // Check if the user is logged in as an admin
+auth('admin'); // Check if the user is logged in as a super admin admin
 
 // ob_start();
 include_once '../php-class-file/User.php';

@@ -26,6 +26,7 @@ if (isset($_POST['sign_up'])) {
   $userDetails->full_name = $_POST['full-name'];
   $userDetails->contact_no = $_POST['contact_no'];
   $userDetails->division = $_POST['division'];
+  $userDetails->district = $_POST['district'];
   $userDetails->address = $_POST['address'];
   $userDetails->gender = $_POST['gender'];
   $userDetails->nid_number = $_POST['nid_number'];

@@ -18,11 +18,17 @@ function auth($role)
         // Get the current directory from the URL (e.g. "/php-class-file")
         $currentDir = dirname($_SERVER['PHP_SELF']);
 
-        if ($role === 'admin') {
-            $session::set('msg1', 'Please login as an admin to access.');
+        if ($role === 'super_admin') {
+            $session::set('msg1', 'Please login as a super admin admin to access.');
             // This constructs a URL like "/php-class-file/../admin/login.php"
             // echo "<script>location.href='{$currentDir}/../admin/login.php';</script>";
-        } elseif ($role === 'user') {
+        } 
+        elseif ($role === 'admin') {
+            $session::set('msg1', 'Please login as a admin to access.');
+            // This constructs a URL like "/php-class-file/../login.php"
+            echo "<script>location.href='{$currentDir}/../login.php';</script>";
+        }
+        elseif ($role === 'user') {
             $session::set('msg1', 'Please login as a user to access.');
             // This constructs a URL like "/php-class-file/../login.php"
             echo "<script>location.href='{$currentDir}/../login.php';</script>";
