@@ -7,16 +7,13 @@ include_once '../pop-up.php';
 // include_once '../php-class-file/Auth.php';
 // auth('admin');
 
-if($session::get('msg1') !== null) {
+if ($session::get('msg1') !== null) {
     showPopup($session::get('msg1'));
     $session::delete('msg1');
 }
 
 $alreadyLoggedIn = false;
 
-if ($session::get('temp_admin') !== null) {
-    $alreadyLoggedIn = true;
-}
 
 if (isset($_POST['log_in'])) {
     $email = $_POST['email'];
@@ -33,7 +30,11 @@ if (isset($_POST['log_in'])) {
         // echo 'all ok <br>';
         showPopup($userCheck[1]);
         $session::storeObject('temp_admin', $user);
-        $session::set('admin', 1);
+        if ($userType == "super-admin") {
+            $session::set('admin', "super_admin");
+        } elseif ($userType == "admin") {
+            $session::set('admin', "admin");
+        }
         echo '<script>window.location.href = "admin-dashboard.php";</script>';
     } elseif ($userCheck[0] == "10") {
         showPopup($userCheck[1]);
@@ -44,6 +45,7 @@ if (isset($_POST['log_in'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -158,36 +160,36 @@ if (isset($_POST['log_in'])) {
                             <input type="password" id="password" placeholder="Enter your password" name="password" required>
                         </div>
                         <div class="checkbox-field">
-                        <!-- <input type="checkbox" id="remember-me">
+                            <!-- <input type="checkbox" id="remember-me">
                         <label for="remember-me">Remember Me</label> -->
-                        <a href="admin-reset-password-step1.php" class="forgot-password"><b><i>Forget Password?</i></b></a>
-                    </div>
+                            <a href="admin-reset-password-step1.php" class="forgot-password"><b><i>Forget Password?</i></b></a>
+                        </div>
                         <div class="button-container">
                             <button class="button-56" name="log_in" type="submit" role="button">LOG IN</button>
                         </div>
-                        </form>
-                        <hr>
-                    
-                        <form method="post" action="admin-signup-step1.php" enctype="multipart/form-data">
+                    </form>
+                    <hr>
 
-<p class="signup-text">Don't have an account? <a href="admin-signup-step1.php">Sign Up</a></p>
-<div class="button-container2">
-    <button class="btn-signup" name="sign_up" type="submit" role="button">SIGN UP</button>
-</div>
-</form>
+                    <form method="post" action="admin-signup-step1.php" enctype="multipart/form-data">
 
-</div>
-</div>
+                        <p class="signup-text">Don't have an account? <a href="admin-signup-step1.php">Sign Up</a></p>
+                        <div class="button-container2">
+                            <button class="btn-signup" name="sign_up" type="submit" role="button">SIGN UP</button>
+                        </div>
+                    </form>
+
+            </div>
+        </div>
 
 
 
-                <?php } else { ?>
-                    <h3 class="h4 form-box text-black mb-4">Welcome to Property Go Admin Panel</h3>
-                    <div class="button-container">
-                        <button class="button-56" onclick="location.href='admin-dashboard.php'" role="button">Go to Dashboard</button>
-                    </div>
-                <?php } ?>
-                <!-- <form method="post" action="signup.html">
+    <?php } else { ?>
+        <h3 class="h4 form-box text-black mb-4">Welcome to Property Go Admin Panel</h3>
+        <div class="button-container">
+            <button class="button-56" onclick="location.href='admin-dashboard.php'" role="button">Go to Dashboard</button>
+        </div>
+    <?php } ?>
+    <!-- <form method="post" action="signup.html">
 
                     <p class="signup-text">Don't have an account? <a href="signup.html">Sign Up</a></p>
                     <div class="button-container2">
@@ -195,17 +197,17 @@ if (isset($_POST['log_in'])) {
                     </div>
                 </div>
             </div> -->
-                <!-- Popup Container -->
-                <div id="popup" class="popup">
-                    <div class="popup-content">
-                        <span class="close-btn" onclick="closePopup()">&times;</span>
-                        <h2>Login Successful</h2>
-                        <p>Welcome! You have successfully logged in.</p>
-                    </div>
-                </div>
-                <!-- </form> -->
-                <!-- Login Button -->
-                <!-- <button class="button-56" onclick="showPopup()">Login</button> -->
+    <!-- Popup Container -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2>Login Successful</h2>
+            <p>Welcome! You have successfully logged in.</p>
+        </div>
+    </div>
+    <!-- </form> -->
+    <!-- Login Button -->
+    <!-- <button class="button-56" onclick="showPopup()">Login</button> -->
 
     </section>
 

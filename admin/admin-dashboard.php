@@ -1,4 +1,11 @@
+<?php
+include_once '../php-class-file/SessionManager.php';
+$session = SessionStatic::class;
 
+include_once '../php-class-file/Auth.php';
+auth('admin');
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
