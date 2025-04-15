@@ -10,6 +10,15 @@ $session = SessionStatic::class;
 // Retrieve user session object
 $sUser = $session::getObject("user");
 
+// If the user is not logged in, set the redirect and send them to login page.
+if (!$sUser) {
+  // Save the current page URL (or identifier) in the session.
+  $session::set('redirect_url', 'add-property.php'); // update with your actual add property page filename
+  $session::set('msg1', 'You need to login to add a property.');
+  header('Location: login.php');
+  exit();
+}
+
 // Create a new User object and set its user_id from the session
 $user = new User();
 if ($sUser) {

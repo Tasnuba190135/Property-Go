@@ -49,7 +49,9 @@ if (isset($_POST['profilePictureUpdate'])) {
 // Process user details update (editable fields only)
 if (isset($_POST['userDetailsUpdate'])) {
     // Update only editable fields
+    $userDetails->full_name  = isset($_POST['full_name'])  ? $_POST['full_name']  : $userDetails->full_name;
     $userDetails->contact_no = isset($_POST['contact_no']) ? $_POST['contact_no'] : $userDetails->contact_no;
+    $userDetails->nid_number = isset($_POST['nid_number']) ? $_POST['nid_number'] : $userDetails->nid_number;
     $userDetails->division   = isset($_POST['division'])   ? $_POST['division']   : $userDetails->division;
     $userDetails->district   = isset($_POST['district'])   ? $_POST['district']   : $userDetails->district;
     $userDetails->address    = isset($_POST['address'])    ? $_POST['address']    : $userDetails->address;
@@ -151,7 +153,7 @@ $file2->setValueById($userDetails->nid_file_id);
                 <form action="" method="post" class="profile-page-form">
                     <!-- Info Alert -->
                     <div class="alert alert-info">
-                        <strong>Note:</strong> Full Name, Email Address, NID Number, and NID File cannot be changed here.
+                        <strong>Note:</strong> Email Address, NID Number, and NID File cannot be changed here.
                         Please contact the administrator for modifications.
                     </div>
 
@@ -169,7 +171,7 @@ $file2->setValueById($userDetails->nid_file_id);
                     <div class="row align-items-center mb-4">
                         <div class="col-md-6">
                             <label class="form-label">Full Name:</label>
-                            <input type="text" class="form-control" name="full_name" value="<?php echo $userDetails->full_name; ?>" disabled>
+                            <input type="text" class="form-control" name="full_name" value="<?php echo $userDetails->full_name;?>" >
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Email Address:</label>
@@ -184,7 +186,7 @@ $file2->setValueById($userDetails->nid_file_id);
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">NID Number:</label>
-                            <input type="text" class="form-control" name="nid_number" value="<?php echo $userDetails->nid_number; ?>" disabled>
+                            <input type="text" class="form-control" name="nid_number" value="<?php echo $userDetails->nid_number; ?>">
                         </div>
                     </div>
                     <!-- Editable Location and Address Fields -->

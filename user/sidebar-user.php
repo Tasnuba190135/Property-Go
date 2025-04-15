@@ -21,6 +21,7 @@ if (isset($_POST['logout'])) {
 
 <!-- Sidebar -->
 <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
     <h4 class="text-center my-4">My Account</h4>
     <a href="<?= $rootDir ?>index.php">
         <i class="fas fa-tachometer-alt me-2"></i> Home
@@ -37,17 +38,18 @@ if (isset($_POST['logout'])) {
     <a href="<?= $navbarDir ?>property-history.php">
         <i class="fas fa-lock me-2"></i> Property History
     </a>
-    <a href="<?= $navbarDir ?>property-go-wallet.php">
+    <!-- <a href="<?//= $navbarDir ?>property-go-wallet.php">
         <i class="fas fa-file-alt me-2"></i> Property Go Wallet
-    </a>
+    </a> -->
     <a href="<?= $navbarDir ?>change-password.php">
         <i class="fas fa-file-alt me-2"></i> Password Change
     </a>
+    </div>
 
     <!-- Logout Form -->
-    <form method="POST" action="" class="mt-auto text-center logout-btn" style="display: inline;">
-        <button type="submit" name="logout" style="background: none; border: none; padding: 0; font: inherit; cursor: pointer;">
-            <i class="fas fa-sign-out-alt me-2"></i> Log Out
-        </button>
+    <form method="POST" action="" >
+    <a href="?logout=1" class="mt-auto text-center logout-btn">
+        <i class="fas fa-sign-out-alt me-2"></i> Logout
+    </a>
     </form>
 </div>

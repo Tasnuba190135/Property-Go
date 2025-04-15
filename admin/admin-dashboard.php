@@ -26,7 +26,24 @@ auth('admin');
 
 <body>
     <?php include_once 'sidebar-admin.php'; ?>
+<!-- Main Content -->
+<div id="main-content" class="main-content">
+        <!-- Header -->
+        <div class="header d-flex justify-content-between align-items-center">
 
+            <h5>Dashboard</h5>
+
+            <!-- Toggle Button -->
+            <button class="toggle-btn d-md-none" id="toggle-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Content -->
+        <div class="container mt-4">
+            <h1>My Dashboard</h1>
+        </div>
+    </div>
     <!-- JavaScript -->
     <script>
         const toggleBtn = document.getElementById("toggle-btn");

@@ -1,5 +1,6 @@
 <?php
 include_once 'php-class-file/SessionManager.php';
+$session = SessionStatic::class;
 
 $session = new Session();
 // session->destroy();
@@ -22,10 +23,17 @@ if(isset($_POST['log_in'])){
         include_once 'pop-up.php';
         showPopup($userCheck[1]);
         $session->storeObject('user', $user);
-        // header('Location: index.php');
-        echo"<script>window.location = 'index.php';</script>";
-
+        // Check if a redirect URL is set in session
+        $redirect_url = $session->get('redirect_url') ? $session->get('redirect_url') : 'index.php';
+        $session->delete('redirect_url');
+        echo "<script>window.location = '$redirect_url';</script>";
         exit();
+        
+        // header('Location: index.php');
+        // echo"<script>window.location = 'index.php';</script>";
+        // exit();
+
+       
 
     }
     else{
