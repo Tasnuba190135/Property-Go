@@ -51,10 +51,10 @@ include_once 'Admin.php';
 // echo "Table created successfully";
 // echo "<br><br><br>";
 
-// $admin = new Admin();
-// $admin->insertAdmin();
-// echo "Admin record inserted successfully";
-// echo "<br><br><br>";
+$admin = new Admin();
+$admin->createSuperAdmin();
+echo "Super Admin record inserted successfully";
+echo "<br><br><br>";
 
 // // session 2
 
@@ -73,13 +73,13 @@ include_once 'Admin.php';
 // echo date('Y-m-d H:i:s');
 
 // add default admin
-$admin = new Admin();
+// $admin = new Admin();
 // $admin->insertAdmin();
-echo "Admin record inserted successfully";
-$admin->email="super@admin";
-$admin->user_type="super-admin";
-$admin->insertAdmin();
-echo "<br><br><br>";
+// echo "Admin record inserted successfully";
+// $admin->email="super@admin";
+// $admin->user_type="super-admin";
+// $admin->insertAdmin();
+// echo "<br><br><br>";
 
 
 

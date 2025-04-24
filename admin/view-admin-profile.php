@@ -104,7 +104,7 @@ $file2->setValueById($userDetails->nid_file_id);
                         <div class="row align-items-center mb-4">
                             <div class="col-md-6">
                                 <p>User Type:</p>
-                                <p><?php echo ucfirst($user->user_type); ?></p>
+                                <p><?php echo $user->user_type; ?></p>
                             </div>
                             <div class="col-md-6">
                                 <p>Full Name:</p>

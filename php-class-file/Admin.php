@@ -55,6 +55,24 @@ class Admin
             return "Error inserting admin: " . mysqli_error($this->conn);
         }
     }
+
+    /**
+     * Inser super-admin and admin
+     * 
+     */
+    public function createSuperAdmin() {
+        $this->email = "super@admin";
+        $this->user_type = "super-admin";
+        $this->insertAdmin();
+
+        include_once 'UserDetails.php';
+        $userDetails = new UserDetails();
+        $userDetails->user_id = $this->user_id;
+        $userDetails->status = 1;
+        $userDetails->full_name = "Super Admin";
+        $userDetails->insert();
+    }
+
 }
 ?>
 
