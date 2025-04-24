@@ -47,7 +47,7 @@ if (isset($_GET['logout']) == 1) {
             <div class="navbar-collapse collapse justify-content-lg-end" id="navbarDefault">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?= $navbarDir ?>index.php">Home</a>
+                        <a class="nav-link" href="<?= $navbarDir ?>index.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= $navbarDir ?>add-property.php">Add Property</a>
