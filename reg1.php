@@ -431,18 +431,23 @@ $userList = array_merge($userListActive ?: [], $userListDeactive ?: []);
                     </div>
                 </div>
             </main>
-            <footer class="py-4 dashboard-copyright-footer mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Just 2024</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            <!-- Footer Start -->
+  <footer>
+    <div class="container-fluid bg-dark text-white-50 footer pt-5  wow fadeIn" data-wow-delay="0.1s">
+      <div class="container">
+        <div class="copyright">
+          <div class="row">
+            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+              &copy; <a class="border-bottom" href="#">Property Go</a>, All Right Reserved.
+              Designed By <a class="border-bottom" href="https://htmlcodex.com">Tasnuba Tasnim</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer End -->
         </div>
     </div>
 
