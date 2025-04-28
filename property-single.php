@@ -52,7 +52,7 @@ if (isset($_GET['propertyId'])) {
     body {
       background-color: #f8f9fa;
     }
-    
+
     .swiper {
       width: 100%;
       height: 100%;
@@ -76,52 +76,58 @@ if (isset($_GET['propertyId'])) {
     }
 
     .profile-card {
-    background: rgba(0, 0, 0, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 25px;
-    padding: 1rem;
-    color: #000; /* Adjust text color as needed for contrast */
-  }
-  /* newsletter start */
-.newsletter-sub-text {
-  font-size: 20px;
-  color: #bbbbbb;
-  margin-bottom: 20px;
-  line-height: 1.5;
-  text-align: left;
-}
+      background: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 25px;
+      padding: 1rem;
+      color: #000;
+      /* Adjust text color as needed for contrast */
+    }
 
-.cta-section {
-  padding: 120px 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/cta-bg.jpg');
-  background-size: cover;
-  background-position: center;
+    /* newsletter start */
+    .newsletter-sub-text {
+      font-size: 20px;
+      color: #bbbbbb;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      text-align: left;
+    }
 
-}
+    .cta-section {
+      padding: 120px 0;
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/cta-bg.jpg');
+      background-size: cover;
+      background-position: center;
 
-.cta-wrapper {
-  max-width: 600px;
-  margin: 0 auto;
-}
+    }
 
-.cta-title {
-  font-size: 48px;
-  font-weight: 600;
-  color: var(--light-color);
-  margin-bottom: 20px;
-}
+    .cta-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+    }
 
-.cta-text {
-  font-size: 18px;
-  color: #bbbbbb;
-  margin-bottom: 20px;
-  line-height: 1.5;
-}
+    .cta-title {
+      font-size: 48px;
+      font-weight: 600;
+      color: var(--light-color);
+      margin-bottom: 20px;
+    }
 
-/* newsletter end */
+    .cta-text {
+      font-size: 18px;
+      color: #bbbbbb;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .text-justify {
+      text-align: justify !important;
+    }
+
+    /* newsletter end */
   </style>
 
 
@@ -129,7 +135,7 @@ if (isset($_GET['propertyId'])) {
 </head>
 
 <body>
-<?php include_once 'navbar-user.php'; ?>
+  <?php include_once 'navbar-user.php'; ?>
   <!--/ Intro Single star /-->
   <section class="intro-single">
     <div class="container">
@@ -223,23 +229,23 @@ if (isset($_GET['propertyId'])) {
                   </ul>
                 </div>
               </div>
-        
+
             </div>
 
             <div class="col-md-7 col-lg-7 section-md-t3">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="title-box-d">
-        <h3 class="title-d">Property Description</h3>
-      </div>
-    </div>
-  </div>
-  <div class="property-description">
-    <p class="description color-text-a text-justify">
-      <?php echo $property->description; ?>
-    </p>
-  </div>
-</div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+                    <h3 class="title-d">Property Description</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="property-description text-justify">
+                <p class="description color-text-a">
+                  <?php echo $property->description; ?>
+                </p>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -247,17 +253,17 @@ if (isset($_GET['propertyId'])) {
         <!-- Video -->
         <div class="col-md-12 my-5 ">
           <div class="d-flex align-items-center justify-content-center">
-            <?php if ($videoFile) { 
+            <?php if ($videoFile) {
               $videoTemp = new FileManager();
               $videoTemp->setValueById($videoFile);
-              ?>
+            ?>
               <!-- TODO: Add video player here -->
               <video width="720" height="480" controls>
                 <source src="file/<?php echo $videoTemp->file_new_name; ?>" type="video/mp4">
                 Your browser does not support the video tag.
-            <?php } else { ?>
-              <p class="text-center">No video available for this property.</p>
-            <?php } ?>
+              <?php } else { ?>
+                <p class="text-center">No video available for this property.</p>
+              <?php } ?>
           </div>
         </div>
 
@@ -269,47 +275,60 @@ if (isset($_GET['propertyId'])) {
   </section>
 
   <section class="cta-section py-5">
-  <div class="container">
-    <div class="row align-items-center">
-      
-      <!-- Text Section -->
-      <div class="col-md-6 mb-4 mb-md-0">
-        <div class="cta-wrapper">
-          <h2 class="cta-title">Contact with Owner</h2>
-          <p class="cta-text">
-            If you want to add more details about this property or buy this property, 
-            contact with property owner.
-          </p>
+    <div class="container">
+      <div class="row align-items-center">
+
+        <!-- Text Section -->
+        <div class="col-md-6 mb-4 mb-md-0">
+          <div class="cta-wrapper">
+            <h2 class="cta-title">Contact with Owner</h2>
+            <p class="cta-text">
+              If you want to add more details about this property or buy this property,
+              contact with property owner.
+            </p>
+          </div>
         </div>
+
+        <!-- Profile Card Section -->
+        <div class="col-md-6">
+          <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="row g-0 p-3">
+              <!-- Details -->
+              <div class="col">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">Owner Information</h5>
+                  <p class="mb-2"><i class="fas fa-user me-2 text-primary"></i>
+                    <span class="fw-semibold"><?php echo $userDetails->full_name; ?></span>
+                  </p>
+                  <p class="mb-2"><i class="fas fa-phone-alt me-2 text-success"></i>
+                    <a href="tel:<?php echo $userDetails->contact_no; ?>" class="text-decoration-none">
+                      <?php echo $userDetails->contact_no; ?>
+                    </a>
+                  </p>
+                  <p class="mb-3"><i class="fas fa-envelope me-2 text-danger"></i>
+                    <a href="mailto:<?php echo $user->email; ?>" class="text-decoration-none">
+                      <?php echo $user->email; ?>
+                    </a>
+                  </p>
+                  <div class="d-grid">
+                    <a href="mailto:<?php echo $user->email; ?>"
+                      class="btn btn-primary btn-sm">
+                      <i class="fas fa-paper-plane me-1"></i> Contact Owner
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
       </div>
-
-    <!-- Profile Card Section -->
-    <div class="col-md-6 d-flex justify-content-center">
-  <div class="profile-card p-3 border rounded text-black bg-white" style="width: 100%; max-width: 350px; margin-left: 20px;">
-    <h5 class="text-center">Owner Information</h5>
-    <ul class="list-unstyled mt-3">
-      <li class="d-flex justify-content-between">
-        <strong>Name:</strong>
-        <span><?php echo $userDetails->full_name; ?></span>
-      </li>
-      <li class="d-flex justify-content-between">
-        <strong>Phone:</strong>
-        <span><?php echo $userDetails->contact_no; ?></span>
-      </li>
-      <li class="d-flex justify-content-between">
-        <strong>Email:</strong>
-        <span><?php echo $user->email; ?></span>
-      </li>
-    </ul>
-  </div>
-</div>
-
-
-
-
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- Footer -->
   <footer>
@@ -411,9 +430,9 @@ if (isset($_GET['propertyId'])) {
     });
   </script>
 
-<!-- Template Main Javascript File -->
-<script src="js/main.js"></script>
-<script src="js/service.js"></script>
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+  <script src="js/service.js"></script>
 </body>
 
 </html>
