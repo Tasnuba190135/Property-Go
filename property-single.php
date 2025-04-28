@@ -85,6 +85,43 @@ if (isset($_GET['propertyId'])) {
     padding: 1rem;
     color: #000; /* Adjust text color as needed for contrast */
   }
+  /* newsletter start */
+.newsletter-sub-text {
+  font-size: 20px;
+  color: #bbbbbb;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.cta-section {
+  padding: 120px 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/cta-bg.jpg');
+  background-size: cover;
+  background-position: center;
+
+}
+
+.cta-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--light-color);
+  margin-bottom: 20px;
+}
+
+.cta-text {
+  font-size: 18px;
+  color: #bbbbbb;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* newsletter end */
   </style>
 
 
@@ -186,40 +223,23 @@ if (isset($_GET['propertyId'])) {
                   </ul>
                 </div>
               </div>
-              <!-- Profile Card -->
-              <div class="profile-card mt-4 p-3 border rounded">
-                <h5 class="text-center">Owner Information</h5>
-                <ul class="list-unstyled mt-3">
-                  <li class="d-flex justify-content-between">
-                    <strong>Name:</strong>
-                    <span><?php echo $userDetails->full_name; ?></span>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <strong>Phone:</strong>
-                    <span><?php echo $userDetails->contact_no; ?></span>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <strong>Email:</strong>
-                    <span><?php echo $user->email; ?></span>
-                  </li>
-                </ul>
-              </div>
+        
             </div>
 
             <div class="col-md-7 col-lg-7 section-md-t3">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="title-box-d">
-                    <h3 class="title-d">Property Description</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="property-description">
-                <p class="description color-text-a">
-                  <?php echo $property->description; ?>
-                </p>
-              </div>
-            </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="title-box-d">
+        <h3 class="title-d">Property Description</h3>
+      </div>
+    </div>
+  </div>
+  <div class="property-description">
+    <p class="description color-text-a text-justify">
+      <?php echo $property->description; ?>
+    </p>
+  </div>
+</div>
           </div>
 
         </div>
@@ -247,6 +267,49 @@ if (isset($_GET['propertyId'])) {
       </a> -->
     </div>
   </section>
+
+  <section class="cta-section py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      
+      <!-- Text Section -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <div class="cta-wrapper">
+          <h2 class="cta-title">Contact with Owner</h2>
+          <p class="cta-text">
+            If you want to add more details about this property or buy this property, 
+            contact with property owner.
+          </p>
+        </div>
+      </div>
+
+    <!-- Profile Card Section -->
+    <div class="col-md-6 d-flex justify-content-center">
+  <div class="profile-card p-3 border rounded text-black bg-white" style="width: 100%; max-width: 350px; margin-left: 20px;">
+    <h5 class="text-center">Owner Information</h5>
+    <ul class="list-unstyled mt-3">
+      <li class="d-flex justify-content-between">
+        <strong>Name:</strong>
+        <span><?php echo $userDetails->full_name; ?></span>
+      </li>
+      <li class="d-flex justify-content-between">
+        <strong>Phone:</strong>
+        <span><?php echo $userDetails->contact_no; ?></span>
+      </li>
+      <li class="d-flex justify-content-between">
+        <strong>Email:</strong>
+        <span><?php echo $user->email; ?></span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+
+    </div>
+  </div>
+</section>
 
   <!-- Footer -->
   <footer>

@@ -191,7 +191,7 @@ footer {
   transition: background-color 0.5s ease-in-out, transform 0.3s ease-in-out;
   /* transform: translateY(-50px); */
   /* Moves the button 10px upwards */
-  
+
 
 }
 
@@ -211,9 +211,9 @@ footer {
   position: relative;
   display: inline-block;
   top: 0;
-  
+
   left: 0;
-  
+
   width: 100%;
   transition: 0.3s;
   font-weight: 700;
@@ -232,4 +232,223 @@ footer {
 table.dataTable.display tbody tr.odd>.sorting_1,
 table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
   background-color: #ffffff !important;
+}
+
+.property-service-img-wrap img {
+
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.property-service {
+  padding-left: 20px;
+}
+
+.property-service-title {
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--dark-color);
+  margin-bottom: 20px;
+}
+
+.property-service-description {
+  font-size: 18px;
+  color: var(--dark-color);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.property-benefits-lists {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.property-benefits-lists li {
+  font-size: 18px;
+}
+
+.our-service {
+  padding: 120px 0;
+}
+
+.section-heading-wrapper {
+  text-align: center;
+  margin-bottom: 50px !important;
+
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--dark-color);
+  margin-bottom: 20px;
+}
+
+.section-subtitle {
+  font-size: 18px;
+  color: var(--dark-color);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.service-content-cards-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.service-card-wrapper {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(177, 177, 177, 0.1);
+  padding: 20px;
+
+  text-align: center;
+
+}
+
+.service-card-wrapper:hover {
+  box-shadow: 0px 0px 30px rgba(177, 177, 177, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.service-icon {
+  font-size: 40px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.service-card-wrapper h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--dark-color);
+  margin: 16px 0;
+}
+
+.service-card-wrapper p {
+  font-size: 20px;
+  color: var(--dark-color);
+  line-height: 1.6;
+}
+
+.find-best-place {
+  padding: 120px 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/find-bg.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.find-best-place-left {
+  max-width: 600px;
+}
+
+.find-best-place-left h2 {
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--light-color);
+  margin-bottom: 20px;
+}
+
+.find-best-place-left p {
+  font-size: 18px;
+  color: #bbbbbb;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.footer-col-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--light-color);
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.footer-info-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.footer-info-wrap p {
+  font-size: 16px;
+  color: #f5f5f5;
+  margin-bottom: 0;
+}
+
+.footer-col-link-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.footer-col-link-wrap a {
+  color: #f5f5f5 !important;
+  font-size: 20px;
+}
+
+
+/* add breakpoint */
+@media (max-width: 768px) {
+
+  /* property benefit */
+  .property-benefits-lists {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .property-service {
+    padding-left: 0px;
+  }
+
+  .property-service-title {
+    font-size: 36px;
+  }
+
+  .property-service-description {
+    font-size: 18px;
+  }
+
+  /* service */
+  .our-service {
+    padding: 60px 0;
+  }
+
+  /* service title */
+  .section-title {
+    font-size: 36px;
+  }
+
+  /* service subtitle */
+  .section-subtitle {
+    font-size: 20px;
+  }
+
+
+
+  .find-best-place-left {
+    max-width: 100%;
+  }
+
+  .find-best-place-left h2 {
+    font-size: 36px;
+  }
+
+  .find-best-place-left p {
+    font-size: 18px;
+  }
 }
