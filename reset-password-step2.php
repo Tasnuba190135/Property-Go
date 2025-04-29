@@ -43,7 +43,7 @@ if (isset($_POST['resend_otp']) && $session::get('step') == 2) {
     $otp = rand(1000, 9999);
     $session::set('otp', $otp);
 
-    $emailSender->sendMail($session::get('email'), 'OTP for reset password', 'Your OTP is: ' . $otp);
+    // $emailSender->sendMail($session::get('email'), 'OTP for reset password', 'Your OTP is: ' . $otp);
 }
 ?>
 
@@ -114,7 +114,7 @@ if (isset($_POST['resend_otp']) && $session::get('step') == 2) {
 
 
                     <div class="input-field">
-                        <!-- <label for="email">OTP:<?//php echo $session::get('otp'); ?></label> -->
+                        <label for="email">OTP:<?php echo $session::get('otp'); ?></label>
                         <label for="email">Enter Your OTP:</label>
 
                         <input type="otp" name="otp" id="email" placeholder="Enter OTP" required>

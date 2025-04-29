@@ -94,7 +94,7 @@
             </div>
             <div class="icon-box-content table-cell">
               <h4 class="icon-title">Contact Us:</h4>
-              <p class="mb-1">Email. <span class="color-a">admin@admin.com</span></p>
+              <p class="mb-1">Email. <span class="color-a">tasnim.arisha1823@admin.com</span></p>
               <p class="mb-1">Phone. <span class="color-a">01676057548</span></p>
             </div>
           </div>
