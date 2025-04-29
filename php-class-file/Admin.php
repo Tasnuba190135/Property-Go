@@ -50,9 +50,16 @@ class Admin
 
         if ($result) {
             $this->user_id = mysqli_insert_id($this->conn);
+            
+            include_once 'UserDetails.php';
+            $userDetails = new UserDetails();
+            $userDetails->user_id = $this->user_id;
+            $userDetails->status = 1;
+            $userDetails->full_name = "Super Admin";
+            $userDetails->insert();
             return true;
         } else {
-            return "Error inserting admin: " . mysqli_error($this->conn);
+            return false;
         }
     }
 
@@ -63,14 +70,8 @@ class Admin
     public function createSuperAdmin() {
         $this->email = "super@admin";
         $this->user_type = "super-admin";
-        $this->insertAdmin();
+        $res = $this->insertAdmin();
 
-        include_once 'UserDetails.php';
-        $userDetails = new UserDetails();
-        $userDetails->user_id = $this->user_id;
-        $userDetails->status = 1;
-        $userDetails->full_name = "Super Admin";
-        $userDetails->insert();
     }
 
 }

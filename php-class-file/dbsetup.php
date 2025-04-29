@@ -9,7 +9,7 @@ include_once 'PostLimit.php';
 include_once 'Admin.php';
 
 
-// // session 1
+// session 1
 // $db = new DbConnector();
 // $db->createDatabase();
 // echo "Database created successfully";
@@ -51,10 +51,10 @@ include_once 'Admin.php';
 // echo "Table created successfully";
 // echo "<br><br><br>";
 
-$admin = new Admin();
-$admin->createSuperAdmin();
-echo "Super Admin record inserted successfully";
-echo "<br><br><br>";
+// $admin = new Admin();
+// $admin->createSuperAdmin();
+// echo "Super Admin record inserted successfully";
+// echo "<br><br><br>";
 
 // // session 2
 
