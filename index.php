@@ -48,6 +48,13 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
   <!-- Include Font Awesome (or any icon library) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+  <style>
+    .text-justify {
+      text-align: justify !important;
+    }
+  </style>
+  
+
 </head>
 
 <body>
@@ -159,7 +166,7 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
         <div class="col-lg-12">
           <div class="section-heading-wrapper">
             <h2 class="section-title">We have the service you need</h2>
-            <p class="section-subtitle">We are a team of real estate professionals dedicated to helping you find your
+            <p class="section-subtitle">We are a team of Property Go dedicated to helping you find your
               dream property. Our services include:</p>
           </div>
         </div>
@@ -170,7 +177,7 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
             <i class="fas fa-home"></i>
           </div>
           <h3>Sell Your Home</h3>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tenetur, ipsum.</p>
+          <p>Turn your property into opportunity. Reach thousands of potential buyers and sell your home faster and smarter with Property Go.</p>
         </div>
 
         <div class="service-card-wrapper">
@@ -178,15 +185,15 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
             <i class="fas fa-home"></i>
           </div>
           <h3>Buy a Home</h3>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tenetur, ipsum.</p>
+          <p>Find the perfect place to call home. Browse a wide range of properties and find that matches to fit your lifestyle, budget, and dreams.</p>
         </div>
 
         <div class="service-card-wrapper">
           <div class="service-icon">
             <i class="fa fa-street-view"></i>
           </div>
-          <h3>Matching Buyer</h3>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tenetur, ipsum.</p>
+          <h3>About Us</h3>
+          <p>We are committed to connecting you with the right property. Learn more how we make property buying and selling simple and secure.</p>
         </div>
 
         <div class="service-card-wrapper">
@@ -194,7 +201,7 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
             <i class="fa fa-heart"></i>
           </div>
           <h3>Need Help?</h3>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tenetur, ipsum.</p>
+          <p>We are ready to assist you with any questions about buying, selling, or exploring properties. We're here to make your journey easier.</p>
         </div>
 
       </div>
@@ -202,7 +209,7 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
   </section>
 
   <!--/ Agents Start /-->
-  <section class="section-agents section-t8 mb-5">
+  <section class="section-agents  mb-5">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -210,11 +217,7 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
             <div class="title-box">
               <h2 class="title-a">Latest Properties</h2>
             </div>
-            <div class="title-link">
-              <a href="latest-property.php">All Properties
-                <span class="fa fa-arrow-right"></span>
-              </a>
-            </div>
+          
           </div>
         </div>
       </div>
@@ -229,10 +232,10 @@ if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
         <div class="col-md-6">
           <div class="text-box property-service">
             <h2 class="title property-service-title">Find Your Dream Property</h2>
-            <p class="property-service-description">
-              Explore a wide range of residential and commercial properties tailored to your needs. Whether you're
-              searching for a cozy family home, a lucrative investment opportunity, or the perfect business space, we
-              have a diverse collection to choose from.
+            <p class="property-service-description text-justify">
+              Explore a wide range of  properties tailored to your needs. Whether you're
+              searching for a cozy family home, a lucrative investment opportunity,  we
+              have a diverse collection to choose from.Start your journey with us today and discover the perfect property that matches your lifestyle.
             </p>
             <ul class="property-benefits-lists">
               <li>✅ Verified Property Listings</li>
