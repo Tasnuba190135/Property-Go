@@ -38,7 +38,11 @@
 
   <!-- Include Font Awesome (or any icon library) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
+  <style>
+    .text-justify {
+      text-align: justify !important;
+    }
+  </style>
 
 </head>
 
@@ -48,30 +52,20 @@
   <section class="intro-single">
     <div class="container">
       <div class="row">
-        <div class="col-md-12 col-lg-8">
+        <div class="col-md-12 col-lg-8 text-justify">
           <div class="title-single-box">
-            <h1 class="title-single">We Give Great Service For Rent, Sell or Buy Property</h1>
-            <span class="color-text-a">Aut voluptas consequatur unde sed omnis ex placeat quis eos. Aut natus officia
-              corrupti qui autem fugit consectetur quo. Et ipsum eveniet laboriosam voluptas beatae possimus qui
-              ducimus. Et voluptatem deleniti. Voluptatum voluptatibus amet. Et esse sed omnis inventore hic culpa.Aut
-              natus officia corrupti qui autem fugit consectetur quo. Et ipsum eveniet laboriosam voluptas beatae
-              possimus qui ducimus. Et voluptatem deleniti. Voluptatum voluptatibus amet. Et esse sed omnis inventore
-              hic culpa</span>
+            <h1 class="title-single">We Give Great Service For Sell or Buy Property</h1>
+            <span class="color-text-a">We are committed to delivering outstanding service whether you're buying your dream property or selling your current one.
+Our expert team guides you through every step — from listing and exploring to negotiation and finalization — ensuring a seamless and rewarding experience.
+We offer personalized assistance, market insights, and trustworthy advice to help you make confident decisions.
+Your satisfaction is our priority, and we work tirelessly to match you with the perfect opportunity or the right buyer.
+Discover a hassle-free journey in property transactions with our dedicated support and care.
+
+</span>
 
           </div>
         </div>
-        <div class="col-md-12 col-lg-4">
-          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a href="#">Home</a>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">
-                About
-              </li>
-            </ol>
-          </nav>
-        </div>
+        
       </div>
     </div>
   </section>
@@ -95,96 +89,51 @@
     </div>
   </section>
   <!--/ Services Star /-->
-  <section class="section-services section-t8">
+  <section class="our-service">
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
-          <div class="title-wrap d-flex justify-content-between">
-            <div class="title-box">
-              <h2 class="title-a">Our Services</h2>
-            </div>
+        <div class="col-lg-12">
+          <div class="section-heading-wrapper">
+            <h2 class="section-title">We have the service you need</h2>
+            <p class="section-subtitle">We are a team of Property Go dedicated to helping you find your
+              dream property. Our services include:</p>
           </div>
         </div>
       </div>
-      <div class="row">
-        <!-- Buy Section -->
-        <div class="col-md-6">
-          <div class="card-box-c foo">
-            <div class="card-header-c d-flex">
-              <div class="card-box-ico">
-                <span class="fa fa-home"></span>
-              </div>
-              <div class="card-title-c align-self-center">
-                <h2 class="title-c">Buy</h2>
-              </div>
-            </div>
-            <div class="card-body-c">
-              <p class="content-c">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta.ligula sed magna dictum porta
-              </p>
-              <p class="more-content" id="buyContent">
-                Here is the extra content for the Buy section. You can add more details here!
-              </p>
-            </div>
-            <div class="card-footer-c">
-              <span class="link-c" id="readMoreBuy" onclick="toggleContent('buyContent', 'readMoreBuy')">Read more <span class="fa fa-arrow-right"></span></span>
-            </div>
+      <div class="service-content-cards-wrapper">
+        <div class="service-card-wrapper">
+          <div class="service-icon">
+            <i class="fas fa-home"></i>
           </div>
+          <h3>Sell Your Home</h3>
+          <p>Turn your property into opportunity. Reach thousands of potential buyers and sell your home faster and smarter with Property Go.</p>
         </div>
 
-        <!-- Sell Section -->
-        <!-- <div class="col-md-6">
-    <div class="card-box-c foo">
-      <div class="card-header-c d-flex">
-        <div class="card-box-ico">
-          <span class="fa fa-home"></span>
-        </div>
-        <div class="card-title-c align-self-center">
-          <h2 class="title-c">Sell</h2>
-        </div>
-      </div>
-      <div class="card-body-c">
-        <p class="content-c">
-          Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta.ligula sed magna dictum porta
-        </p>
-        <p class="more-content" id="sellContent">
-          Here is the extra content for the Sell section. Add more details here!
-        </p>
-      </div>
-      <div class="card-footer-c">
-        <span class="link-c" id="readMoreSell" onclick="toggleContent('sellContent', 'readMoreSell')">Read more <span class="fa fa-arrow-right"></span></span>
-      </div>
-    </div>
-  </div> -->
-
-        <!-- Rent Section -->
-        <div class="col-md-6">
-          <div class="card-box-c foo">
-            <div class="card-header-c d-flex">
-              <div class="card-box-ico">
-                <span class="fa fa-home"></span>
-              </div>
-              <div class="card-title-c align-self-center">
-                <h2 class="title-c">Sell</h2>
-              </div>
-            </div>
-            <div class="card-body-c">
-              <p class="content-c">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta.ligula sed magna dictum porta
-              </p>
-              <p class="more-content" id="rentContent">
-                Here is the extra content for the Sell section. Add more details here!
-              </p>
-            </div>
-            <div class="card-footer-c">
-              <span class="link-c" id="readMoreSell" onclick="toggleContent('rentContent', 'readMoreRent')">Read more <span class="fa fa-arrow-right"></span></span>
-
-            </div>
+        <div class="service-card-wrapper">
+          <div class="service-icon">
+            <i class="fas fa-home"></i>
           </div>
+          <h3>Buy a Home</h3>
+          <p>Find the perfect place to call home. Browse a wide range of properties and find that matches to fit your lifestyle, budget, and dreams.</p>
+        </div>
+
+        <div class="service-card-wrapper">
+          <div class="service-icon">
+            <i class="fa fa-street-view"></i>
+          </div>
+          <h3>About Us</h3>
+          <p>We are committed to connecting you with the right property. Learn more how we make property buying and selling simple and secure.</p>
+        </div>
+
+        <div class="service-card-wrapper">
+          <div class="service-icon">
+            <i class="fa fa-heart"></i>
+          </div>
+          <h3>Need Help?</h3>
+          <p>We are ready to assist you with any questions about buying, selling, or exploring properties. We're here to make your journey easier.</p>
         </div>
 
       </div>
-    </div>
     </div>
   </section>
 
@@ -197,12 +146,14 @@
       <div class="row">
         <div class="col-xs-12 col-md-6"> <img src="img/about4.jpg" class="img-responsive" alt=""> </div>
         <div class="col-xs-12 col-md-6">
-          <div class="about-text">
+          <div class="about-text text-justify">
             <h2>Who We Are</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua.</p>
+            <p>At Property Go, we are passionate about helping people find the perfect place to call home or the ideal investment property.
+We bring years of expertise in real estate services, combining local market knowledge, professional guidance, and a customer-first approach.
+Whether you want to buy, sell, or explore properties, our dedicated team ensures a smooth, transparent, and rewarding experience for every client.
+We believe that finding or selling property should be simple, stress-free, and successful — and we work tirelessly to make that a reality.
+
+</p>
             <h3>Why Choose Us?</h3>
             <div class="list-style">
               <div class="col-lg-6 col-sm-6 col-xs-12">

@@ -50,7 +50,7 @@ if (isset($_GET['logout']) == 1) {
                         <a class="nav-link" href="<?= $navbarDir ?>index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= $navbarDir ?>add-property.php">Add Property</a>
+                        <a class="nav-link" href="<?= $navbarDir ?>add-property.php">Post Property</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= $navbarDir ?>property-list.php">Explore Property</a>
