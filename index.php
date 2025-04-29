@@ -1,11 +1,16 @@
 <?php
 include_once 'php-class-file/SessionManager.php';
 $session =  SessionStatic::class;
+$session::ensureSessionStarted();
 
 if (isset($_GET['logoutMsg']) && $_GET['logoutMsg'] == 2) {
   include_once 'pop-up.php';
   showPopup('Logged out successfully!');
   unset($_GET['logout']);
+}
+
+if($session::get('redirect_url')) {
+  $session::delete('redirect_url');
 }
 
 ?>

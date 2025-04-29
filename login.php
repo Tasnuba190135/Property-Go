@@ -1,12 +1,12 @@
 <?php
 include_once 'php-class-file/SessionManager.php';
 $session = SessionStatic::class;
+$session::ensureSessionStarted();
 
-$session = new Session();
 // session->destroy();
 include_once 'pop-up.php';
-$session->get('msg1') ? showPopup($session->get('msg1')) : '';
-$session->delete('msg1');
+$session::get('msg1') ? showPopup($session::get('msg1')) : '';
+$session::delete('msg1');
 
 
 if(isset($_POST['log_in'])){
@@ -22,10 +22,10 @@ if(isset($_POST['log_in'])){
     if($userCheck[0] == 1){
         include_once 'pop-up.php';
         showPopup($userCheck[1]);
-        $session->storeObject('user', $user);
+        $session::storeObject('user', $user);
         // Check if a redirect URL is set in session
-        $redirect_url = $session->get('redirect_url') ? $session->get('redirect_url') : 'index.php';
-        $session->delete('redirect_url');
+        $redirect_url = $session::get('redirect_url') ? $session::get('redirect_url') : 'index.php';
+        $session::delete('redirect_url');
         echo "<script>window.location = '$redirect_url';</script>";
         exit();
         
@@ -43,7 +43,7 @@ if(isset($_POST['log_in'])){
 }
 
 $alreadyLoggedIn = false;
-if($session->getObject('user') !==null){
+if($session::getObject('user') !==null){
     // $alreadyLoggedIn = true;
 
 }
