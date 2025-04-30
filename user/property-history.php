@@ -86,7 +86,7 @@ $deletedPendingUpdateProperties = $property->getByUserIdAndStatus($user->user_id
       ?>
           <div class="col-md-4 mb-4">
             <div class="card__wrapper">
-              <div class=" card-sale" style="height: 300px;">
+            <div class="card-sale h-100">
                 <div class="card-body">
                  
                   <h5 class="card-title" style="text-align:justify"><strong>Property Title :</strong> <?php echo $singleProperty->property_title; ?></h5>

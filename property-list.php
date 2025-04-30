@@ -349,7 +349,7 @@ $propertyLists = $property->getByPropertyIdAndStatus(null, 1, 'posted', 'DESC');
       document.getElementById('reset-btn-line2').addEventListener('click', resetFilters);
 
       const allCards = Array.from(document.querySelectorAll('.property-card'));
-      const cardsPerPage = 2; // Adjust as needed
+      const cardsPerPage = 6; // Adjust as needed
 
       function filterProperties() {
         const minPrice = parseFloat(document.getElementById("min-price").value) || null;
