@@ -1,11 +1,18 @@
 <?php
 // Include necessary PHP class files
 include_once 'php-class-file/SessionManager.php';
+$session = SessionStatic::class;
+$session::ensureSessionStarted();
+
 include_once 'php-class-file/User.php';
 include_once 'php-class-file/Property.php';
 include_once 'php-class-file/FileManager.php';
+include_once 'pop-up.php';
 
-$session = SessionStatic::class;
+if($session::get('msg1')) {
+  showPopup($session::get('msg1'));
+  $session::delete('msg1');
+}
 
 // Retrieve user session object
 $sUser = $session::getObject("user");
@@ -15,7 +22,11 @@ if (!$sUser) {
   // Save the current page URL (or identifier) in the session.
   $session::set('redirect_url', 'add-property.php'); // update with your actual add property page filename
   $session::set('msg1', 'You need to login to post a property.');
+<<<<<<< HEAD
   header('Location: login.php');
+=======
+  echo "<script>window.location.href='login.php';</script>";
+>>>>>>> edeae1a6ecce177770a1989b33ec9a4305895b8a
   exit();
 }
 
@@ -112,11 +123,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
     // $session::set('msg1', 'Property added successfully.');
     // echo "<script>window.location.href.reload();</script>";
-    include_once 'pop-up.php';
-    showPopup('Property added Successfully. Please Wait For Admin Approval.');
-    // exit();
+    
+    $session::set('msg1', 'Property #' . $property->property_id . ' added successfully. Please wait for admin approval.');
+    echo "<script>window.location.href='add-property.php';</script>";
+    exit;
   } else {
     $session::set('msg1', 'Failed to add property.');
+    echo "<script>window.location.href='add-property.php';</script>";
+    exit;
   }
 }
 
@@ -172,8 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
         <div class="row align-items-center justify-content-center text-center">
           <div class="col-md-7">
             <h1 class="mb-2">Our Properties</h1>
-            <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta cupiditate ipsum
-              porro, deserunt iure vel aliquam, eos quaerat.</p>
+            <p class="text-white">Post To Sell Your Property.</p>
           </div>
         </div>
       </div>

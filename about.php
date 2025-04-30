@@ -1,3 +1,14 @@
+<?php
+include_once 'php-class-file/SessionManager.php';
+$session = SessionStatic::class;
+$session::ensureSessionStarted();
+
+if($session::get('redirect_url')) {
+  $session::delete('redirect_url');
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

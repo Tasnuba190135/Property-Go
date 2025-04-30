@@ -1,4 +1,11 @@
 <?php
+include_once 'php-class-file/SessionManager.php';
+$session = SessionStatic::class;
+
+if($session::get('redirect_url')) {
+  $session::delete('redirect_url');
+}
+
 include_once 'php-class-file/Property.php';
 include_once 'php-class-file/Division.php'; // Include the file that defines $divisions
 $divisions = getDivisions();

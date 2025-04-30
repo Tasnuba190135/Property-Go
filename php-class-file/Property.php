@@ -138,39 +138,71 @@ class Property
      * @return int|false Returns the inserted property_id on success, or false on failure.
      */
     public function insert()
-    {
-        $this->ensureConnection();
-        $sql = "INSERT INTO tbl_property (
-            property_title, status, user_id, sold_to, note_ids, property_category, area, description, district, division, address,
-            google_location_url, bedroom_no, bathroom_no, price, property_image_file_ids, property_video_file_ids, parent_property_id
-        ) VALUES (
-            '$this->property_title',
-            $this->status,
-            $this->user_id,
-            $this->sold_to,
-            '$this->note_ids',
-            '$this->property_category',
-            $this->area,
-            '$this->description',
-            '$this->district',
-            '$this->division',
-            '$this->address',
-            '$this->google_location_url',
-            $this->bedroom_no,
-            $this->bathroom_no,
-            $this->price,
-            '$this->property_image_file_ids',
-            '$this->property_video_file_ids',
-            $this->parent_property_id
-        )";
-        if (mysqli_query($this->conn, $sql)) {
-            $this->property_id = mysqli_insert_id($this->conn);
-            return $this->property_id;
-        } else {
-            echo "Insert failed: " . mysqli_error($this->conn) . "<br>";
-            return false;
-        }
+{
+    $this->ensureConnection();
+
+    // In-place escape for all text fields
+    $this->property_title           = mysqli_real_escape_string($this->conn, $this->property_title);
+    $this->note_ids                 = mysqli_real_escape_string($this->conn, $this->note_ids);
+    $this->property_category        = mysqli_real_escape_string($this->conn, $this->property_category);
+    $this->description              = mysqli_real_escape_string($this->conn, $this->description);
+    $this->district                 = mysqli_real_escape_string($this->conn, $this->district);
+    $this->division                 = mysqli_real_escape_string($this->conn, $this->division);
+    $this->address                  = mysqli_real_escape_string($this->conn, $this->address);
+    $this->google_location_url      = mysqli_real_escape_string($this->conn, $this->google_location_url);
+    $this->property_image_file_ids  = mysqli_real_escape_string($this->conn, $this->property_image_file_ids);
+    $this->property_video_file_ids  = mysqli_real_escape_string($this->conn, $this->property_video_file_ids);
+
+    // Build and execute the INSERT
+    $sql = "INSERT INTO tbl_property (
+                property_title,
+                status,
+                user_id,
+                sold_to,
+                note_ids,
+                property_category,
+                area,
+                description,
+                district,
+                division,
+                address,
+                google_location_url,
+                bedroom_no,
+                bathroom_no,
+                price,
+                property_image_file_ids,
+                property_video_file_ids,
+                parent_property_id
+            ) VALUES (
+                '{$this->property_title}',
+                {$this->status},
+                {$this->user_id},
+                {$this->sold_to},
+                '{$this->note_ids}',
+                '{$this->property_category}',
+                {$this->area},
+                '{$this->description}',
+                '{$this->district}',
+                '{$this->division}',
+                '{$this->address}',
+                '{$this->google_location_url}',
+                {$this->bedroom_no},
+                {$this->bathroom_no},
+                {$this->price},
+                '{$this->property_image_file_ids}',
+                '{$this->property_video_file_ids}',
+                {$this->parent_property_id}
+            )";
+
+    if (mysqli_query($this->conn, $sql)) {
+        $this->property_id = mysqli_insert_id($this->conn);
+        return $this->property_id;
+    } else {
+        echo "Insert failed: " . mysqli_error($this->conn) . "<br>";
+        return false;
     }
+}
+
 
     /**
      * Update an existing property details record based on property_id.

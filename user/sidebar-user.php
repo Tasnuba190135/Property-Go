@@ -12,7 +12,7 @@ $depth = count(explode('/', trim($navbarDir, '/')));
 $rootDir = str_repeat("../", $depth);
 
 // Check if the logout form has been submitted.
-if (isset($_POST['logout'])) {
+if (isset($_GET['logout'])) {
     $session::destroy();  // Destroy the session.
     echo "<script>window.location.href = '{$rootDir}login.php';</script>";
     exit;
