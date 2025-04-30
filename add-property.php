@@ -22,11 +22,7 @@ if (!$sUser) {
   // Save the current page URL (or identifier) in the session.
   $session::set('redirect_url', 'add-property.php'); // update with your actual add property page filename
   $session::set('msg1', 'You need to login to post a property.');
-<<<<<<< HEAD
   header('Location: login.php');
-=======
-  echo "<script>window.location.href='login.php';</script>";
->>>>>>> edeae1a6ecce177770a1989b33ec9a4305895b8a
   exit();
 }
 
