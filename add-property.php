@@ -14,7 +14,7 @@ $sUser = $session::getObject("user");
 if (!$sUser) {
   // Save the current page URL (or identifier) in the session.
   $session::set('redirect_url', 'add-property.php'); // update with your actual add property page filename
-  $session::set('msg1', 'You need to login to add a property.');
+  $session::set('msg1', 'You need to login to post a property.');
   header('Location: login.php');
   exit();
 }
@@ -27,7 +27,7 @@ if ($sUser) {
   $user->setValue();
 } else {
   // If not logged in, set a session message
-  $session::set('msg1', 'You need to login to add a property.');
+  $session::set('msg1', 'You need to login to post a property.');
 }
 
 // Helper function to re-array the $_FILES array for multiple uploads
