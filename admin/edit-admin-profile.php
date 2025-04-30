@@ -1,13 +1,14 @@
 <?php
+include_once '../php-class-file/SessionManager.php';
+$session = SessionStatic::class;
+
 include_once '../php-class-file/Auth.php';
 auth('admin');
 
-include_once '../php-class-file/SessionManager.php';
 include_once '../php-class-file/User.php';
 include_once '../php-class-file/UserDetails.php';
 include_once '../php-class-file/FileManager.php';
 
-$session = SessionStatic::class;
 
 $user = new User();
 $sUser = $session::getObject("temp_admin");

@@ -206,8 +206,23 @@ if (isset($_GET['propertyId'])) {
                       <span><?php echo $property->property_id; ?></span>
                     </li>
                     <li class="d-flex justify-content-between">
-                      <strong>Property Area Category:</strong>
-                      <span><?php echo $property->property_category; ?></span>
+                      <strong>Property Area Category:<?php // echo $property->property_category; ?></strong>
+                      <?php
+                      $catCode = $property->property_category; // e.g. 'residential' or 'commercial'
+                      if ($catCode == 'residential_area') {
+                        $displayCat = 'Residential Area';
+                        $iconClass  = 'fa-home';
+                      } else {
+                        $displayCat = 'Commercial Area';
+                        $iconClass  = 'fa-building';
+                      }
+                      // use a grey background
+                      $badgeClass = 'bg-secondary text-white';
+                      ?>
+                      <span class="badge <?= $badgeClass ?> rounded-pill py-1 px-3">
+                        <i class="fas <?= $iconClass ?> me-1"></i><?= htmlspecialchars($displayCat) ?>
+                      </span>
+
                     </li>
 
                     <li class="d-flex justify-content-between">
@@ -347,7 +362,7 @@ if (isset($_GET['propertyId'])) {
     </div>
   </footer>
   <!-- Footer End -->
-   
+
 
   <!-- JavaScript Libraries -->
   <script src="lib/jquery/jquery.min.js"></script>

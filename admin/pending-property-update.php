@@ -1,4 +1,6 @@
 <?php
+include_once '../php-class-file/SessionManager.php';
+$session = SessionStatic::class;
 include_once '../php-class-file/Auth.php';
 auth('admin');
 
@@ -20,7 +22,7 @@ if (isset($_POST['approve']) || isset($_POST['reject'])) {
         $property->updateStatus($property->parent_property_id, -3);
 
         include_once '../pop-up.php';
-        showPopup("Accepted. Property ID: " . $property_id);
+        $session::set('msg1', "Accepted. Property ID: " . $property_id);
     }
     // Check if 'reject' button was clicked and set status to 0 (rejected)
     elseif (isset($_POST['reject'])) {
@@ -28,7 +30,7 @@ if (isset($_POST['approve']) || isset($_POST['reject'])) {
         $property->updateStatus($property->parent_property_id, 1);
 
         include_once '../pop-up.php';
-        showPopup("Rejected. Property ID: " . $property_id);
+        $session::set('msg1', "Rejected. Property ID: " . $property_id);
     }
 }
 
@@ -94,6 +96,15 @@ $properties = $property->getByPropertyIdAndStatus(null, [4], 'created', 'ASC');
 </head>
 
 <body>
+    <!-- Popup -->
+    <?php
+    if ($session::get('msg1')) {
+        showPopup($session::get('msg1'));
+        $session::delete('msg1');
+    }
+    ?>
+
+    
     <!-- Sidebar -->
     <?php include_once 'sidebar-admin.php'; ?>
 

@@ -1,10 +1,14 @@
 <?php
+include_once '../php-class-file/SessionManager.php';
+$session = SessionStatic::class;
+
+
 include_once '../php-class-file/Auth.php';
 auth('admin');
 
 // hellow world
 // Include necessary PHP class files (adjust paths as needed)
-include_once '../php-class-file/User.php';
+include_once '../php-class-file/User.php'   ;
 include_once '../php-class-file/Property.php';
 include_once '../pop-up.php';
 
@@ -23,16 +27,22 @@ if (isset($_POST['approve']) || isset($_POST['reject'])) {
         $property->posted = $date->format('Y-m-d H:i:s');
         $property->update();
 
-        include_once '../pop-up.php';
-        showPopup("Accepted. Property ID: " . $property_id);
+        $session::set('msg1', "Accepted. Property ID: " . $property_id);
+        echo "<script>window.location = 'property-review.php';</script>";
+        exit;
+        // include_once '../pop-up.php';
+        // showPopup("Accepted. Property ID: " . $property_id);
     }
     // Check if 'reject' button was clicked and set status to 0 (rejected)
     elseif (isset($_POST['reject'])) {
         $property->status = -1;
         $property->update();
 
-        include_once '../pop-up.php';
-        showPopup("Rejected. Property ID: " . $property_id);
+        $session::set('msg1', "Rejected. Property ID: " . $property_id);
+        echo "<script>window.location = 'property-review.php';</script>";
+        exit;
+        // include_once '../pop-up.php';
+        // showPopup("Rejected. Property ID: " . $property_id);
     }
 }
 
@@ -98,6 +108,13 @@ $properties = $property->getByPropertyIdAndStatus(null, 0, 'created', 'ASC');
 </head>
 
 <body>
+    <?php
+    if ($session::get('msg1')) {
+        showPopup($session::get('msg1'));
+        $session::delete('msg1');
+    }
+    ?>
+
     <!-- Sidebar -->
     <?php include_once 'sidebar-admin.php'; ?>
 
@@ -150,14 +167,20 @@ $properties = $property->getByPropertyIdAndStatus(null, 0, 'created', 'ASC');
 
                                         <td>
                                             <div class="attendant__action">
-                                                <form method="POST" action="">
-                                                    <!-- Hidden property_id field to pass along with form submission -->
-                                                    <input type="hidden" name="property_id" value="<?php echo $propertyDetails->property_id; ?>" />
-                                                    <button type="submit" name="approve" value="1" class="btn btn-success">Approve</button>
-                                                    <button type="submit" name="reject" value="-1" class="btn btn-danger">Reject</button>
+                                                <form method="POST" action="" class="d-flex justify-content-center gap-2">
+                                                    <input type="hidden" name="property_id" value="<?= $propertyDetails->property_id; ?>" />
+                                                    <button type="submit" name="approve" value="1"
+                                                        class="btn btn-outline-success btn-sm flex-fill">
+                                                        <i class="fas fa-check me-1"></i>Approve
+                                                    </button>
+                                                    <button type="submit" name="reject" value="-1"
+                                                        class="btn btn-outline-danger btn-sm flex-fill">
+                                                        <i class="fas fa-times me-1"></i>Reject
+                                                    </button>
                                                 </form>
-
                                             </div>
+
+
                                         </td>
                                     </tr>
                             <?php

@@ -1,4 +1,7 @@
 <?php
+include_once '../php-class-file/SessionManager.php';
+$session = SessionStatic::class;
+
 include_once '../php-class-file/Auth.php';
 auth('admin');
 
@@ -24,7 +27,7 @@ if (isset($_POST['enable']) || isset($_POST['disable'])) {
     $user2->status = $status;
     $user2->update();
 
-    showPopup("User ID : " . $user2->user_id . " with Email :  {$user2->email} has been successfully " . ($status == 1 ? "enabled" : "disabled"));
+    $session::set("msg1", "User ID : " . $user2->user_id . " with Email :  {$user2->email} has been successfully " . ($status == 1 ? "enabled" : "disabled"));
 }
 
 $user = new User();
@@ -51,6 +54,15 @@ $userList = array_merge($userListActive ?: [], $userListDisable ?: []);
 </head>
 
 <body>
+    <!-- Popup -->
+    <?php
+    if ($session::get('msg1')) {
+        showPopup($session::get('msg1'));
+        $session::delete('msg1');
+    }
+    ?>
+
+    
     <?php include_once 'sidebar-admin.php'; ?>
 
     <!-- Main Content -->

@@ -84,6 +84,13 @@ if (isset($_POST['resend_otp']) && $session::get('step') == 2) {
 </head>
 
 <body>
+    <!-- Popup -->
+    <?php
+    if ($session::get('msg1')) {
+        showPopup($session::get('msg1'));
+        $session::delete('msg1');
+    }
+    ?>
 
     <section class="section1">
         <!-- HTML !-->

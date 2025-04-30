@@ -11,7 +11,7 @@ include_once '../pop-up.php';
 $session = SessionStatic::class;
 $sUser = $session::getObject("user");
 
-if($session::get("msg1")){
+if ($session::get("msg1")) {
   showPopup($session::get("msg1"));
   $session::delete("msg1");
 }
@@ -74,46 +74,85 @@ $deletedPendingUpdateProperties = $property->getByUserIdAndStatus($user->user_id
               <h2 class="mb-4 text-center">Live Post(s)</h2>
             </div>
           </div>
-    <div class="row">
-      <?php
-      if (!empty($activeProperties)) {
-        foreach ($activeProperties as $prop) {
-          // Load property details for the current property_id
-          $singleProperty = new Property();
-          $singleProperty->setProperties($prop);
-          // Determine status text: 0 = Pending, 1 = Live on Site.
-          $statusText = ($prop['status'] == 0) ? "Pending" : (($prop['status'] == 1) ? "Live on Site" : "Unknown");
-      ?>
-          <div class="col-md-4 mb-4">
-            <div class="card__wrapper">
-            <div class="card-sale h-100">
-                <div class="card-body">
-                 
-                  <h5 class="card-title" style="text-align:justify"><strong>Property Title :</strong> <?php echo $singleProperty->property_title; ?></h5>
-                  <br>
-                  <p><strong>Property ID:</strong> <?php echo $singleProperty->property_id; ?></p>
-                  <p><strong>Status:</strong> <?php echo $statusText; ?></p>
-                  <p><strong>Property Category:</strong> <?php echo $singleProperty->property_category; ?></p>
-                  <div class="d-flex justify-content-between pt-4 ">
-                    <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-success">Click To View</a>
-                    <form action="delete-property.php" method="POST">
-                      <input type="hidden" name="propertyId" value="<?php echo $singleProperty->property_id; ?>">
-                      <button class="btn btn-primary" type="submit" name="deletePost">Delete</button>
-                    </form>
-                    <a href="edit-property.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-danger">Edit</a>
+          <div class="row">
+            <?php
+            if (!empty($activeProperties)) {
+              foreach ($activeProperties as $prop) {
+                // Load property details for the current property_id
+                $singleProperty = new Property();
+                $singleProperty->setProperties($prop);
+                // Determine status text: 0 = Pending, 1 = Live on Site.
+                $statusText = ($prop['status'] == 0) ? "Pending" : (($prop['status'] == 1) ? "Live on Site" : "Unknown");
+            ?>
+                <div class="col-md-4 mb-4">
+                  <div class="card h-100 shadow rounded-3 d-flex flex-column">
+                    <div class="card-body d-flex flex-column justify-content-between">
+
+                      <!-- Content -->
+                      <div class="mb-3">
+                        <h5 class="card-title" style="text-align: justify;">
+                          <strong>Property Title :</strong>
+                          <?= $singleProperty->property_title ?>
+                        </h5>
+                        <p class="mb-1"><strong>Property ID:</strong> <?= $singleProperty->property_id ?></p>
+                        <p class="mb-1"><strong>Status:</strong> <?= $statusText ?></p>
+                        <?php
+  $catCode = $singleProperty->property_category; // e.g. 'residential' or 'commercial'
+  if ($catCode === 'residential_area') {
+    $displayCat = 'Residential Area';
+    $iconClass  = 'fa-home';
+  } else {
+    $displayCat = 'Commercial Area';
+    $iconClass  = 'fa-building';
+  }
+  // use a grey background
+  $badgeClass = 'bg-secondary text-white';
+?>
+<p class="mb-1">
+  <strong>Category:</strong>
+  <span class="badge <?= $badgeClass ?> rounded-pill py-1 px-3">
+    <i class="fas <?= $iconClass ?> me-1"></i><?= htmlspecialchars($displayCat) ?>
+  </span>
+</p>
+
+
+                      </div>
+
+                      <!-- Actions -->
+                      <div class="mt-auto">
+                        <div class="d-flex justify-content-between mb-2">
+                          <a href="../property-single.php?propertyId=<?= $singleProperty->property_id ?>"
+                            class="btn btn-success btn-sm w-50 me-1">
+                            View
+                          </a>
+                          <a href="edit-property.php?propertyId=<?= $singleProperty->property_id ?>"
+                            class="btn btn-danger btn-sm w-50 ms-1">
+                            Edit
+                          </a>
+                        </div>
+                        <form action="delete-property.php" method="POST">
+                          <input type="hidden" name="propertyId" value="<?= $singleProperty->property_id ?>">
+                          <button class="btn btn-primary btn-sm w-100" type="submit" name="deletePost">
+                            Delete
+                          </button>
+                        </form>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+
+            <?php
+              }
+            } else {
+              echo "<p>No properties found.</p>";
+            }
+            ?>
           </div>
-      <?php
-        }
-      } else {
-        echo "<p>No properties found.</p>";
-      }
-      ?>
+        </div>
+      </section>
     </div>
-    
+
     <!-- Pending Posts -->
     <div class="container mt-5">
       <!-- For Sale Section -->
@@ -124,47 +163,81 @@ $deletedPendingUpdateProperties = $property->getByUserIdAndStatus($user->user_id
               <h2 class="mb-4 text-center">Pending Post(s)</h2>
             </div>
           </div>
-    <div class="row">
-      <?php
-      if (!empty($pendingProperties)) {
-        foreach ($pendingProperties as $prop) {
-          // Load property details for the current property_id
-          $singleProperty = new Property();
-          $singleProperty->setProperties($prop);
-          // Determine status text: 0 = Pending, 1 = Live on Site.
-          $statusText = ($prop['status'] == 0) ? "Pending" : (($prop['status'] == 1) ? "Live on Site" : "Unknown");
-      ?>
-          <div class="col-md-4 mb-4">
-            <div class="card__wrapper">
-              <div class=" card-sale" style="height: 300px;">
-                <div class="card-body">
-                 
-                  <h5 class="card-title" style="text-align:justify"><strong>Property Title :</strong> <?php echo $singleProperty->property_title; ?></h5>
-                  <br>
-                  <p><strong>Property ID:</strong> <?php echo $singleProperty->property_id; ?></p>
-                  <p><strong>Status:</strong> <?php echo $statusText; ?></p>
-                  <p><strong>Property Category:</strong> <?php echo $singleProperty->property_category; ?></p>
-                  <div class="d-flex justify-content-between pt-4 mt-3">
-                    <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-success">Click To View</a>
-                    <form action="delete-property.php" method="POST">
-                      <input type="hidden" name="propertyId" value="<?php echo $singleProperty->property_id; ?>">
-                      <button class="btn btn-primary" type="submit" name="deletePost">Delete</button>
-                    </form>
+          <div class="row">
+            <?php
+            if (!empty($pendingProperties)) {
+              foreach ($pendingProperties as $prop) {
+                // Load property details for the current property_id
+                $singleProperty = new Property();
+                $singleProperty->setProperties($prop);
+                // Determine status text: 0 = Pending, 1 = Live on Site.
+                $statusText = ($prop['status'] == 0) ? "Pending" : (($prop['status'] == 1) ? "Live on Site" : "Unknown");
+            ?>
+                <div class="col-md-4 mb-4">
+                  <div class="card h-100 shadow rounded-3 d-flex flex-column">
+                    <div class="card-body d-flex flex-column justify-content-between">
+
+                      <!-- Content -->
+                      <div class="mb-3">
+                        <h5 class="card-title" style="text-align: justify;">
+                          <strong>Property Title :</strong>
+                          <?= $singleProperty->property_title ?>
+                        </h5>
+                        <p class="mb-1"><strong>Property ID:</strong> <?= $singleProperty->property_id ?></p>
+                        <p class="mb-1"><strong>Status:</strong> <?= $statusText ?></p>
+                        <?php
+  $catCode = $singleProperty->property_category; // e.g. 'residential' or 'commercial'
+  if ($catCode === 'residential_area') {
+    $displayCat = 'Residential Area';
+    $iconClass  = 'fa-home';
+  } else {
+    $displayCat = 'Commercial Area';
+    $iconClass  = 'fa-building';
+  }
+  // use a grey background
+  $badgeClass = 'bg-secondary text-white';
+?>
+<p class="mb-1">
+  <strong>Category:</strong>
+  <span class="badge <?= $badgeClass ?> rounded-pill py-1 px-3">
+    <i class="fas <?= $iconClass ?> me-1"></i><?= htmlspecialchars($displayCat) ?>
+  </span>
+</p>
+
+
+                      </div>
+
+                      <!-- Actions -->
+                      <div class="mt-auto">
+                        <a href="../property-single.php?propertyId=<?= $singleProperty->property_id ?>"
+                          class="btn btn-success btn-sm w-100 mb-2">
+                          View Details
+                        </a>
+                        <form action="delete-property.php" method="POST">
+                          <input type="hidden" name="propertyId" value="<?= $singleProperty->property_id ?>">
+                          <button class="btn btn-primary btn-sm w-100" type="submit" name="deletePost">
+                            Delete
+                          </button>
+                        </form>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-      <?php
-        }
-      } else {
-        echo "<p>No properties found.</p>";
-      }
-      ?>
-    </div>
-      <!-- end of pending posts -->
 
-      <!-- pending update of Posts -->
+            <?php
+              }
+            } else {
+              echo "<p>No properties found.</p>";
+            }
+            ?>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- end of pending posts -->
+
+    <!-- pending update of Posts -->
     <div class="container mt-5">
       <!-- For Sale Section -->
       <section class="mb-5">
@@ -174,52 +247,75 @@ $deletedPendingUpdateProperties = $property->getByUserIdAndStatus($user->user_id
               <h2 class="mb-4 text-center">Pending To Update Post(s)</h2>
             </div>
           </div>
-    <div class="row">
-      <?php
-      if (!empty($pendingUpdateProperties)) {
-        foreach ($pendingUpdateProperties as $prop) {
-          // Load property details for the current property_id
-          $singleProperty = new Property();
-          $singleProperty->setProperties($prop);
-          // Determine status text: 0 = Pending, 1 = Live on Site.
-          $statusText = "Pending Update";
-      ?>
-          <div class="col-md-4 mb-4">
-            <div class="card__wrapper">
-              <div class=" card-sale" style="height: 350px;">
-                <div class="card-body">
-                 
-                  <h5 class="card-title" style="text-align:justify"><strong>Property Title :</strong> <?php echo $singleProperty->property_title; ?></h5>
-                  <br>
-                  <p><strong>Property ID:</strong> <?php echo $singleProperty->property_id; ?></p>
-                  <p><strong>Status:</strong> <?php echo $statusText; ?></p>
-                  <p><strong>Property Category:</strong> <?php echo $singleProperty->property_category; ?></p>
-                  <div class="d-flex justify-content-between pt-4 mt-1">
-                    <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-success">Pending Edit Post</a>
-                    <a href="../property-single.php?propertyId=<?php echo $singleProperty->parent_property_id; ?>" class="btn btn-primary">Current Post</a>
+          <div class="row">
+            <?php
+            if (!empty($pendingUpdateProperties)) {
+              foreach ($pendingUpdateProperties as $prop) {
+                // Load property details for the current property_id
+                $singleProperty = new Property();
+                $singleProperty->setProperties($prop);
+                // Determine status text: 0 = Pending, 1 = Live on Site.
+                $statusText = "Pending Update";
+            ?>
+                <div class="col-md-4 mb-4">
+                  <div class="card h-100 shadow rounded-3 d-flex flex-column justify-content-between">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                      <!-- Content Section -->
+                      <div class="mb-3">
+                        <h5 class="card-title" style="text-align: justify;">
+                          <strong>Property Title :</strong> <?php echo $singleProperty->property_title; ?>
+                        </h5>
+                        <p class="mb-1"><strong>Property ID:</strong> <?php echo $singleProperty->property_id; ?></p>
+                        <p class="mb-1"><strong>Status:</strong> <?php echo $statusText; ?></p>
+                        <?php
+  $catCode = $singleProperty->property_category; // e.g. 'residential' or 'commercial'
+  if ($catCode === 'residential_area') {
+    $displayCat = 'Residential Area';
+    $iconClass  = 'fa-home';
+  } else {
+    $displayCat = 'Commercial Area';
+    $iconClass  = 'fa-building';
+  }
+  // use a grey background
+  $badgeClass = 'bg-secondary text-white';
+?>
+<p class="mb-1">
+  <strong>Category:</strong>
+  <span class="badge <?= $badgeClass ?> rounded-pill py-1 px-3">
+    <i class="fas <?= $iconClass ?> me-1"></i><?= htmlspecialchars($displayCat) ?>
+  </span>
+</p>
+
+                      </div>
+
+                      <!-- Buttons Section -->
+                      <div class="mt-auto">
+                        <div class="d-flex justify-content-between mb-2">
+                          <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-success btn-sm w-50 me-1">Pending Edit</a>
+                          <a href="../property-single.php?propertyId=<?php echo $singleProperty->parent_property_id; ?>" class="btn btn-primary btn-sm w-50 ms-1">Current Post</a>
+                        </div>
+                        <form action="delete-property.php" method="POST">
+                          <input type="hidden" name="propertyId" value="<?php echo $singleProperty->property_id; ?>">
+                          <button class="btn btn-danger btn-sm w-100" type="submit" name="deletePost">Delete Post</button>
+                        </form>
+                      </div>
                     </div>
-                    <div class="d-flex justify-content-center pt-4 ">
-                   
-                  <form action="delete-property.php" method="POST">
-                      <input type="hidden" name="propertyId" value="<?php echo $singleProperty->property_id; ?>">
-                      <button class="btn btn-danger" type="submit" name="deletePost">Delete Post</button>
-                    </form>
-                    </div>
-                  
+                  </div>
                 </div>
-              </div>
-            </div>
+
+            <?php
+              }
+            } else {
+              echo "<p>No properties found.</p>";
+            }
+            ?>
           </div>
-      <?php
-        }
-      } else {
-        echo "<p>No properties found.</p>";
-      }
-      ?>
+        </div>
+      </section>
     </div>
-      <!-- end of pending update of posts -->
-      
-      <!-- Deleted or archived Posts -->
+    <!-- end of pending update of posts -->
+
+    <!-- Deleted or archived Posts -->
     <div class="container mt-5">
       <!-- For Sale Section -->
       <section class="mb-5">
@@ -229,59 +325,85 @@ $deletedPendingUpdateProperties = $property->getByUserIdAndStatus($user->user_id
               <h2 class="mb-4 text-center">Deleted Post(s)</h2>
             </div>
           </div>
-    <div class="row">
-      <?php
-      if (!empty($deletedProperties)) {
-        foreach ($deletedProperties as $prop) {
-          // Load property details for the current property_id
-          $singleProperty = new Property();
-          $singleProperty->setProperties($prop);
-          // Determine status text: 0 = Pending, 1 = Live on Site.
-          $statusText = "Deleted";
-      ?>
-          <div class="col-md-4 mb-4">
-            <div class="card__wrapper">
-              <div class=" card-sale" style="height: 300px;">
-                <div class="card-body">
-                 
-                  <h5 class="card-title" style="text-align:justify"><strong>Property Title :</strong> <?php echo $singleProperty->property_title; ?></h5>
-                  <br>
-                  <p><strong>Property ID:</strong> <?php echo $singleProperty->property_id; ?></p>
-                  <p><strong>Status:</strong> <?php echo $statusText; ?></p>
-                  <p><strong>Property Category:</strong> <?php echo $singleProperty->property_category; ?></p>
-                  <div class="d-flex justify-content-between pt-4 mt-3">
-                    <a href="../property-single.php?propertyId=<?php echo $singleProperty->property_id; ?>" class="btn btn-success">Click To View</a>
+          <div class="row">
+            <?php
+            if (!empty($deletedProperties)) {
+              foreach ($deletedProperties as $prop) {
+                // Load property details for the current property_id
+                $singleProperty = new Property();
+                $singleProperty->setProperties($prop);
+                // Determine status text: 0 = Pending, 1 = Live on Site.
+                $statusText = "Deleted";
+            ?>
+                <div class="col-md-4 mb-4">
+                  <div class="card h-100 shadow rounded-3 d-flex flex-column">
+                    <div class="card-body d-flex flex-column justify-content-between">
+
+                      <!-- Content -->
+                      <div class="mb-3">
+                        <h5 class="card-title" style="text-align: justify;">
+                          <strong>Property Title :</strong>
+                          <?= $singleProperty->property_title ?>
+                        </h5>
+                        <p class="mb-1"><strong>Property ID:</strong> <?= $singleProperty->property_id ?></p>
+                        <p class="mb-1"><strong>Status:</strong> <?= $statusText ?></p>
+                        <?php
+                        $catCode = $singleProperty->property_category; // e.g. 'residential' or 'commercial'
+                        if ($catCode === 'residential_area') {
+                          $displayCat = 'Residential Area';
+                          $iconClass  = 'fa-home';
+                        } else {
+                          $displayCat = 'Commercial Area';
+                          $iconClass  = 'fa-building';
+                        }
+                        // use a grey background
+                        $badgeClass = 'bg-secondary text-white';
+                        ?>
+                        <p class="mb-1">
+                          <strong>Category:</strong>
+                          <span class="badge <?= $badgeClass ?> rounded-pill py-1 px-3">
+                            <i class="fas <?= $iconClass ?> me-1"></i><?= htmlspecialchars($displayCat) ?>
+                          </span>
+                        </p>
+
+                      </div>
+
+                      <!-- Action -->
+                      <div class="mt-auto">
+                        <a href="../property-single.php?propertyId=<?= $singleProperty->property_id ?>"
+                          class="btn btn-success btn-sm w-100">
+                          View
+                        </a>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+
+            <?php
+              }
+            } else {
+              echo "<p>No properties found.</p>";
+            }
+            ?>
           </div>
-      <?php
-        }
-      } else {
-        echo "<p>No properties found.</p>";
-      }
-      ?>
+          <!-- end of deleted or archived posts -->
+
+        </div>
+      </section>
     </div>
-      <!-- end of deleted or archived posts -->
 
-  </div>
-</section>
+    <!-- JavaScript for Sidebar Toggle -->
+    <script>
+      const toggleBtn = document.getElementById("toggle-btn");
+      const sidebar = document.getElementById("sidebar");
+      toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+      });
+    </script>
 
-    
-  </div>
-
-  <!-- JavaScript for Sidebar Toggle -->
-  <script>
-    const toggleBtn = document.getElementById("toggle-btn");
-    const sidebar = document.getElementById("sidebar");
-    toggleBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("open");
-    });
-  </script>
-
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

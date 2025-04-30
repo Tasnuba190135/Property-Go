@@ -1,4 +1,6 @@
 <?php
+include_once '../php-class-file/SessionManager.php';
+$session = SessionStatic::class;
 include_once '../php-class-file/Auth.php';
 auth('admin');
 
@@ -25,7 +27,7 @@ if (isset($_POST['delete']) || isset($_POST['retrieve'])) {
     $user2->user_type = "admin";
     $user2->update();
 
-    showPopup("User ID : " . $user2->user_id . " with Email :  {$user2->email} has been successfully " . ($status == -2 ? "deleted" : "retrieved"));
+    $session::set("msg1", "User ID : " . $user2->user_id . " with Email :  {$user2->email} has been successfully " . ($status == -2 ? "deleted" : "retrieved"));
 }
 
 // $userDetails2->setValueByUserId($user2->user_id . "with email: {$user2->email} has been successfully " . ($status == 1 ? "disabled" : "deleted") );
@@ -63,6 +65,16 @@ $userList = array_merge($userListActive ?: [], $userListDisable ?: []);
 </head>
 
 <body>
+    <!-- Popup -->
+    <?php
+    if ($session::get('msg1')) {
+        showPopup($session::get('msg1'));
+        $session::delete('msg1');
+    }
+    ?>
+
+    
+
     <?php include_once 'sidebar-admin.php'; ?>
 
     <!-- Main Content -->
@@ -82,7 +94,7 @@ $userList = array_merge($userListActive ?: [], $userListDisable ?: []);
         <div class="container mt-4">
             <div class="card__wrapper">
                 <div class="card__title-wrap mb-20">
-                    <h3 class="table__heading-title">All Users</h3>
+                    <h3 class="table__heading-title">All Admin Users</h3>
                 </div>
                 <div class="attendant__wrapper ">
                     <table id="userTable" class="display">

@@ -6,10 +6,7 @@ require_once '../php-class-file/EmailSender.php';
 $emailSender = new EmailSender();
 
 include_once '../pop-up.php';
-if ($session::get('msg1') != null) {
-    showPopup($session::get('msg1'));
-    $session::delete('msg1');
-}
+
 if (isset($_POST['submit_email'])) {
     include_once '../php-class-file/User.php';
 
@@ -48,6 +45,8 @@ if (isset($_POST['submit_email'])) {
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -75,6 +74,14 @@ if (isset($_POST['submit_email'])) {
 </head>
 
 <body>
+    <!-- Popup -->
+    <?php
+    if ($session::get('msg1')) {
+        showPopup($session::get('msg1'));
+        $session::delete('msg1');
+    }
+    ?>
+
     <?//php include_once 'navbar-user.php'; ?>
 
     <section class="section1">

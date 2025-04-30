@@ -1,4 +1,7 @@
 <?php
+include_once '../php-class-file/SessionManager.php';
+$session = SessionStatic::class;
+
 include_once '../php-class-file/Auth.php';
 auth('admin');
 
@@ -19,7 +22,7 @@ if (isset($_POST['action'])) {
     $property->update();
 
     include_once '../pop-up.php';
-    showPopup($status == 2 ? "Property has been archived. Property ID: $property_id" : "Property has been activated. Property ID: $property_id");
+    $session::set("msg1", $status == 2 ? "Property has been archived. Property ID: $property_id" : "Property has been activated. Property ID: $property_id");
 }
 
 $property = new Property();
@@ -46,6 +49,15 @@ $properties = $property->getByPropertyIdAndStatus(null, [1, 2]);
 </head>
 
 <body>
+    <!-- Popup -->
+    <?php
+    if ($session::get('msg1')) {
+        showPopup($session::get('msg1'));
+        $session::delete('msg1');
+    }
+    ?>
+
+    <!-- Sidebar -->
     <?php include_once 'sidebar-admin.php'; ?>
     <div id="main-content" class="main-content">
         <div class="header d-flex justify-content-between align-items-center">

@@ -138,23 +138,23 @@ class Property
      * @return int|false Returns the inserted property_id on success, or false on failure.
      */
     public function insert()
-{
-    $this->ensureConnection();
+    {
+        $this->ensureConnection();
 
-    // In-place escape for all text fields
-    $this->property_title           = mysqli_real_escape_string($this->conn, $this->property_title);
-    $this->note_ids                 = mysqli_real_escape_string($this->conn, $this->note_ids);
-    $this->property_category        = mysqli_real_escape_string($this->conn, $this->property_category);
-    $this->description              = mysqli_real_escape_string($this->conn, $this->description);
-    $this->district                 = mysqli_real_escape_string($this->conn, $this->district);
-    $this->division                 = mysqli_real_escape_string($this->conn, $this->division);
-    $this->address                  = mysqli_real_escape_string($this->conn, $this->address);
-    $this->google_location_url      = mysqli_real_escape_string($this->conn, $this->google_location_url);
-    $this->property_image_file_ids  = mysqli_real_escape_string($this->conn, $this->property_image_file_ids);
-    $this->property_video_file_ids  = mysqli_real_escape_string($this->conn, $this->property_video_file_ids);
+        // In-place escape for all text fields
+        $this->property_title           = mysqli_real_escape_string($this->conn, $this->property_title);
+        $this->note_ids                 = mysqli_real_escape_string($this->conn, $this->note_ids);
+        $this->property_category        = mysqli_real_escape_string($this->conn, $this->property_category);
+        $this->description              = mysqli_real_escape_string($this->conn, $this->description);
+        $this->district                 = mysqli_real_escape_string($this->conn, $this->district);
+        $this->division                 = mysqli_real_escape_string($this->conn, $this->division);
+        $this->address                  = mysqli_real_escape_string($this->conn, $this->address);
+        $this->google_location_url      = mysqli_real_escape_string($this->conn, $this->google_location_url);
+        $this->property_image_file_ids  = mysqli_real_escape_string($this->conn, $this->property_image_file_ids);
+        $this->property_video_file_ids  = mysqli_real_escape_string($this->conn, $this->property_video_file_ids);
 
-    // Build and execute the INSERT
-    $sql = "INSERT INTO tbl_property (
+        // Build and execute the INSERT
+        $sql = "INSERT INTO tbl_property (
                 property_title,
                 status,
                 user_id,
@@ -194,14 +194,14 @@ class Property
                 {$this->parent_property_id}
             )";
 
-    if (mysqli_query($this->conn, $sql)) {
-        $this->property_id = mysqli_insert_id($this->conn);
-        return $this->property_id;
-    } else {
-        echo "Insert failed: " . mysqli_error($this->conn) . "<br>";
-        return false;
+        if (mysqli_query($this->conn, $sql)) {
+            $this->property_id = mysqli_insert_id($this->conn);
+            return $this->property_id;
+        } else {
+            echo "Insert failed: " . mysqli_error($this->conn) . "<br>";
+            return false;
+        }
     }
-}
 
 
     /**
@@ -209,36 +209,65 @@ class Property
      *
      * @return bool|string Returns true if update is successful, or an error message on failure.
      */
-    public function update()
-    {
-        if ($this->property_id == 0) {
-            return "Property details ID is not set. Cannot update.";
-        }
-        $sql = "UPDATE tbl_property SET
-                    status = $this->status,
-                    user_id = $this->user_id,
-                    sold_to = $this->sold_to,
-                    property_title = '$this->property_title',
-                    note_ids = '$this->note_ids',
-                    property_category = '$this->property_category',
-                    area = $this->area,
-                    description = '$this->description',
-                    district = '$this->district',
-                    division = '$this->division',
-                    address = '$this->address',
-                    google_location_url = '$this->google_location_url',
-                    bedroom_no = $this->bedroom_no,
-                    bathroom_no = $this->bathroom_no,
-                    price = $this->price,
-                    property_image_file_ids = '$this->property_image_file_ids',
-                    property_video_file_ids = '$this->property_video_file_ids',
-                    posted = '$this->posted',
-                    parent_property_id = $this->parent_property_id
-                WHERE property_id = $this->property_id";
-
-        $result = mysqli_query($this->conn, $sql);
-        return $result;
+    /**
+ * Update an existing property details record based on property_id.
+ * Escapes all text fields and handles errors similarly to insert().
+ *
+ * @return int|false Returns number of affected rows on success, or false on failure.
+ */
+public function update()
+{
+    if ($this->property_id == 0) {
+        echo "Update failed: Property ID is not set.<br>";
+        return false;
     }
+
+    $this->ensureConnection();
+
+    // In-place escape for all text fields
+    $this->property_title          = mysqli_real_escape_string($this->conn, $this->property_title);
+    $this->note_ids                = mysqli_real_escape_string($this->conn, $this->note_ids);
+    $this->property_category       = mysqli_real_escape_string($this->conn, $this->property_category);
+    $this->description             = mysqli_real_escape_string($this->conn, $this->description);
+    $this->district                = mysqli_real_escape_string($this->conn, $this->district);
+    $this->division                = mysqli_real_escape_string($this->conn, $this->division);
+    $this->address                 = mysqli_real_escape_string($this->conn, $this->address);
+    $this->google_location_url     = mysqli_real_escape_string($this->conn, $this->google_location_url);
+    $this->property_image_file_ids = mysqli_real_escape_string($this->conn, $this->property_image_file_ids);
+    $this->property_video_file_ids = mysqli_real_escape_string($this->conn, $this->property_video_file_ids);
+    $this->posted                  = mysqli_real_escape_string($this->conn, $this->posted);
+
+    // Build and execute the UPDATE
+    $sql = "UPDATE tbl_property SET
+                status = {$this->status},
+                user_id = {$this->user_id},
+                sold_to = {$this->sold_to},
+                property_title = '{$this->property_title}',
+                note_ids = '{$this->note_ids}',
+                property_category = '{$this->property_category}',
+                area = {$this->area},
+                description = '{$this->description}',
+                district = '{$this->district}',
+                division = '{$this->division}',
+                address = '{$this->address}',
+                google_location_url = '{$this->google_location_url}',
+                bedroom_no = {$this->bedroom_no},
+                bathroom_no = {$this->bathroom_no},
+                price = {$this->price},
+                property_image_file_ids = '{$this->property_image_file_ids}',
+                property_video_file_ids = '{$this->property_video_file_ids}',
+                posted = '{$this->posted}',
+                parent_property_id = {$this->parent_property_id}
+            WHERE property_id = {$this->property_id}";
+
+    if (mysqli_query($this->conn, $sql)) {
+        return mysqli_affected_rows($this->conn);
+    } else {
+        echo "Update failed: " . mysqli_error($this->conn) . "<br>";
+        return false;
+    }
+}
+
 
     /**
      * Update the status of an existing property record based on property_id.
@@ -247,7 +276,8 @@ class Property
      * @param int $status The new status to set for the property.
      * @return bool|string Returns true if update is successful, or an error message on failure.
      */
-    public function updateStatus($property_id, $status) {
+    public function updateStatus($property_id, $status)
+    {
         if ($property_id == 0) {
             return 0;
         }

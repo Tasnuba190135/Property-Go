@@ -3,10 +3,6 @@ include_once '../php-class-file/SessionManager.php';
 $session = SessionStatic::class;
 
 include_once '../pop-up.php';
-if ($session::get("msg1")) {
-    showPopup($session::get("msg1"));
-    $session::delete("msg1");
-}
 
 include_once '../php-class-file/User.php';
 $user = new User();
@@ -27,7 +23,7 @@ if (isset($_POST['reset_password'])) {
         echo "<script>window.location.href = 'login.php';</script>"; // Redirect to login page immediately
         // Redirect to login page after 2 seconds
     } else {
-        showPopup("Passwords do not match. Please try again.");
+        $session::set("msg1", "Password and Confirm Password do not match!");
     }
 }
 ?>
@@ -70,7 +66,13 @@ if (isset($_POST['reset_password'])) {
 </head>
 
 <body>
-
+    <!-- Popup -->
+    <?php
+    if ($session::get('msg1')) {
+        showPopup($session::get('msg1'));
+        $session::delete('msg1');
+    }
+    ?>
     <section class="section1">
         <!-- HTML !-->
 
@@ -91,8 +93,8 @@ if (isset($_POST['reset_password'])) {
 
                     <h2 style="color: white;">Reset Password</h2>
                     <hr>
-                    <h2>Step 3</h2>
-                    <p>Reset Password to login </p>
+                    <h2 style="color: white;">Step 3</h2>
+                    <p style="color: white;">Please enter your new password.</p>
                     <hr>
 
 
@@ -135,7 +137,7 @@ if (isset($_POST['reset_password'])) {
         </div>
 
     </section>
-    
+
 
 
     <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>

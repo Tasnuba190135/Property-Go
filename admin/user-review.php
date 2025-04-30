@@ -1,4 +1,7 @@
 <?php
+include_once '../php-class-file/SessionManager.php';
+$session = SessionStatic::class;
+
 include_once '../php-class-file/Auth.php';
 auth('admin'); // Check if the user is logged in as an admin
 
@@ -30,9 +33,9 @@ if (isset($_POST['approve']) || isset($_POST['reject'])) {
     $userDetails2->update();
 
     if ($status == 1) {
-        showPopup("User ID " . $user2->user_id . " has been approved.");
+        $session::set('msg1', "User ID " . $user2->user_id . " has been approved.");
     } else {
-        showPopup("User ID " . $user2->user_id . " has been rejected.");
+        $session::set('msg1', "User ID " . $user2->user_id . " has been rejected.");
     }
 }
 
@@ -57,6 +60,15 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
 </head>
 
 <body>
+    <!-- Popup -->
+    <?php
+    if ($session::get('msg1')) {
+        showPopup($session::get('msg1'));
+        $session::delete('msg1');
+    }
+    ?>
+
+    
     <?php include_once 'sidebar-admin.php'; ?>
 
     <!-- Main Content -->

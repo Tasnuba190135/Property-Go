@@ -5,6 +5,8 @@ $session = SessionStatic::class;
 include_once '../php-class-file/Auth.php';
 auth('admin');
 
+include_once '../pop-up.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,9 +27,17 @@ auth('admin');
 </head>
 
 <body>
+    <!-- Popup -->
+    <?php
+    if ($session::get('msg1')) {
+        showPopup($session::get('msg1'));
+        $session::delete('msg1');
+    }
+    ?>
+
     <?php include_once 'sidebar-admin.php'; ?>
-<!-- Main Content -->
-<div id="main-content" class="main-content">
+    <!-- Main Content -->
+    <div id="main-content" class="main-content">
         <!-- Header -->
         <div class="header d-flex justify-content-between align-items-center">
 
