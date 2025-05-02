@@ -68,7 +68,7 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
     }
     ?>
 
-    
+
     <?php include_once 'sidebar-admin.php'; ?>
 
     <!-- Main Content -->
@@ -99,31 +99,31 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <?php
-                        if ($userList && count($userList) > 0) {
-                            foreach ($userList as $userItem) {
-                                $userId = $userItem['user_id'];
-                                $userEmail = $userItem['email'];
-                                $userType = $userItem['user_type'];
-                                $userStatus = isset($userItem['details']) ? $userItem['details'] : 'N/A';
+                        <tbody>
+                            <?php
+                            if ($userList && count($userList) > 0) {
+                                foreach ($userList as $userItem) {
+                                    $userId = $userItem['user_id'];
+                                    $userEmail = $userItem['email'];
+                                    $userType = $userItem['user_type'];
+                                    $userStatus = isset($userItem['details']) ? $userItem['details'] : 'N/A';
 
-                                // Create a new instance of UserDetails and set value for this user
-                                $userDetails = new UserDetails();
-                                $userDetails->setValueByUserId($userId, 0);
+                                    // Create a new instance of UserDetails and set value for this user
+                                    $userDetails = new UserDetails();
+                                    $userDetails->setValueByUserId($userId, 0);
 
-                                $file1 = new FileManager();
-                                $file1->setValueById($userDetails->profile_picture_id);
+                                    $file1 = new FileManager();
+                                    $file1->setValueById($userDetails->profile_picture_id);
 
-                                $file2 = new FileManager();
-                                $file2->setValueById($userDetails->nid_file_id);
+                                    $file2 = new FileManager();
+                                    $file2->setValueById($userDetails->nid_file_id);
 
-                                // $file3 = new FileManager();
-                                // $file3->setValueById($userDetails->other_document_file_id);
+                                    // $file3 = new FileManager();
+                                    // $file3->setValueById($userDetails->other_document_file_id);
 
-                                $collapseId = "collapse{$userId}";
-                                
-                                ?>
-                                <tbody>
+                                    $collapseId = "collapse{$userId}";
+
+                            ?>
                                     <tr>
                                         <td><?php echo $userDetails->user_id; ?></td>
                                         <td><?php echo htmlspecialchars($userEmail); ?></td>
@@ -164,8 +164,8 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
                                                                                     alt="User image"
                                                                                     class="rounded-4 profile avatar">
 
-                                                                            
-                                                                            <!-- <div class="upload-link" title=""
+
+                                                                                <!-- <div class="upload-link" title=""
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="right"
                                                                                 data-original-title="update">
@@ -174,133 +174,133 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
                                                                                 <i
                                                                                     class="fa-solid fa-pen-to-square fs-update"></i>
                                                                             </div> -->
-                                                                        </div>
-                                                                        <!-- add a UpDate bUTToN -->
-                                                                        <!-- <a href="#"
+                                                                            </div>
+                                                                            <!-- add a UpDate bUTToN -->
+                                                                            <!-- <a href="#"
                                                                             class=" btn btn-primary ms-2">Update</a> -->
-                                                                    </div>
-                                                                </div>
-                                                                </div>
-                                                           
-                                                            <div class="mt-2">
-                                                                <div class="row align-items-center mb-4">
-                                                                    <div class="col-md-6">
-                                                                        <!-- <label class="form-label mb-md-2">Full Name</label> -->
-                                                                        <!-- <input type="text" class="form-control" value="John Doe"> -->
-                                                                        <h5><strong>User ID:
-                                                                                <?php echo $userDetails->user_id; ?>
-                                                                            </strong></h5>
-
+                                                                        </div>
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="row align-items-center mb-4">
-                                                                    <div class="col-md-6">
-                                                                        <p><strong>User Type:</strong></p>
-                                                                        <p><?php echo isset($user->user_type); ?></p>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <p><strong>Full Name:</strong></p>
-                                                                        <p><?php echo htmlspecialchars($userDetails->full_name); ?>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row align-items-center mb-4">
-                                                                    <div class="col-md-6">
-                                                                        <p><strong>Email:</strong></p>
-                                                                        <p><?php echo htmlspecialchars($userEmail); ?></p>
+                                                                <div class="mt-2">
+                                                                    <div class="row align-items-center mb-4">
+                                                                        <div class="col-md-6">
+                                                                            <!-- <label class="form-label mb-md-2">Full Name</label> -->
+                                                                            <!-- <input type="text" class="form-control" value="John Doe"> -->
+                                                                            <h5><strong>User ID:
+                                                                                    <?php echo $userDetails->user_id; ?>
+                                                                                </strong></h5>
+
+                                                                        </div>
                                                                     </div>
 
-                                                                    <div class="col-md-6">
-                                                                        <p><strong>Contact No:</strong></p>
-                                                                        <p><?php echo isset($userDetails->contact_no) ? htmlspecialchars($userDetails->contact_no) : 'N/A'; ?>
-                                                                        </p>
+                                                                    <div class="row align-items-center mb-4">
+                                                                        <div class="col-md-6">
+                                                                            <p><strong>User Type:</strong></p>
+                                                                            <p><?php echo isset($user->user_type); ?></p>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <p><strong>Full Name:</strong></p>
+                                                                            <p><?php echo htmlspecialchars($userDetails->full_name); ?>
+                                                                            </p>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="row align-items-center mb-4">
-                                                                    <div class="col-md-6">
-                                                                        <p><strong>Division:</strong></p>
-                                                                        <p><?php echo isset($userDetails->division) ? htmlspecialchars($userDetails->division) : 'N/A'; ?>
-                                                                        </p>
+                                                                    <div class="row align-items-center mb-4">
+                                                                        <div class="col-md-6">
+                                                                            <p><strong>Email:</strong></p>
+                                                                            <p><?php echo htmlspecialchars($userEmail); ?></p>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <p><strong>Contact No:</strong></p>
+                                                                            <p><?php echo isset($userDetails->contact_no) ? htmlspecialchars($userDetails->contact_no) : 'N/A'; ?>
+                                                                            </p>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="col-md-6">
-                                                                        <p><strong>District:</strong></p>
-                                                                        <p><?php echo isset($userDetails->district) ? htmlspecialchars($userDetails->district) : 'N/A'; ?>
-                                                                        </p>
+                                                                    <div class="row align-items-center mb-4">
+                                                                        <div class="col-md-6">
+                                                                            <p><strong>Division:</strong></p>
+                                                                            <p><?php echo isset($userDetails->division) ? htmlspecialchars($userDetails->division) : 'N/A'; ?>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <p><strong>District:</strong></p>
+                                                                            <p><?php echo isset($userDetails->district) ? htmlspecialchars($userDetails->district) : 'N/A'; ?>
+                                                                            </p>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="row align-items-center mb-4">
-                                                                    <div class="col-md-6">
-                                                                        <p><strong>Address:</strong></p>
-                                                                        <p><?php echo isset($userDetails->address) ? htmlspecialchars($userDetails->address) : 'N/A'; ?>
-                                                                        </p>
+                                                                    <div class="row align-items-center mb-4">
+                                                                        <div class="col-md-6">
+                                                                            <p><strong>Address:</strong></p>
+                                                                            <p><?php echo isset($userDetails->address) ? htmlspecialchars($userDetails->address) : 'N/A'; ?>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <p><strong>Gender:</strong></p>
+                                                                            <p><?php echo isset($userDetails->gender) ? htmlspecialchars($userDetails->gender) : 'N/A'; ?>
+                                                                            </p>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="col-md-6">
-                                                                        <p><strong>Gender:</strong></p>
-                                                                        <p><?php echo isset($userDetails->gender) ? htmlspecialchars($userDetails->gender) : 'N/A'; ?>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
 
 
 
-                                                                <!-- <div class="col-md-6">
+                                                                    <!-- <div class="col-md-6">
                                                                         <label class="form-label mb-md-2">Email</label>
                                                                         <input type="email" class="form-control" class="form-control" value="John@gmail.com">
                                                                     </div> -->
 
 
-                                                                <div class="row align-items-center mb-4">
-                                                                    <div class="col-md-6">
-                                                                        <p><strong>NID No:</strong></p>
-                                                                        <p><?php echo isset($userDetails->nid_number) ? htmlspecialchars($userDetails->nid_number) : 'N/A'; ?>
-                                                                        </p>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <p><strong>NID File:</strong></p>
-                                                                        <a href="../file/<?php echo isset($userDetails->nid_file_id) ? htmlspecialchars($file2->file_new_name) : '0.jpg'; ?>"
-                                                                            target="_blank">Open File</a>
+                                                                    <div class="row align-items-center mb-4">
+                                                                        <div class="col-md-6">
+                                                                            <p><strong>NID No:</strong></p>
+                                                                            <p><?php echo isset($userDetails->nid_number) ? htmlspecialchars($userDetails->nid_number) : 'N/A'; ?>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <p><strong>NID File:</strong></p>
+                                                                            <a href="../file/<?php echo isset($userDetails->nid_file_id) ? htmlspecialchars($file2->file_new_name) : '0.jpg'; ?>"
+                                                                                target="_blank">Open File</a>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
+
+
+
+
                                                             </div>
 
-
-
-
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- Modal End -->
                                             </div>
-                                            <!-- Modal End -->
-                        </div>
-                        </td>
-                        <td>
-                            <div class="attendant__action">
-                                <form method="post" action="">
-                                    <button class="btn btn-success" name="approve" type="submit"
-                                        value="<?php echo htmlspecialchars($userId); ?>">Approve</button>
-                                    <button class="btn btn-danger ms-2" name="reject" type="submit"
-                                        value="<?php echo htmlspecialchars($userId); ?>">Reject</button>
-                                </form>
-                            </div>
-                        </td>
-                        </tr>
-                        </tbody>
-                        <?php
+                                        </td>
+                                        <td>
+                                            <div class="attendant__action">
+                                                <form method="post" action="">
+                                                    <button class="btn btn-success" name="approve" type="submit"
+                                                        value="<?php echo htmlspecialchars($userId); ?>">Approve</button>
+                                                    <button class="btn btn-danger ms-2" name="reject" type="submit"
+                                                        value="<?php echo htmlspecialchars($userId); ?>">Reject</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                            <?php
+                                }
                             }
-                        }
-                        ?>
-                </table>
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-    
+
 
 
     <!-- JavaScript -->
@@ -311,7 +311,7 @@ $userList = $user->getDistinctUsersByStatus(0, "client"); // Get all users with 
         crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#userTable').DataTable(); // Initialize DataTables on #userTable
         });
 
