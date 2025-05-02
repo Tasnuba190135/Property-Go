@@ -107,7 +107,7 @@ $userList = array_merge($userListActive ?: [], $userListDisable ?: []);
                                 <th>Action</th>
                             </tr>
                         </thead>
-
+                        <tbody>
                         <?php
                         if ($userList && count($userList) > 0) {
                             foreach ($userList as $userItem) {
@@ -129,7 +129,7 @@ $userList = array_merge($userListActive ?: [], $userListDisable ?: []);
                                 $collapseId = "collapse{$userId}";
 
                         ?>
-                                <tbody>
+                                
                                     <tr>
                                         <td><?php echo $userDetails->user_id; ?></td>
                                         <td><?php echo $userObj1->email; ?></td>
@@ -287,13 +287,13 @@ $userList = array_merge($userListActive ?: [], $userListDisable ?: []);
                                             </div>
                                         </td>
                                     </tr>
-                                </tbody>
-                        <?php
+                                    <?php
                             }
                         } else {
                             echo "<p>No users found.</p>";
                         }
                         ?>
+                        </tbody>
                     </table>
                 </div>
             </div>
