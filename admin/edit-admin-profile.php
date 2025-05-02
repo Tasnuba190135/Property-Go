@@ -244,15 +244,6 @@ $file2->setValueById($userDetails->nid_file_id);
                             </div>
                         </div>
                     </div>
-                    <!-- NID File Display (Read-Only) -->
-                    <div class="row align-items-center mb-4">
-                        <div class="col-md-6">
-                            <label>NID File:</label>
-                            <a href="../file/<?php echo $file2->file_new_name; ?>" target="_blank" class="btn btn-secondary ms-2">
-                                View NID Document
-                            </a>
-                        </div>
-                    </div>
                     <!-- Save Changes Button for Editable Details -->
                     <div class="card-footer text-end">
                         <button type="submit" name="userDetailsUpdate" class="btn btn-primary ms-2">Save Changes</button>

@@ -112,7 +112,7 @@ $properties = $property->getByPropertyIdAndStatus(null, [4], 'created', 'ASC');
     <div id="main-content" class="main-content">
         <!-- Header -->
         <div class="header d-flex justify-content-between align-items-center">
-            <h5>Property Review</h5>
+            <h5>Pending Property Update Request</h5>
             <!-- Toggle Button -->
             <button class="toggle-btn d-md-none" id="toggle-btn">
                 <i class="fas fa-bars"></i>
@@ -123,7 +123,7 @@ $properties = $property->getByPropertyIdAndStatus(null, [4], 'created', 'ASC');
         <div class="container mt-4">
             <div class="card__wrapper">
                 <div class="card__title-wrap mb-20">
-                    <h3 class="table__heading-title">Property Review</h3>
+                    <h3 class="table__heading-title">Pending Property Update Requests</h3>
                 </div>
                 <div class="attendant__wrapper ">
                     <table id="userTable" class="display">
