@@ -178,7 +178,7 @@ if(isset($_GET['userId'])) {
                 <form action="" method="post" class="profile-page-form" enctype="multipart/form-data">
                     <!-- Info Alert -->
                     <div class="alert alert-info">
-                        <strong>Note:</strong> You can change the Full Name, Email Address, NID Number, and upload a new NID Document.
+                        <strong>Note:</strong> You can change the Full Name, Email Address, NID Number, upload a new NID Document and also edit all other information.
                     </div>
 
                     <div class="row align-items-center mb-4">

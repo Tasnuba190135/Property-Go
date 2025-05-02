@@ -146,8 +146,8 @@ $file2->setValueById($userDetails->nid_file_id);
                                 <p>Gender:</p>
                                 <p><?php echo $userDetails->gender; ?></p>
                             </div>
-                        </div>
-                        <div class="row align-items-center mb-4">
+                    
+                        
                             <div class="col-md-6">
                                 <p>NID File:</p>
                                 <p>

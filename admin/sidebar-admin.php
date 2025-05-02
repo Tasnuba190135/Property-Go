@@ -20,25 +20,25 @@ if (isset($_GET['logout']) == 1) {
     <h4 class="text-center my-4">Admin Dashboard</h4>
     <hr>
     <a href="<?php $navbarDir ?>admin-dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard</a>
-    <a href="<?php $navbarDir ?>view-admin-profile.php"><i class="fas fa-tachometer-alt me-2"></i>View Profile</a>
-    <a href="<?php $navbarDir ?>edit-admin-profile.php"><i class="fas fa-tachometer-alt me-2"></i>Edit Profile</a>
-    <a href="<?php $navbarDir ?>change-password.php"><i class="fas fa-tachometer-alt me-2"></i>Change Password</a>
+    <a href="<?php $navbarDir ?>view-admin-profile.php"><i class="fas fa-layer-group me-2"></i>View Profile</a>
+    <a href="<?php $navbarDir ?>edit-admin-profile.php"><i class="fa-solid fa-pen-to-square me-2"></i>Edit Profile</a>
+    <a href="<?php $navbarDir ?>change-password.php"><i class="fas fa-file-alt me-2"></i>Change Password</a>
 <hr>
-    <a href="<?php $navbarDir ?>user-review.php"><i class="fas fa-tachometer-alt me-2"></i> User Review</a>
-    <a href="<?php $navbarDir ?>user-management.php"><i class="fas fa-tachometer-alt me-2"></i> User Management</a>
-    <a href="<?php $navbarDir ?>deleted-user-account.php"><i class="fas fa-tachometer-alt me-2"></i>Delete or retrieve User account</a>
+    <a href="<?php $navbarDir ?>user-review.php"> <i class="fas fa-layer-group me-2"></i> User Review</a>
+    <a href="<?php $navbarDir ?>user-management.php"><i class="fas fa-lock me-2"></i> User Management</a>
+    <a href="<?php $navbarDir ?>deleted-user-account.php"> <i class="fas fa-user-times me-2"></i>Delete or retrieve User account</a>
     <hr>
     <?php if ($session::get('admin') == 'super_admin') { ?>
-        <a href="<?php $navbarDir ?>admin-review.php"><i class="fas fa-tachometer-alt me-2"></i> Admin Review</a>
-        <a href="<?php $navbarDir ?>admin-management.php"><i class="fas fa-tachometer-alt me-2"></i> Admin Management</a>
-        <a href="<?php $navbarDir ?>deleted-admin-account.php"><i class="fas fa-tachometer-alt me-2"></i>Delete or retrieve Admin account</a>
+        <a href="<?php $navbarDir ?>admin-review.php"><i class="fas fa-layer-group me-2"></i> Admin Review</a>
+        <a href="<?php $navbarDir ?>admin-management.php"><i class="fas fa-lock me-2"></i> Admin Management</a>
+        <a href="<?php $navbarDir ?>deleted-admin-account.php"><i class="fas fa-user-times me-2"></i>Delete or retrieve Admin account</a>
         <hr>
     <?php } ?>
   
     <!-- <a href="<//?=$navbarDir ?>edit-user-info.php"><i class="fa-solid fa-pen-to-square me-2"></i> Edit Client's Information</a> -->
     <a href="<?php $navbarDir ?>property-review.php"><i class="fas fa-layer-group me-2"></i>Property Review</a>
     <a href="<?php $navbarDir ?>property-management.php"><i class="fas fa-lock me-2"></i> Property Management</a>
-    <a href="<?php $navbarDir ?>pending-property-update.php"><i class="fas fa-lock me-2"></i> Review Property Update</a>
+    <a href="<?php $navbarDir ?>pending-property-update.php"><i class="fas fa-clipboard-check me-2"></i> Review Property Update</a>
 </div>
     <hr>
 

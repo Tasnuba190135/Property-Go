@@ -64,6 +64,23 @@ if (isset($_POST['userDetailsUpdate'])) {
         $message = "Failed to update user details.";
     }
 }
+// Process NID document update if a new file is provided
+if (isset($_FILES['nid_document']) && $_FILES['nid_document']['error'] === 0) {
+    $newNidFile = new FileManager();
+    $newNidFile->insert();
+    $newNidFile->file_owner_id = $user->user_id;
+    $uploadResult = $newNidFile->doOp($_FILES['nid_document']);
+    $uploadResult = $newNidFile->update();
+    $userDetails->nid_file_id = $newNidFile->file_id;
+
+    if($uploadResult) {
+        $userDetails->update();
+        $message .= "NID Document updated successfully.";
+    } else {
+        $message .= "Failed to upload NID Document. Please try again.";
+    }
+}
+
 
 // Refresh userDetails and file objects after processing
 $userDetails->setValueByUserId($user->user_id);
@@ -154,8 +171,7 @@ $file2->setValueById($userDetails->nid_file_id);
                 <form action="" method="post" class="profile-page-form">
                     <!-- Info Alert -->
                     <div class="alert alert-info">
-                        <strong>Note:</strong> Email Address, NID Number, and NID File cannot be changed here.
-                        Please contact the administrator for modifications.
+                        <strong>Note:</strong>Edit your profile information and click on the "Save Changes" button to update your profile.
                     </div>
 
                     <div class="row align-items-center mb-4">
@@ -244,6 +260,20 @@ $file2->setValueById($userDetails->nid_file_id);
                             </div>
                         </div>
                     </div>
+                    <!-- NID File Display and Upload Option -->
+                    <div class="row align-items-center mb-4">
+                        <div class="col-md-6">
+                            <label>NID File:</label>
+                            <a href="../file/<?php echo $file2->file_new_name; ?>" target="_blank" class="btn btn-secondary ms-2">
+                                View Current NID Document
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nid_document" class="form-label">Upload New NID Document:</label>
+                            <input type="file" class="form-control" id="nid_document" name="nid_document" accept="application/pdf, image/*">
+                        </div>
+                    </div>
+
                     <!-- Save Changes Button for Editable Details -->
                     <div class="card-footer text-end">
                         <button type="submit" name="userDetailsUpdate" class="btn btn-primary ms-2">Save Changes</button>
